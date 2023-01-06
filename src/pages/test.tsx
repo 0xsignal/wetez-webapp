@@ -1,7 +1,7 @@
 import { Meta } from '../components/Meta'
 import { Menu } from '../components/Menu'
 
-export default function Home() {
+export default function Test() {
 
   return (
     <>
