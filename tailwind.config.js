@@ -8,6 +8,7 @@ module.exports = {
       sans: ['Inter var', ...defaultTheme.fontFamily.sans],
       mono: ['Fira Code VF', ...defaultTheme.fontFamily.mono],
       source: ['Source Sans Pro', ...defaultTheme.fontFamily.sans],
+      brand: ['Black Ops One']
     },
     extend: {
 

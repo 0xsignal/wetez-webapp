@@ -14,11 +14,10 @@
     "@types/react": "18.0.25",
     "@types/react-dom": "18.0.9",
     "autoprefixer": "^10.4.13",
+    "echarts": "^5.4.1",
     "next": "13.0.5",
     "postcss-cli": "^10.0.0",
     "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "react-router-dom": "^6.6.1",
     "typescript": "4.9.3"
   },
   "devDependencies": {

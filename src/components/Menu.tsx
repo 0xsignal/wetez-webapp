@@ -2,6 +2,7 @@ import { useRouter } from "next/router";
 import React, { useMemo } from "react";
 import Link from "next/link";
 
+
 const MenuList = [
   {
     id:'1',
@@ -9,7 +10,7 @@ const MenuList = [
     inactiveIcon:'/image/dashboard_icon_inactive.png',
     hoverIcon:'/image/dashboard_icon_hover.png',
     activeIcon:'/image/dashboard_icon_active.png',
-    url:'/',
+    url:'/dashboard',
     classNameActive:'flex items-center space-x-4',
     classNameInactive:'group',
   },
@@ -29,7 +30,7 @@ const MenuList = [
     inactiveIcon:'/image/ipfs_icon_inactive.png',
     hoverIcon:'/image/ipfs_icon_hover.png',
     activeIcon:'/image/ipfs_icon_active.png',
-    url:'/test',
+    url:'/ipfs',
     classNameActive:'flex items-center space-x-4',
     classNameInactive:'group',
   },
@@ -60,8 +61,8 @@ const MenuList = [
     hoverIcon:'/image/setting_icon_hover.png',
     activeIcon:'/image/setting_icon_active.png',
     url:'/test',
-    classNameActive:'flex items-center space-x-4 mt-48',
-    classNameInactive:'group mt-48',
+    classNameActive:'flex items-center space-x-4',
+    classNameInactive:'group',
   },
 ]
 
@@ -132,16 +133,16 @@ export function Menu()
 
   return(
     <>
-    <div className="max-w-[280px] h-screen bg-[#182036] flex">
-      <div className="px-10">
+    <div className="min-w-[280px] bg-[#182036]">
+      <div className="px-10 flex flex-col h-screen">
         <div className='pt-14'>
           <img src="/image/wetez_logo.png" className="w-2/3"/>
         </div>
 
-        <nav aria-label="Main Nav" className="flex flex-col mt-24">
-          <ul className='space-y-8'>
-          {MenuList.map((item) => (
-            <li key={item.id}>
+        <div className="mt-24 grow">
+          <div className='space-y-8 flex flex-col h-full'>
+          {MenuList.slice(0,5).map((item) => (
+            <div key={item.id}>
               <Link href={item.url}>
                 <MenuItem
                   itemUrl={item.id}
@@ -155,9 +156,29 @@ export function Menu()
                   classNameInactive={item.classNameInactive}
                 />
               </Link>
-            </li>
+            </div>
           ))}
-            <li>
+          <div className="grow">
+            
+          </div>
+          {MenuList.slice(5,6).map((item) => (
+            <div key={item.id}>
+              <Link href={item.url}>
+                <MenuItem
+                  itemUrl={item.id}
+                  path={activeMenu?.id}
+                  itemName={item.name}
+                  itemInactiveIcon={item.inactiveIcon}
+                  itemActiveIcon={item.activeIcon}
+                  itemHoverIcon={item.hoverIcon}
+                  key={item.id}
+                  classNameActive={item.classNameActive}
+                  classNameInactive={item.classNameInactive}
+                />
+              </Link>
+            </div>
+          ))}
+            <div className="pb-16">
               <Link href="/">
                 <MenuItem
                   itemUrl="//"
@@ -170,10 +191,10 @@ export function Menu()
                   classNameInactive="group"
                 />
               </Link>
-            </li>
-          </ul>
+            </div>
+          </div>
                   
-        </nav>
+        </div>
 
       </div>
 
