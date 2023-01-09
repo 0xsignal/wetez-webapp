@@ -125,7 +125,7 @@ const CircleChart=() => {
   },[])
 
   return (
-    <div className='bg-white/5 rounded-[24px] mt-4'>
+    <div className='bg-white/5 rounded-[24px]'>
       <div className='px-6 py-6'>
         <div className='text-xl text-white font-bold'>
           My IPFS Usage

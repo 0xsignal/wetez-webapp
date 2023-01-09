@@ -33,7 +33,9 @@ export default function Dashboard() {
               </div>
               <div className='col-span-2'>
                 <PlanCard/>
-                <CircleChart/>
+                <div className='mt-4'>
+                  <CircleChart/>
+                </div>
               </div>
             </div>
           </div>

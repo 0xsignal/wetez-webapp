@@ -1,6 +1,7 @@
 import { Meta } from '../components/Meta'
 import { Menu } from '../components/Menu'
 import { ApiKeyCard } from '../components/Ipfs/ApiKeyCard'
+import { StatusCard } from '../components/Ipfs/StatusCard'
 import dynamic from 'next/dynamic'
 
 const CircleChart = dynamic(
@@ -20,7 +21,7 @@ export default function Ipfs() {
       />
       <div className='flex'>
         <Menu/>
-        <div className='grow bg-[#182036] pl-20 pr-6'>
+        <div className='grow bg-[#182036] pl-20 pr-6 overflow-y-auto h-screen'>
           <div className='mt-12 font-brand text-4xl text-white'>
             IPFS
           </div>
@@ -30,8 +31,9 @@ export default function Ipfs() {
           <div className='mt-10'>
             <ApiKeyCard/>
           </div>
-          <div className='mt-10 grid grid-cols-2'>
+          <div className='mt-10 grid grid-cols-2 gap-4'>
             <div className=''>
+              <StatusCard/>
             </div>
             <div className=''>
               <CircleChart/>
