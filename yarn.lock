@@ -2,6 +2,13 @@
 # yarn lockfile v1
 
 
+"@headlessui/react@^1.7.7":
+  "integrity" "sha512-BqDOd/tB9u2tA0T3Z0fn18ktw+KbVwMnkxxsGPIH2hzssrQhKB5n/6StZOyvLYP/FsYtvuXfi9I0YowKPv2c1w=="
+  "resolved" "https://registry.npmjs.org/@headlessui/react/-/react-1.7.7.tgz"
+  "version" "1.7.7"
+  dependencies:
+    "client-only" "^0.0.1"
+
 "@mdx-js/react@^2.1.5":
   "integrity" "sha512-3Az1I6SAWA9R38rYjz5rXBrGKeZhq96CSSyQtqY+maPj8stBsoUH5pNcmIixuGkufYsh8F5+ka2CVPo2fycWZw=="
   "resolved" "https://registry.npmjs.org/@mdx-js/react/-/react-2.1.5.tgz"
@@ -40,11 +47,6 @@
   dependencies:
     "@nodelib/fs.scandir" "2.1.5"
     "fastq" "^1.6.0"
-
-"@remix-run/router@1.2.1":
-  "integrity" "sha512-XiY0IsyHR+DXYS5vBxpoBe/8veTeoRpMHP+vDosLZxL5bnpetzI0igkxkLZS235ldLzyfkxF+2divEwWHP3vMQ=="
-  "resolved" "https://registry.npmjs.org/@remix-run/router/-/router-1.2.1.tgz"
-  "version" "1.2.1"
 
 "@swc/helpers@0.4.14":
   "integrity" "sha512-4C7nX/dvpzB7za4Ql9K81xK3HPxCpHMgwTZVyf+9JQ6VUbn9jjZVN7/Nkdz/Ugzs2CSjqnL/UPXroiVBVHUWUw=="
@@ -192,7 +194,7 @@
   optionalDependencies:
     "fsevents" "~2.3.2"
 
-"client-only@0.0.1":
+"client-only@^0.0.1", "client-only@0.0.1":
   "integrity" "sha512-IV3Ou0jSMzZrd3pZ48nLkT9DA7Ag1pnPzaiQhpW7c3RbcqqzvzzVu+L8gfqMp/8IM2MQtSiqaCxrrcfu8I8rMA=="
   "resolved" "https://registry.npmjs.org/client-only/-/client-only-0.0.1.tgz"
   "version" "0.0.1"
@@ -263,6 +265,14 @@
   "integrity" "sha512-+HlytyjlPKnIG8XuRG8WvmBP8xs8P71y+SKKS6ZXWoEgLuePxtDoUEiH7WkdePWrQ5JBpE6aoVqfZfJUQkjXwA=="
   "resolved" "https://registry.npmjs.org/dlv/-/dlv-1.1.3.tgz"
   "version" "1.1.3"
+
+"echarts@^5.4.1":
+  "integrity" "sha512-9ltS3M2JB0w2EhcYjCdmtrJ+6haZcW6acBolMGIuf01Hql1yrIV01L1aRj7jsaaIULJslEP9Z3vKlEmnJaWJVQ=="
+  "resolved" "https://registry.npmjs.org/echarts/-/echarts-5.4.1.tgz"
+  "version" "5.4.1"
+  dependencies:
+    "tslib" "2.3.0"
+    "zrender" "5.4.1"
 
 "electron-to-chromium@^1.4.251":
   "integrity" "sha512-M8WEXFuKXMYMVr45fo8mq0wUrrJHheiKZf6BArTKk9ZBYCKJEOU5H8cdWgDT+qCVZf7Na4lVUaZsA+h6uA9+PA=="
@@ -646,7 +656,7 @@
   "resolved" "https://registry.npmjs.org/quick-lru/-/quick-lru-5.1.1.tgz"
   "version" "5.1.1"
 
-"react-dom@^18.2.0", "react-dom@>=16.8", "react-dom@18.2.0":
+"react-dom@^16 || ^17 || ^18", "react-dom@^18.2.0":
   "integrity" "sha512-6IMTriUmvsjHUjNtEDudZfuDQUoWXVxKHhlEGSk81n4YFS+r/Kl99wXiwlVXtPBtJenozv2P+hxDsw9eA7Xo6g=="
   "resolved" "https://registry.npmjs.org/react-dom/-/react-dom-18.2.0.tgz"
   "version" "18.2.0"
@@ -654,22 +664,7 @@
     "loose-envify" "^1.1.0"
     "scheduler" "^0.23.0"
 
-"react-router-dom@^6.6.1":
-  "integrity" "sha512-u+8BKUtelStKbZD5UcY0NY90WOzktrkJJhyhNg7L0APn9t1qJNLowzrM9CHdpB6+rcPt6qQrlkIXsTvhuXP68g=="
-  "resolved" "https://registry.npmjs.org/react-router-dom/-/react-router-dom-6.6.1.tgz"
-  "version" "6.6.1"
-  dependencies:
-    "@remix-run/router" "1.2.1"
-    "react-router" "6.6.1"
-
-"react-router@6.6.1":
-  "integrity" "sha512-YkvlYRusnI/IN0kDtosUCgxqHeulN5je+ew8W+iA1VvFhf86kA+JEI/X/8NqYcr11hCDDp906S+SGMpBheNeYQ=="
-  "resolved" "https://registry.npmjs.org/react-router/-/react-router-6.6.1.tgz"
-  "version" "6.6.1"
-  dependencies:
-    "@remix-run/router" "1.2.1"
-
-"react@^18.2.0", "react@>= 16.8.0 || 17.x.x || ^18.0.0-0", "react@>=16", "react@>=16.8", "react@18.2.0":
+"react@^16 || ^17 || ^18", "react@^18.2.0", "react@>= 16.8.0 || 17.x.x || ^18.0.0-0", "react@>=16", "react@18.2.0":
   "integrity" "sha512-/3IjMdb2L9QbBdWiW5e3P2/npwMBaU9mHCSCUzNln0ZCYbcfTsGbTJrU/kGemdH2IWmB2ioZ+zkxtmq6g09fGQ=="
   "resolved" "https://registry.npmjs.org/react/-/react-18.2.0.tgz"
   "version" "18.2.0"
@@ -807,6 +802,11 @@
   "resolved" "https://registry.npmjs.org/tslib/-/tslib-2.4.1.tgz"
   "version" "2.4.1"
 
+"tslib@2.3.0":
+  "integrity" "sha512-N82ooyxVNm6h1riLCoyS9e3fuJ3AMG2zIZs2Gd1ATcSFjSA23Q0fzjjZeh0jbJvWVDZ0cJT8yaNNaaXHzueNjg=="
+  "resolved" "https://registry.npmjs.org/tslib/-/tslib-2.3.0.tgz"
+  "version" "2.3.0"
+
 "typescript@4.9.3":
   "integrity" "sha512-CIfGzTelbKNEnLpLdGFgdyKhG23CKdKgQPOBc+OUNrkJ2vr+KSzsSV5kq5iWhEQbok+quxgGzrAtGWCyU7tHnA=="
   "resolved" "https://registry.npmjs.org/typescript/-/typescript-4.9.3.tgz"
@@ -876,3 +876,10 @@
     "string-width" "^4.2.3"
     "y18n" "^5.0.5"
     "yargs-parser" "^21.1.1"
+
+"zrender@5.4.1":
+  "integrity" "sha512-M4Z05BHWtajY2241EmMPHglDQAJ1UyHQcYsxDNzD9XLSkPDqMq4bB28v9Pb4mvHnVQ0GxyTklZ/69xCFP6RXBA=="
+  "resolved" "https://registry.npmjs.org/zrender/-/zrender-5.4.1.tgz"
+  "version" "5.4.1"
+  dependencies:
+    "tslib" "2.3.0"

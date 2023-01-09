@@ -33,4 +33,12 @@
   src: url('../fonts/SourceSansPro-Regular.otf') format('opentype');
 }
 
+@font-face {
+  font-family: 'Black Ops One';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../fonts/BlackOpsOne-Regular.ttf') format('truetype');
+}
+
 
