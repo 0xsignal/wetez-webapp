@@ -1,6 +1,7 @@
 import { Meta } from '../components/Meta'
 import { Menu } from '../components/Menu'
 import { PlanCard } from '../components/Dashboard/PlanCard'
+import { Header } from '../components/Header'
 import dynamic from 'next/dynamic'
 
 const CircleChart = dynamic(
@@ -21,12 +22,10 @@ export default function Dashboard() {
       <div className='flex'>
         <Menu/>
         <div className='grow bg-[#182036] pl-20 pr-6'>
-          <div className='mt-12 font-brand text-4xl text-white'>
-            Dashboard
-          </div>
-          <div className='text-white/30 mt-4 text-lg'>
-            Whole data about your plans here
-          </div>
+          <Header
+            title="Dashboard"
+            description="Whole data about your plans here"
+          />
           <div className='px-0 py-10'>
             <div className='grid grid-cols-5 gap-4'>
               <div className='col-span-3'>
