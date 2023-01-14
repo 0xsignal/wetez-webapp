@@ -117,7 +117,7 @@ const option: ECOption = {
 };
 
 
-const CircleChart=() => {
+export default function CircleChart(){
   useEffect(()=>{
     const CicleChart = echarts.init(document.getElementById('echartsContent') as HTMLElement);
     const ChartOption:ECOption = option;
@@ -171,5 +171,3 @@ const CircleChart=() => {
     </div>
   )
 }
-
-export default CircleChart
