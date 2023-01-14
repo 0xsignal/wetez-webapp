@@ -2,8 +2,8 @@ import { Meta } from '../components/Meta'
 import { Menu } from '../components/Menu'
 import { ApiKeyCard } from '../components/Ipfs/ApiKeyCard'
 import { StatusCard } from '../components/Ipfs/StatusCard'
+import  UsageBoard  from '../components/Ipfs/UsageBoard'
 import { Header } from '../components/Header'
-
 import dynamic from 'next/dynamic'
 
 const CircleChart = dynamic(
@@ -38,6 +38,9 @@ export default function Ipfs() {
             <div className=''>
               <CircleChart/>
             </div>
+          </div>
+          <div className='mt-6'>
+            <UsageBoard/>
           </div>
         </div>
       </div>
