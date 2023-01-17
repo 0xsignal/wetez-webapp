@@ -50,7 +50,7 @@ const MenuList = [
     inactiveIcon:'/image/premium_icon_inactive.png',
     hoverIcon:'/image/premium_icon_hover.png',
     activeIcon:'/image/premium_icon_active.png',
-    url:'/test',
+    url:'/premium',
     classNameActive:'flex items-center space-x-4',
     classNameInactive:'group',
   },
@@ -60,7 +60,7 @@ const MenuList = [
     inactiveIcon:'/image/setting_icon_inactive.png',
     hoverIcon:'/image/setting_icon_hover.png',
     activeIcon:'/image/setting_icon_active.png',
-    url:'/test',
+    url:'/settings',
     classNameActive:'flex items-center space-x-4',
     classNameInactive:'group',
   },
@@ -78,7 +78,7 @@ type MenuItemPrpos = {
   classNameInactive?:string;
 }
 
-export function MenuItem (
+function MenuItem (
   {
     itemUrl,
     path,
