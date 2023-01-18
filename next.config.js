@@ -19,6 +19,7 @@ const nextConfig = {
       '/login':{page:'/login'},
       '/premium':{page:'/premium'},
       '/test':{page:'/test'},
+      '/onboard':{page:'/onboard'},
     }
   }
 }
