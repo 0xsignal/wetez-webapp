@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import Tags from '../Tag';
 
 
 export function PlanCard() {
@@ -9,8 +10,12 @@ export function PlanCard() {
         <div className='px-6 py-6'>
           <div className=''>
             <h2 className='font-bold text-xl text-white'>My Current Plan</h2>
-            <div className='bg-white/10 float-right px-2 py-1 text-base text-white -mt-8 rounded-[6px]'>
-              Free
+            <div className='float-right -mt-8'>
+              <Tags
+                name = "Free"
+                bgColor = "bg-white/10"
+                fontColor = 'text-white/60'
+              />
             </div>
           </div>
           <div className='mt-6 text-base text-white/50'>
