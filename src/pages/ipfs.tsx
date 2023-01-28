@@ -24,7 +24,7 @@ export default function Ipfs() {
       />
       <div className='flex'>
         <Menu/>
-        <div className='grow bg-[#182036] pl-20 pr-6 overflow-y-auto h-screen'>
+        <div className='grow bg-[#182036] pl-20 pr-10 overflow-y-auto h-screen'>
           <Header
             title="IPFS"
             description="Whole data about your plans here"

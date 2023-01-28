@@ -21,7 +21,7 @@ export default function Dashboard() {
       />
       <div className='flex'>
         <Menu/>
-        <div className='grow bg-[#182036] pl-20 pr-6'>
+        <div className='grow bg-[#182036] pl-20 pr-10'>
           <Header
             title="Dashboard"
             description="Whole data about your plans here"
