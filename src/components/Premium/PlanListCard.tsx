@@ -86,7 +86,7 @@ function SubscriptionsCTA(){
       </p>
       <div className='grow'>
       </div>
-      <img src="/image/prremium_arrow_icon..png" className='w-6'/>
+      <img src="/image/premium_arrow_icon..png" className='w-6'/>
     </div>
   )
 }
