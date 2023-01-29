@@ -1,0 +1,1 @@
+export const pass: () => void = () => void 0

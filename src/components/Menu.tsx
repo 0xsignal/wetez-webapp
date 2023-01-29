@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import React, { useMemo } from "react";
+import React, { useCallback, useMemo } from "react";
 import Link from "next/link";
 
 
@@ -11,8 +11,8 @@ const MenuList = [
     hoverIcon:'/image/dashboard_icon_hover.png',
     activeIcon:'/image/dashboard_icon_active.png',
     url:'/dashboard',
-    classNameActive:'flex items-center space-x-4',
-    classNameInactive:'group',
+    classNameActive:'flex items-center space-x-4 py-2',
+    classNameInactive:'group py-2',
   },
   {
     id:'2',
@@ -21,8 +21,8 @@ const MenuList = [
     hoverIcon:'/image/posapi_icon_hover.png',
     activeIcon:'/image/posapi_icon_active.png',
     url:'/test',
-    classNameActive:'flex items-center space-x-4',
-    classNameInactive:'group',
+    classNameActive:'flex items-center space-x-4 py-2',
+    classNameInactive:'group py-2',
   },
   {
     id:'3',
@@ -31,8 +31,8 @@ const MenuList = [
     hoverIcon:'/image/ipfs_icon_hover.png',
     activeIcon:'/image/ipfs_icon_active.png',
     url:'/ipfs',
-    classNameActive:'flex items-center space-x-4',
-    classNameInactive:'group',
+    classNameActive:'flex items-center space-x-4 py-2',
+    classNameInactive:'group py-2',
   },
   {
     id:'4',
@@ -41,8 +41,8 @@ const MenuList = [
     hoverIcon:'/image/node_icon_hover.png',
     activeIcon:'/image/node_icon_active.png',
     url:'/test',
-    classNameActive:'flex items-center space-x-4',
-    classNameInactive:'group',
+    classNameActive:'flex items-center space-x-4 py-2',
+    classNameInactive:'group py-2',
   },
   {
     id:'5',
@@ -51,8 +51,8 @@ const MenuList = [
     hoverIcon:'/image/premium_icon_hover.png',
     activeIcon:'/image/premium_icon_active.png',
     url:'/premium',
-    classNameActive:'flex items-center space-x-4',
-    classNameInactive:'group',
+    classNameActive:'flex items-center space-x-4 py-2',
+    classNameInactive:'group py-2',
   },
   {
     id:'6',
@@ -61,8 +61,8 @@ const MenuList = [
     hoverIcon:'/image/setting_icon_hover.png',
     activeIcon:'/image/setting_icon_active.png',
     url:'/settings',
-    classNameActive:'flex items-center space-x-4',
-    classNameInactive:'group',
+    classNameActive:'flex items-center space-x-4 py-2',
+    classNameInactive:'group py-2',
   },
 ]
 
@@ -140,7 +140,7 @@ export function Menu()
         </div>
 
         <div className="mt-24 grow">
-          <div className='space-y-8 flex flex-col h-full'>
+          <div className='space-y-4 flex flex-col h-full'>
           {MenuList.slice(0,5).map((item) => (
             <div key={item.id}>
               <Link href={item.url}>
