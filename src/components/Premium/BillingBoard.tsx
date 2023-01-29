@@ -1,5 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
+import { useState } from 'react';
+import { BillingDetailModal } from './BillingDetailModal';
 
 type BillingListItemProps = {
   listItemId?: string;
@@ -19,8 +21,16 @@ function BillingListItem({
   listItemTotal = '50 USDC',
   listItemInvoice = '/',
 }:BillingListItemProps){
+
+  const [isOpen, setIsOpen] = useState<boolean>(false)
+
   return(
     <div className=''>
+      <BillingDetailModal
+        isOpen = {isOpen}
+        closeModal = {() => {
+          setIsOpen(false)
+        }}/>
       <div className='border-[1px] border-white/10'></div>
       <div className='grid grid-cols-8 gap-1'>
         <div className='col-span-2 text-left text-white/50 text-base py-6'>
@@ -38,10 +48,8 @@ function BillingListItem({
         <div className='text-left text-white/50 text-base py-6'>
           {listItemTotal}
         </div>
-        <div className='text-right text-[#00F4FF] text-base py-6'>
-          <Link href={listItemInvoice}>
+        <div className='text-right text-[#00F4FF] text-base py-6' onClick={()=> {setIsOpen(true)}}>
             Details
-          </Link>
         </div>
       </div>
     </div>
@@ -81,6 +89,7 @@ function BillingList(){
 }
 
 export function BillingBoard(){
+
   return(
     <div className='bg-white/5 rounded-[16px] px-6 py-6'>
       <div className='flex items-center'>
