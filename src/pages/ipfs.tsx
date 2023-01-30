@@ -5,6 +5,7 @@ import { ApiKeyCard } from '../components/Ipfs/ApiKeyCard'
 import { StatusCard } from '../components/Ipfs/StatusCard'
 import  UsageBoard  from '../components/Ipfs/UsageBoard'
 import { Header } from '../components/Header'
+import { GatewaySelect } from '../components/Ipfs/GatewaySelect';
 import dynamic from 'next/dynamic'
 
 const CircleChart = dynamic(
@@ -39,6 +40,9 @@ export default function Ipfs() {
             <div className=''>
               <CircleChart/>
             </div>
+          </div>
+          <div className='mt-6'>
+            <GatewaySelect/>
           </div>
           <div className='mt-6'>
             <UsageBoard/>

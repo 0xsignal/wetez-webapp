@@ -91,12 +91,14 @@ function MenuItem (
   }:MenuItemPrpos
 ){
   if(path == itemUrl){
-    return <div className={classNameActive}>
-    <img src={itemActiveIcon} className='w-6'/>
-    <h2 className='text-lg text-white font-bold'>
-      {itemName}
-    </h2>
-  </div>
+    return (
+    <div className={classNameActive}>
+      <img src={itemActiveIcon} className='w-6'/>
+      <h2 className='text-lg text-white font-bold'>
+        {itemName}
+      </h2>
+    </div>
+  )
       
   }
   else {
