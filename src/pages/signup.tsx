@@ -1,8 +1,78 @@
 import React from 'react';
 import { Meta } from '../components/Meta';
 import Link from 'next/link';
+import { SlideHero } from '../components/Hero/SlideHero';
+import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
+import { useState } from "react";
+import Captcha from '../components/Captcha/Captcha';
+
 
 export default function Signup() {
+
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const [confirmPassword, setConfirmPassword] = useState<string>('');
+
+  const [emailError, setEmailError] = useState<string>('');
+  const [passwordError, setPasswordError] = useState<string>('');
+  const [confirmPasswordError, setConfirmPasswordError] = useState<string>('');
+
+  const { executeRecaptcha } = useGoogleReCaptcha();
+
+  function checkEmail(input: string){
+    const regEmail = /^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/
+    if(input){
+      if(regEmail.test(input)){
+        setEmailError("")
+        return true
+      } else{
+        setEmailError("Email is invalid")
+        return false
+      }
+    } else {
+      setEmailError("Enter your email")
+      return false
+    }
+  }
+
+  function checkPassword(input: string){
+    const regPassword = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,20}$/
+    if(input){
+      if(regPassword.test(input)){
+        setPasswordError("")
+        return true
+      } else{
+        setPasswordError("Password at least 8 characters and 1 uppercase letter.")
+        return false
+      }
+    } else {
+      setPasswordError("Please enter a password")
+      return false
+    }
+  }
+
+  function checkConfirmPassword(input: string){
+    if(input){
+      if(input == password){
+        setConfirmPasswordError('')
+        return true
+      } else {
+        setConfirmPasswordError('Password inconsistencies')
+        return false
+      }
+    } else {
+      setConfirmPasswordError('Please confirm password')
+    }
+  }
+
+  function initDta(){
+    setEmail('')
+    setPassword('')
+    setConfirmPassword('')
+    setConfirmPasswordError('')
+    setEmailError('')
+    setPasswordError('')
+  }
   
   return(
     <>
@@ -12,44 +82,70 @@ export default function Signup() {
           image=''
         />
         <div className='flex bg-[#182036]'>
-          <div className="w-2/5 bg-white/5">
-            <div className="px-20 py-10 h-screen flex flex-col justify-center">
-              <img src="/image/wetez_logo.png" className='w-24 h-auto'/>
-              <img src="/image/signup_cover_icon.png" className='w-96 h-auto mt-16'/>
-              <h2 className='text-2xl font-brand text-white mt-12'> Welcome Back</h2>
-              <p className='text-lg text-white/50 mt-8 leading-relaxed'>
-                Wetez is the Crypto Infra Provider since 2018, our vision is to leading the Web3 infrastructure future in crypto world, make Web3 accessible for everyone.
-              </p>
-            </div>
-          </div>
+          <SlideHero
+            coverImage = '/image/signup_cover_icon.png'
+            imageStyle = 'w-96 h-auto mt-16'
+            title = 'Welcome Back'
+            description = 'Wetez is the Crypto Infra Provider since 2018, our vision is to leading the Web3 infrastructure future in crypto world, make Web3 accessible for everyone.'
+          />
           <div className='grow flex flex-col py-12 px-20 h-screen relative'>
             <div className='text-white/50 text-lg mt-4 absolute right-20'>
               Need Help?
             </div>
-            <div className='grow flex flex-col justify-center mx-auto w-[400px] mt-16'>
-              <h1 className='text-3xl text-white font-brand'> Sign Up </h1>
-              <div className='text-lg text-white font-bold mt-8'>
-                Email
+            <Captcha>
+              <div className='grow flex flex-col justify-center mx-auto w-[400px] mt-16'>
+                <h1 className='text-3xl text-white font-brand'> Sign Up </h1>
+                <form>
+                  <div className='text-lg text-white font-bold mt-8'>
+                    Email
+                  </div>
+                  <input 
+                    type='email'
+                    value={email}
+                    onChange={((e) => {
+                      setEmail(e.target.value);
+                      checkEmail(e.target.value);
+                    })}
+                    placeholder = 'Enter Email Address'
+                    className='rounded-[16px] border-[1px] border-white/20 text-lg text-white w-[400px] px-6 py-2 bg-white/0 mt-4 placeholder:text-lg placeholder:text-white/30 caret-[#00F4FF]'>
+                  </input>
+                  <p className="mt-1 text-[#FF4DB8] text-sm">{emailError || ''}</p>
+                  <div className='text-lg text-white font-bold mt-4'>
+                    Password
+                  </div>
+                  <input
+                    type='password'
+                    value={password}
+                    onChange={((e) => {
+                      setPassword(e.target.value);
+                      checkPassword(e.target.value);
+                    })}
+                    placeholder='Enter Password'
+                    className='rounded-[16px] border-[1px] border-white/20 text-lg text-white w-[400px] px-6 py-2 bg-white/0 mt-4 placeholder:text-lg placeholder:text-white/30 caret-[#00F4FF]'>
+                  </input>
+                  <p className="mt-1 text-[#FF4DB8] text-sm">{passwordError || ''}</p>
+                  <div className='text-lg text-white font-bold mt-4'>
+                    Confirm Password
+                  </div>
+                  <input 
+                    type='password'
+                    value={password}
+                    onChange={((e) => {
+                      setConfirmPassword(e.target.value);
+                      checkConfirmPassword(e.target.value);
+                    })}
+                    placeholder='Enter Password Again' 
+                    className='rounded-[16px] border-[1px] border-white/20 text-lg text-white w-[400px] px-6 py-2 bg-white/0 mt-4 placeholder:text-lg placeholder:text-white/30 caret-[#00F4FF]'>
+                  </input>
+                  <p className="mt-1 text-[#FF4DB8] text-sm">{confirmPasswordError || ''}</p>
+                  <div className='mt-10'>
+                    <button className='bg-[#2A23FF] w-full text-white text-center py-3 text-lg rounded-[28px]'>
+                      Sign Up
+                    </button>
+                  </div>
+                </form>
               </div>
-              <input type='email' className='rounded-[16px] border-[1px] border-white/20 text-lg text-white/30 w-[400px] px-6 py-2 bg-white/0 mt-4'>
-              </input>
-              <div className='text-lg text-white font-bold mt-4'>
-                Password
-              </div>
-              <input type='password' className='rounded-[16px] border-[1px] border-white/20 text-lg text-white/30 w-[400px] px-6 py-2 bg-white/0 mt-4'>
-              </input>
-              <div className='text-lg text-white font-bold mt-4'>
-                Confirm Password
-              </div>
-              <input type='password' className='rounded-[16px] border-[1px] border-white/20 text-lg text-white/30 w-[400px] px-6 py-2 bg-white/0 mt-4'>
-              </input>
-              
-              <div className='mt-10'>
-                <button className='bg-[#2A23FF] w-full text-white text-center py-3 text-lg rounded-[28px]'>
-                  Sign Up
-                </button>
-              </div>
-            </div>
+            </Captcha>
             <div className='grow'>
             
             </div>

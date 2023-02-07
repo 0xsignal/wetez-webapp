@@ -2,3 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+/* hidden captcha global*/
+.grecaptcha-badge { 
+  display: none; 
+} 

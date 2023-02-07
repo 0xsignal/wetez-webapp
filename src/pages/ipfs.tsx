@@ -1,8 +1,8 @@
 import React from 'react';
 import { Meta } from '../components/Meta'
 import { Menu } from '../components/Menu'
-import { ApiKeyCard } from '../components/Ipfs/ApiKeyCard'
-import { StatusCard } from '../components/Ipfs/StatusCard'
+import { ApiKeyCard } from '../components/Card/ApiKeyCard'
+import { StatusCard } from '../components/Card/StatusCard'
 import  UsageBoard  from '../components/Ipfs/UsageBoard'
 import { Header } from '../components/Header'
 import { GatewaySelect } from '../components/Ipfs/GatewaySelect';
