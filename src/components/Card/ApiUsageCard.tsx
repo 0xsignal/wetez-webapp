@@ -1,5 +1,5 @@
 import React from 'react';
-import PlanListItem  from './PlanListItem';
+import PlanListItem  from '../Dashboard/PlanListItem';
 
 export function ApiUsageCard(){
 

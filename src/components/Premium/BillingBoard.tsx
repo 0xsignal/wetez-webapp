@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { useState } from 'react';
-import { BillingDetailModal } from './BillingDetailModal';
+import { BillingDetailModal } from '../Modal/BillingDetailModal';
 
 type BillingListItemProps = {
   listItemId?: string;

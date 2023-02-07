@@ -2,7 +2,7 @@ import React from 'react';
 import { Meta } from '../components/Meta';
 import { Menu } from '../components/Menu';
 import { Header } from '../components/Header';
-import PlanListCard from '../components/Premium/PlanListCard';
+import PlanListCard from '../components/Card/PlanListCard';
 import Contact from '../components/Premium/Contact';
 import { BillingBoard } from '../components/Premium/BillingBoard';
 import Link from 'next/link';

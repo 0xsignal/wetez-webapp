@@ -1,6 +1,7 @@
 import React from 'react';
 import { Meta } from '../components/Meta';
 import Link from 'next/link';
+import { SlideHero } from '../components/Hero/SlideHero';
 
 export default function Login() {
   
@@ -12,16 +13,12 @@ export default function Login() {
           image=''
         />
         <div className='flex bg-[#182036]'>
-          <div className="w-2/5 bg-white/5">
-            <div className="px-20 py-10 h-screen flex flex-col justify-center">
-              <img src="/image/wetez_logo.png" className='w-24 h-auto'/>
-              <img src="/image/login_cover_icon.png" className='w-64 h-auto mt-16'/>
-              <h2 className='text-2xl font-brand text-white mt-12'> Welcome Back</h2>
-              <p className='text-lg text-white/50 mt-8 leading-relaxed'>
-                At Wetez, we believe in the decentralized Internet and powering the data infrastructure building it.
-              </p>
-            </div>
-          </div>
+          <SlideHero
+            coverImage='/image/login_cover_icon.png'
+            imageStyle='w-64 h-auto mt-16'
+            title='Welcome Back'
+            description='At Wetez, we believe in the decentralized Internet and powering the data infrastructure building it.'
+          />
           <div className='grow flex flex-col py-12 px-20 h-screen relative'>
             <div className='text-white/50 text-lg mt-4 absolute right-20'>
               Need Help?

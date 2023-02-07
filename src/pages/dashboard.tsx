@@ -1,8 +1,8 @@
 import { Meta } from '../components/Meta'
 import { Menu } from '../components/Menu'
-import { PlanCard } from '../components/Dashboard/PlanCard'
+import { PlanCard } from '../components/Card/PlanCard'
 import { Header } from '../components/Header'
-import { ApiUsageCard } from '../components/Dashboard/ApiUsageCard'
+import { ApiUsageCard } from '../components/Card/ApiUsageCard'
 import dynamic from 'next/dynamic'
 
 const CircleChart = dynamic(
