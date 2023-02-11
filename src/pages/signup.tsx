@@ -94,7 +94,6 @@ export default function Signup() {
     router.replace({pathname:'/onboard',query:{email:email},});
     setRefreshReCaptcha(r => !r);
   }
-  
   return(
     <>
       <Meta
