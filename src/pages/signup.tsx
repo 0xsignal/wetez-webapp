@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { Meta } from '../components/Meta';
 import Link from 'next/link';
 import { SlideHero } from '../components/Hero/SlideHero';
-import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
+import { GoogleReCaptcha } from "react-google-recaptcha-v3";
 import { useState } from "react";
 import Captcha from '../components/Captcha/Captcha';
+import { Register } from '../api/auth';
+import { useRouter } from 'next/router';
+import ButtonLoading from 'src/components/ButtonLoading';
 
 
 export default function Signup() {
@@ -17,7 +20,22 @@ export default function Signup() {
   const [passwordError, setPasswordError] = useState<string>('');
   const [confirmPasswordError, setConfirmPasswordError] = useState<string>('');
 
-  const { executeRecaptcha } = useGoogleReCaptcha();
+  const [token, setToken] = useState<string>('');
+  const [refreshReCaptcha, setRefreshReCaptcha] = useState(false);
+
+  const [loading,setLoading] = useState(false)
+
+  const router = useRouter()
+
+  const onVerify = useCallback((token:string) => {
+    setToken(token);
+  },[]);
+
+  const valid:boolean = 
+    (email != '') && (password != '') && 
+    (confirmPassword != '') && (emailError == '') &&
+    (passwordError == '') && (confirmPasswordError == '')
+
 
   function checkEmail(input: string){
     const regEmail = /^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/
@@ -36,7 +54,7 @@ export default function Signup() {
   }
 
   function checkPassword(input: string){
-    const regPassword = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,20}$/
+    const regPassword = /^(?=.*[A-Z].{8,24})[a-zA-Z0-9]*$/
     if(input){
       if(regPassword.test(input)){
         setPasswordError("")
@@ -65,13 +83,16 @@ export default function Signup() {
     }
   }
 
-  function initDta(){
-    setEmail('')
-    setPassword('')
-    setConfirmPassword('')
-    setConfirmPasswordError('')
-    setEmailError('')
-    setPasswordError('')
+  const register = async () => {
+    const data = {
+      reCaptchaToken:token,
+      email:email,
+      password:password
+    }
+    setLoading(true);
+    const result = await Register(data);
+    router.replace({pathname:'/onboard',query:{email:email},});
+    setRefreshReCaptcha(r => !r);
   }
   
   return(
@@ -95,7 +116,6 @@ export default function Signup() {
             <Captcha>
               <div className='grow flex flex-col justify-center mx-auto w-[400px] mt-16'>
                 <h1 className='text-3xl text-white font-brand'> Sign Up </h1>
-                <form>
                   <div className='text-lg text-white font-bold mt-8'>
                     Email
                   </div>
@@ -129,7 +149,7 @@ export default function Signup() {
                   </div>
                   <input 
                     type='password'
-                    value={password}
+                    value={confirmPassword}
                     onChange={((e) => {
                       setConfirmPassword(e.target.value);
                       checkConfirmPassword(e.target.value);
@@ -139,11 +159,22 @@ export default function Signup() {
                   </input>
                   <p className="mt-1 text-[#FF4DB8] text-sm">{confirmPasswordError || ''}</p>
                   <div className='mt-10'>
-                    <button className='bg-[#2A23FF] w-full text-white text-center py-3 text-lg rounded-[28px]'>
-                      Sign Up
+                    <GoogleReCaptcha
+                      onVerify={onVerify}
+                      refreshReCaptcha={refreshReCaptcha}
+                      action='register'
+                    />
+                    <button 
+                      className='inline-flex justify-center items-center bg-[#2A23FF] w-full text-white text-center py-3 text-lg rounded-[28px] disabled:bg-white/20' 
+                      onClick={register}
+                      disabled={!valid}
+                      >
+                        <ButtonLoading
+                          loading={loading}
+                        />
+                      Sign
                     </button>
                   </div>
-                </form>
               </div>
             </Captcha>
             <div className='grow'>

@@ -1,9 +1,27 @@
 import React from 'react';
+import { useRouter } from 'next/router';
 import { Meta } from '../components/Meta';
-import Link from 'next/link';
 
-export default function Signup() {
+export default function Onboard() {
   
+  const router = useRouter();
+  const email = router.query.email;
+  const index = router.query.email?.indexOf('@') || 0
+  const address = router.query.email?.slice(index+1)
+  const emailDomain = 'https://' + address
+
+  const routeEmail = () => {
+    router.push({
+      pathname: emailDomain
+    })
+  }
+
+  const routeLogin = () => {
+    router.push({
+      pathname: '/login'
+    })
+  }
+
   return(
     <>
       <Meta
@@ -23,13 +41,19 @@ export default function Signup() {
             <img src="/image/onboard_success_icon.png" className='w-36 mx-auto'/>
             <div className='text-3xl text-white text-center font-brand mt-10'> Congratulations! </div>
             <div className='text-white/50 text-whit/50 text-center leading-relaxed mt-8'>
-              Your Account 283733@gmail.com registered successfully！The activation email has been sent to your email address, and the email is valid for 24 hours. Please log in to your mailbox in time and click the link in the email to activate your account.
+              Your Account <span className='text-[#00F4FF]'>{email}</span> registered successfully！The activation email has been sent to your email address, and the email is valid for 24 hours. Please log in to your mailbox in time and click the link in the email to activate your account.
             </div>
             <div className='flex gap-x-10 mt-12 items-center justify-center'>
-              <button className='bg-[#2A23FF] w-2/5 text-white text-center py-4 text-lg rounded-[23px]'>
+              <button 
+                className='bg-[#2A23FF] w-2/5 text-white text-center py-4 text-lg rounded-[23px]'
+                onClick={routeEmail}
+              >
                 Check Email
               </button>
-              <button className='w-2/5 text-white text-center py-4 text-lg rounded-[23px] border-[1px] border-white/20'>
+              <button 
+                className='w-2/5 text-white text-center py-4 text-lg rounded-[23px] border-[1px] border-white/20'
+                onClick={routeLogin}
+              >
                 Go Homepage
               </button>
             </div>
