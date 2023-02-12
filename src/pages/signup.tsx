@@ -54,7 +54,7 @@ export default function Signup() {
   }
 
   function checkPassword(input: string){
-    const regPassword = /^(?=.*[A-Z].{8,24})[a-zA-Z0-9]*$/
+    const regPassword = /^(?=.*[A-Z].{7,24})[a-zA-Z0-9]*$/
     if(input){
       if(regPassword.test(input)){
         setPasswordError("")
@@ -90,7 +90,7 @@ export default function Signup() {
       password:password
     }
     setLoading(true);
-    const result = await Register(data);
+    const registerResult = await Register(data);
     router.replace({pathname:'/onboard',query:{email:email},});
     setRefreshReCaptcha(r => !r);
   }
@@ -171,7 +171,7 @@ export default function Signup() {
                         <ButtonLoading
                           loading={loading}
                         />
-                      Sign
+                      Sign Up
                     </button>
                   </div>
               </div>
