@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
 import React, { useCallback, useMemo } from "react";
 import Link from "next/link";
+import { LogOut } from "../api/auth";
 
 
 const MenuList = [
@@ -133,6 +134,12 @@ export function Menu()
     [router.pathname]
   );
 
+  const LogOutMenu = async() =>{
+    const data=''
+    await LogOut(data)
+    router.replace('/login')
+  }
+
   return(
     <>
     <div className="min-w-[280px] bg-[#182036]">
@@ -181,18 +188,24 @@ export function Menu()
             </div>
           ))}
             <div className="pb-16">
-              <Link href="/">
-                <MenuItem
-                  itemUrl="//"
-                  path="/"
-                  itemName="Log Out"
-                  itemInactiveIcon="/image/logout_icon_inactive.png"
-                  itemActiveIcon="/image/logout_icon_hover.png"
-                  itemHoverIcon="/image/logout_icon_hover.png"
-                  classNameActive="flex items-center space-x-4"
-                  classNameInactive="group"
-                />
-              </Link>
+              <div className="group cursor-pointer" onClick={LogOutMenu}>
+              <div className='hidden group-hover:block group-active:hidden'>
+                <div className='flex items-center space-x-4'>
+                  <img src="/image/logout_icon_hover.png" className='w-6'/>
+                    <h2 className='text-lg text-white/70'>
+                      Log Out
+                    </h2>
+                  </div>
+                </div>
+                <div className="activeKey =='1':'hidden'?'block' group-hover:hidden">
+                  <div className='flex items-center space-x-4'>
+                    <img src="/image/logout_icon_inactive.png" className='w-6'/>
+                      <h2 className='text-lg text-white/50'>
+                        Log Out
+                      </h2>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
                   
