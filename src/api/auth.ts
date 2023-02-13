@@ -1,4 +1,5 @@
 import { post } from '../lib/fetcher';
+import { removeUserSession } from '../lib/storage';
 
 export const Register = async(data:{
   reCaptchaToken: string
@@ -32,12 +33,6 @@ export const VerifyEmail = async (data:{
 
 }
 
-export const UpdateUser = async (data:{
-  token:string
-}) => {
-  const res = await post('/verify_email',data)
-}
-
 export const SignIn = async(data:{
   reCaptchaToken: string
   email:string
@@ -54,4 +49,11 @@ export const SignIn = async(data:{
   
   localStorage.setItem("Authorization", sessionId);
   localStorage.setItem("expire", expire);
+}
+
+export const LogOut = async(data:{
+}) => {
+  const res = await post('/auth/logout',data)
+  removeUserSession()
+  return res
 }

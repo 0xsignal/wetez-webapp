@@ -1,8 +1,9 @@
 import { Meta } from '../components/Meta'
 import { Menu } from '../components/Menu'
-import { PlanCard } from '../components/Card/PlanCard'
+import { CurrentPlanCard } from '../components/Card/CurrentPlanCard'
 import { Header } from '../components/Header'
 import { ApiUsageCard } from '../components/Card/ApiUsageCard'
+import { useCurrentPlans,useSubscribedList } from 'src/api/dashboard'
 import dynamic from 'next/dynamic'
 
 const CircleChart = dynamic(
@@ -10,8 +11,19 @@ const CircleChart = dynamic(
   { ssr: false }
 )
 
-
 export default function Dashboard() {
+
+  const{
+    data: currentPlan,
+    error: planError,
+    loading: planLoading,
+  } = useCurrentPlans()
+
+  const{
+    data: subscribedList,
+    error: listError,
+    loading: listLoading,
+  } = useSubscribedList()
 
   return(
     <>
@@ -33,7 +45,7 @@ export default function Dashboard() {
                 <ApiUsageCard/>
               </div>
               <div className='col-span-2'>
-                <PlanCard/>
+                <CurrentPlanCard/>
                 <div className='mt-6'>
                   <CircleChart/>
                 </div>

@@ -7,8 +7,8 @@ import { GoogleReCaptcha } from "react-google-recaptcha-v3";
 import { useState } from "react";
 import Captcha from '../components/Captcha/Captcha';
 import { useRouter } from 'next/router';
-import ButtonLoading from 'src/components/ButtonLoading';
-import { SignIn } from 'src/api/auth';
+import ButtonLoading from '../components/ButtonLoading';
+import { SignIn } from '../api/auth';
 
 
 export default function Login() {

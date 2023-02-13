@@ -2,8 +2,43 @@ import React from 'react';
 import Link from 'next/link';
 import Tags from '../Tag';
 
+type CurrentPlanCardProps = {
+  paid: boolean,
+  planList :{
+    chainName: string,
+    planName: string,
+    expireAt: number,
+  }[],
+  tagList:{
+    planName:string,
+  }[],
+}
 
-export function PlanCard() {
+
+export function CurrentPlanCard({
+  paid = false,
+  planList = [{
+    chainName : 'Ethereum',
+    planName : 'Team',
+    expireAt : 10000000
+  }],
+  tagList = [{
+    planName : 'Team'
+  }]}:CurrentPlanCardProps) {
+  if(paid){
+    return(
+      <div className='bg-white/5 rounded-[24px]'>
+        <div className='px-6 py-8'>
+          <div className=''>
+            <h2 className='font-bold text-xl text-white'>My Current Plan</h2>
+            <div className='float-right -mt-8'>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  }
   return(
     <>
       <div className='bg-white/5 rounded-[24px]'>
