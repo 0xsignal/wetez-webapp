@@ -18,7 +18,7 @@ export default function Premium() {
       />
       <div className='flex'>
         <Menu/>
-        <div className='grow bg-[#182036] pl-20 pr-10 overflow-y-auto h-screen pb-12'>
+        <div className='grow bg-[#182036] pl-10 pr-10 overflow-y-auto h-screen pb-12'>
           <Header
             title="Premium"
             description="Select all the subscriptions or choose single network for the plan"

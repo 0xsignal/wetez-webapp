@@ -1,7 +1,42 @@
 import React from 'react';
 import PlanListItem  from '../Dashboard/PlanListItem';
 
-export function ApiUsageCard(){
+type ApiUsageCardProp = {
+  subscribePlanList:{
+    id: number
+    todayUsage: number
+    status: 1 | 2 | 3
+    expireAt: number
+    chain:{
+      chainId: number
+      name: string
+    }
+    plan:{
+      id: number
+      name: string
+      chainId: number
+      dayLimit: number
+    }
+  }[]| undefined
+}
+
+export function ApiUsageCard({
+  subscribePlanList = [{
+    id : 1, 
+    todayUsage: 1000,
+    status: 1,
+    expireAt: 1000,
+    chain:{
+      chainId: 1,
+      name: 'Ethereum'
+    },
+    plan:{
+      id: 1,
+      name: 'Free',
+      chainId: 1,
+      dayLimit: 1000,
+    },
+  }]}:ApiUsageCardProp){
 
   return(
     <div className='bg-white/5 rounded-[24px] px-6 py-6'>
@@ -18,7 +53,7 @@ export function ApiUsageCard(){
           </div>
         </div> 
       </div>
-      <div className='border-[1px] border-white/10 mt-6'></div>
+      <div className='border-[0.5px] border-white/10 mt-6'></div>
       <div className='mt-6'>
         <div className='text-2xl font-bold text-white flex items-center gap-x-3'>
           My Plans
@@ -30,34 +65,18 @@ export function ApiUsageCard(){
             <span className='grow pl-10 col-span-3'>Usage</span>
             <span className='pl-6'>Status</span>
           </div>
-          <div className='border-[1px] border-white/10 mt-2'></div>
+          <div className='border-[0.5px] border-white/10 mt-2'></div>
         </div>
         <div className='mt-4'>
+        {(subscribePlanList.map((item) => (
           <PlanListItem
-            network='Ethereum'
-            usage='0.23'
-            status='Inactive'
+            key={item.id}
+            usage={item.todayUsage}
+            status={item.status}
+            dayLimit={item.plan.dayLimit}
+            network={item.chain.name}
           />
-          <PlanListItem
-            network='Polygon'
-            usage='0.45'
-            status='Active'
-          />
-          <PlanListItem
-            network='Ethereum'
-            usage='1.23'
-            status='Overrun'
-          />
-          <PlanListItem
-            network='Ethereum'
-            usage='0'
-            status='Upcoming'
-          />
-          <PlanListItem
-            network='Ethereum'
-            usage='0.23'
-            status='Inactive'
-          />
+        )))}
         </div>
       </div>
     </div>

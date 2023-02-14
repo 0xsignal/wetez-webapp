@@ -1,17 +1,18 @@
 import React from 'react';
 
-
 type PlanListItemProps = {
   network?: string,
-  usage?: string,
-  status?: string, 
+  usage?: number,
+  status?: number, 
+  dayLimit?: number,
 }
 
 export default function PlanListItem(
   {
     network = 'Ethereum',
-    usage = '0.23',
-    status = 'Inactive',
+    usage = 0.23,
+    status = 1,
+    dayLimit = 10,
   }:PlanListItemProps){
 
     let logoImage: string = ''
@@ -19,6 +20,7 @@ export default function PlanListItem(
     let progressBarStyle: string = ''
     let progressBarNumber: string = ''
     let usageNumber: number = 0
+    let apiStatus: string = ''
 
     console.log(Number(usage))
 
@@ -43,27 +45,28 @@ export default function PlanListItem(
       case 'Arbitrum':
         logoImage = '/image/arbitrum_logo_icon.png'
         break
+      default:
+        logoImage = '/image/ethereum_logo_icon.png'
+        break
     }
 
     switch(status){
-      case 'Inactive':
+      case 1:
+        apiStatus = 'Active'
         statusStyle = 'text-lg text-white/50 pl-4'
         progressBarStyle = 'bg-[#9FADC7] rounded-[6px] h-4'
         break
-      case 'Active':
+      case 2:
+        apiStatus = 'Overrun'
         statusStyle = 'text-lg text-[#00F4FF]/80 pl-4'
         progressBarStyle = 'bg-[#00F4FF] rounded-[6px] h-4'
         break
-      case 'Upcoming':
+      case 3:
+        apiStatus = 'Inative'
         statusStyle = 'text-lg text-[#C57D00] pl-4'
         progressBarStyle = ''
         break
-      case 'Overrun':
-        statusStyle = 'text-lg text-[#FF4DB8] pl-4'
-        progressBarStyle = 'bg-[#FF4DB8] rounded-[6px] h-4'
-        break
     }
-    
 
   return(
     <div className='grid grid-cols-5 gap-1 py-2 space-x-2 items-center'>
@@ -80,7 +83,7 @@ export default function PlanListItem(
         </div>
       </div>
       <div className={statusStyle}>
-        {status}
+        {apiStatus}
       </div>
     </div>
   )

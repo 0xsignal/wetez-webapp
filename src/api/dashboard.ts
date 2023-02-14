@@ -31,10 +31,8 @@ export const useCurrentPlans = () => {
   }
 }
 
-
-export type SubscribedList = () => {
+export type SubscribedList = {
   list:{
-    subscribePlan:{
       id: number
       todayUsage: number
       status: 1 | 2 | 3
@@ -47,9 +45,9 @@ export type SubscribedList = () => {
         id: number
         name: string
         chainId: number
+        dayLimit: number
       }
-    }[]
-  }
+  }[]
 }
 
 export const useSubscribedList = () => {
