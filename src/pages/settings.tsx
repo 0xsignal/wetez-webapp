@@ -15,7 +15,7 @@ export default function Settings() {
       />
       <div className='flex'>
         <Menu/>
-        <div className='grow bg-[#182036] pl-20 pr-6 overflow-y-auto h-screen'>
+        <div className='grow bg-[#182036] pl-10 pr-6 overflow-y-auto h-screen'>
           <Header
             title="Settings"
             description="Select all the subscriptions or choose single network for the plan"

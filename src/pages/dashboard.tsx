@@ -11,6 +11,18 @@ const CircleChart = dynamic(
   { ssr: false }
 )
 
+const TagList = [
+  {
+    planName:'Team'
+  },
+  {
+    planName:'Growth'
+  },
+  {
+    planName:'Developer'
+  },
+]
+
 export default function Dashboard() {
 
   const{
@@ -25,6 +37,19 @@ export default function Dashboard() {
     loading: listLoading,
   } = useSubscribedList()
 
+  console.log(subscribedList?.list)
+
+
+  let paid:boolean = false
+  if(!currentPlan && !planLoading){
+    paid = true
+  }
+
+  if( planLoading && listLoading){
+    return<></>
+  }
+
+
   return(
     <>
       <Meta
@@ -34,7 +59,7 @@ export default function Dashboard() {
       />
       <div className='flex'>
         <Menu/>
-        <div className='grow bg-[#182036] pl-20 pr-10'>
+        <div className='grow bg-[#182036] pl-10 pr-10'>
           <Header
             title="Dashboard"
             description="Whole data about your plans here"
@@ -42,10 +67,16 @@ export default function Dashboard() {
           <div className='px-0 py-10'>
             <div className='grid grid-cols-5 gap-4'>
               <div className='col-span-3'>
-                <ApiUsageCard/>
+                <ApiUsageCard
+                  subscribePlanList={subscribedList?.list}
+                />
               </div>
               <div className='col-span-2'>
-                <CurrentPlanCard/>
+                <CurrentPlanCard
+                  paid = {paid}
+                  tagList = {TagList}
+                  planList = {currentPlan?.subscribedPlan}
+                />
                 <div className='mt-6'>
                   <CircleChart/>
                 </div>

@@ -29,11 +29,10 @@ export default function Tags({
       tagFontColor = 'text-[#00F4FF]'
       break
   }
-   
 
   return(
     <>
-      <div className={`${tagBgColor} ${tagFontColor} px-2 py-1 text-base rounded-[6px]`}>
+      <div className={`${tagBgColor} ${tagFontColor} px-2 py-1 text-sm rounded-[6px]`}>
         {name}
       </div>
     </>

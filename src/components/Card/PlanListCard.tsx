@@ -98,8 +98,6 @@ function IpfsCard(){
         <h1 className='text-white text-2xl font-bold'> My IPFS Plan </h1>
         <Tags
           name = "Free"
-          bgColor = "bg-white/10"
-          fontColor = "text-white/60"
         />
       </div>
       <div className='mt-10'>
