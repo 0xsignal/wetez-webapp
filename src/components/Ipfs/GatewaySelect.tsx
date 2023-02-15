@@ -2,48 +2,68 @@ import React from 'react';
 import Link from 'next/link';
 import { useState } from 'react'
 import { GatewayInput } from './GatewayInput';
-import { GatewayList } from './GatewayList';
+import { GatewayList } from '../List/GatewayList';
+import { pass } from 'src/lib/fp';
 
-const GatewayInialList:{name:string,id:number,active:boolean}[] = [
-  {
-    name: 'http://shhdhdhduuuuuudgddhhhhhhddddd.wetez-ipfs.io',
-    id: 1,
-    active: false
-  },
-  {
-    name: 'http://ahhdhdhduuuuuudgddhhhhhhddddd.wetez-ipfs.io',
-    id: 2,
-    active: false
-  },
-  {
-    name: 'http://bhhdhdhduuuuuudgddhhhhhhddddd.wetez-ipfs.io',
-    id: 3,
-    active: true
-  },
-]
+type GatewaySelectProps = {
+  addGateway:(data:{
+    gateway: string
+  }) => void,
+  delateGateway:(data:{gatewayID:number}) => void,
+  activeGateway:(data:{gatewayID:number}) => void,
+  gatewayItemList:{
+    userID: number
+    id: number
+    dedicatedGateway: string
+    active: boolean
+  }[] | undefined,
+}
 
-let nextId = 4;
+export function GatewaySelect({
+  addGateway = pass,
+  delateGateway = pass,
+  activeGateway = pass,
+  gatewayItemList = []
 
-export function GatewaySelect() {
+}:GatewaySelectProps) {
 
-  const [gatewayList,setGatewayList] = useState(GatewayInialList);
+  let nextId = gatewayItemList.length - 1;
+  const [gatewayList,setGatewayList] = useState(gatewayItemList);
 
-  function addGateway(gatewayName:string){
-    setGatewayList([
-      ...gatewayList,
-      {
-        id: nextId++,
-        name: 'https://' + gatewayName + '.wetez-ipfs.io',
-        active: false,
-      }
-    ]);
+  function addGatewayList(gatewayName:string){
+    const res =  addGateway({gateway:gatewayName})
+    if(res != null){
+      setGatewayList(
+        [...gatewayList,{
+          id: nextId++,
+          userID: 19,
+          dedicatedGateway:gatewayName,
+          active: false,
+        }]
+      )
+    }
   }
 
-  function delateGateway(gatewayId?:number){
-    setGatewayList(
-      gatewayList.filter(t => t.id !== gatewayId)
-    );
+  function delateGatewayLsit(gatewayID:number){
+    
   }
+
+  // function addGateway(gatewayName:string){
+  //   setGatewayList([
+  //     ...gatewayList,
+  //     {
+  //       id: nextId++,
+  //       name: 'https://' + gatewayName + '.wetez-ipfs.io',
+  //       active: false,
+  //     }
+  //   ]);
+  // }
+
+  // function delateGateway(gatewayId?:number){
+  //   setGatewayList(
+  //     gatewayList.filter(t => t.id !== gatewayId)
+  //   );
+  // }
 
   return(
     <div className='bg-white/5 rounded-[24px] px-6 py-6'>
@@ -58,7 +78,7 @@ export function GatewaySelect() {
       </div>
       <div className='mt-8'>
         <GatewayInput
-          addGateway = {addGateway}
+          addGateway = {addGatewayList}
         />
       </div>
       <GatewayList

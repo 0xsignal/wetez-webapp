@@ -7,14 +7,33 @@ import  UsageBoard  from '../components/Ipfs/UsageBoard'
 import { Header } from '../components/Header'
 import { GatewaySelect } from '../components/Ipfs/GatewaySelect';
 import dynamic from 'next/dynamic'
+import { useIPFSGatewayList,useIPFSPlan } from 'src/api/ipfs';
+import { addGateway,removeGateway,activeGateway } from 'src/api/ipfs';
 
 const CircleChart = dynamic(
   () => import('../components/CircleChart'),
   { ssr: false }
 )
 
-
 export default function Ipfs() {
+
+  const {
+    data: ipfsPlanData ,
+    loading:ipfsPlanLoading,
+    error:ipfsPlanError,
+  } = useIPFSPlan()
+
+  const {
+    data: gatewayListData ,
+    loading:gatewayListLoading,
+    error:gatewayListError,
+  } = useIPFSGatewayList()
+
+  console.log(gatewayListData)
+
+  if( ipfsPlanLoading && gatewayListLoading){
+    return<></>
+  }
 
   return(
     <>
@@ -35,14 +54,21 @@ export default function Ipfs() {
           </div>
           <div className='mt-10 grid grid-cols-2 gap-4'>
             <div className=''>
-              <StatusCard/>
+              <StatusCard
+                planStatus={ipfsPlanData?.subscribedPlan}
+              />
             </div>
             <div className=''>
               <CircleChart/>
             </div>
           </div>
           <div className='mt-6'>
-            <GatewaySelect/>
+            <GatewaySelect
+              addGateway={addGateway}
+              delateGateway={removeGateway}
+              activeGateway={activeGateway}
+              gatewayItemList={gatewayListData}
+            />
           </div>
           <div className='mt-6'>
             <UsageBoard/>

@@ -8,9 +8,10 @@ type GatewayListProps = {
     {
       name?: string
       id?: number
+      dedicatedGateway: string
       active?: boolean
     }[],
-    deleteGateway?:(id?:number) => void,
+    deleteGateway?:(data:{gatewayID:number}) => void,
 }
 
 export function GatewayList({
@@ -18,6 +19,7 @@ export function GatewayList({
     {
       name : 'test',
       id : 0,
+      dedicatedGateway: '',
       active : false,
     },
   ],
@@ -25,10 +27,9 @@ export function GatewayList({
 }:GatewayListProps){
 
   let listId:number = gatewayItemList.findIndex(x=>x.active === true)
-  console.log(listId)
+  console.log(gatewayItemList)
 
   const [selected, setSelected] = useState(gatewayItemList[listId])
-  console.log(selected)
   
   return (
     <div className='mt-10'>
@@ -36,7 +37,7 @@ export function GatewayList({
         <RadioGroup.Label className="sr-only">Gateway List</RadioGroup.Label>
         <div className="space-y-2">
           {gatewayItemList.map((gatewayItemList) => (
-            <div className='w-full'>
+            <div className='w-full' key={gatewayItemList.id}>
               <div className='border-[1px] border-white/10'></div>
                 <div className='flex'>
                   <div className='grow'>
@@ -57,7 +58,7 @@ export function GatewayList({
                               checked ? 'text-[#FFE200]' : 'text-white/50'
                             }`}
                           >
-                            {gatewayItemList.name}
+                            {gatewayItemList.dedicatedGateway}
                           </RadioGroup.Label>
                           <div className='grow'></div>
                           {checked && (

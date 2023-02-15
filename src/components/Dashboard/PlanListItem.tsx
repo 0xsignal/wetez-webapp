@@ -22,7 +22,6 @@ export default function PlanListItem(
     let usageNumber: number = 0
     let apiStatus: string = ''
 
-    console.log(Number(usage))
 
     if(Number(usage) > 1){
       progressBarNumber = '100%'
