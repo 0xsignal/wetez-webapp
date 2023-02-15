@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import Tags from '../Tag';
+import PlanTag from '../Tag/PlanTag';
 
 type CurrentPlanCardProps = {
   paid: boolean,
@@ -55,7 +55,7 @@ export function CurrentPlanCard({
             <div className='grow'></div>
             <div className='flex space-x-1 items-center'>
               {(tagList.map((item) => (
-                <Tags
+                <PlanTag
                   name = {item.planName}
                   key = {item.planName}
                 />
@@ -99,7 +99,7 @@ export function CurrentPlanCard({
             <h2 className='font-bold text-xl text-white'>My Current Plan</h2>
             <div className='grow'></div>
             <div className=''>
-              <Tags
+              <PlanTag
                 name = "Free"
               />
             </div>

@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { pass } from '../../lib/fp';
 
 type GatewayInputProps = {
-  addGateway?:(gatewayname:string) => void
+  addGateway:(gateway:string) => void
 }
 
 export function GatewayInput({

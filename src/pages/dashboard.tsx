@@ -37,9 +37,6 @@ export default function Dashboard() {
     loading: listLoading,
   } = useSubscribedList()
 
-  console.log(subscribedList?.list)
-
-
   let paid:boolean = false
   if(!currentPlan && !planLoading){
     paid = true

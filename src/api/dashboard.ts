@@ -21,7 +21,7 @@ export type CurrenPlans = {
 
 export const useCurrentPlans = () => {
   
-  const{ data, error } = useSWR<CurrenPlans>('/get_paid_plans',url => 
+  const{ data, error } = useSWR<CurrenPlans>('/v1/get_paid_plans',url => 
     post(url,{}),
   )
   return {
@@ -52,7 +52,7 @@ export type SubscribedList = {
 
 export const useSubscribedList = () => {
   
-  const{ data, error } = useSWR<SubscribedList>('/get_subscribed_list',url => 
+  const{ data, error } = useSWR<SubscribedList>('/v1/get_subscribed_list',url => 
     post(url,{page:1,pageSize:6}),
   )
   return {

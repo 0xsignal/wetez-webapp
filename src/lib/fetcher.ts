@@ -9,7 +9,7 @@ type Stringifiable =
   | null
   | Stringifiable[]
 
-const SERVER_ENTRY = 'https://test-portal-api.wetez.io/api/v1'
+const SERVER_ENTRY = 'https://test-portal-api.wetez.io/api'
 
 export type FetcherHeaders = { 'Authorization'?: string; 'Content-Type'?: string }
 
