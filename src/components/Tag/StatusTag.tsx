@@ -4,7 +4,7 @@ type TagProps = {
   status?: number;
 };
 
-export default function PlanTag({
+export default function StatusTag({
   status = 1,
 }:TagProps){
 

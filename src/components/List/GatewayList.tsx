@@ -2,48 +2,60 @@ import React from 'react';
 import { useState } from 'react'
 import { RadioGroup} from '@headlessui/react'
 import { pass } from '../../lib/fp';
+import { useEffect } from 'react';
 
 type GatewayListProps = {
-  gatewayItemList?:
-    {
-      name?: string
-      id?: number
-      dedicatedGateway: string
-      active?: boolean
-    }[],
-    deleteGateway?:(data:{gatewayID:number}) => void,
+  gatewayItemList?:{
+    userID: number
+    id: number
+    dedicatedGateway: string
+    active: boolean
+  }[],
+  deleteGateway?:(gatewayID:number) => void,
+  activeGateway?:(data:{gatewayID:number}) => void,
 }
 
 export function GatewayList({
-  gatewayItemList = [
-    {
-      name : 'test',
-      id : 0,
-      dedicatedGateway: '',
-      active : false,
-    },
-  ],
+  gatewayItemList = [{
+    userID : 0,
+    id : 0,
+    dedicatedGateway: '',
+    active : false,
+  }],
   deleteGateway = pass,
+  activeGateway = pass,
 }:GatewayListProps){
 
   let listId:number = gatewayItemList.findIndex(x=>x.active === true)
-  console.log(gatewayItemList)
 
   const [selected, setSelected] = useState(gatewayItemList[listId])
+
+  useEffect(()=>{
+    listId = gatewayItemList.findIndex(x=>x.active === true)
+    setSelected(gatewayItemList[listId])
+  },[gatewayItemList])
+
+  useEffect(() => {
+    if(selected != null){
+      const gatewayID = selected.id
+      activeGateway({gatewayID:gatewayID})
+    }
+  }, [selected]);
   
   return (
     <div className='mt-10'>
-      <RadioGroup value={selected} onChange={setSelected}>
+      <RadioGroup 
+        value={selected || ''} 
+        onChange={setSelected || ''}>
         <RadioGroup.Label className="sr-only">Gateway List</RadioGroup.Label>
         <div className="space-y-2">
           {gatewayItemList.map((gatewayItemList) => (
-            <div className='w-full' key={gatewayItemList.id}>
+            <div className='w-full' key={gatewayItemList.id || ''}>
               <div className='border-[1px] border-white/10'></div>
                 <div className='flex'>
                   <div className='grow'>
                   <RadioGroup.Option
-                  key={gatewayItemList.id}
-                  value={gatewayItemList}
+                  value={gatewayItemList || ''}
                   className={({ active, checked }) =>
                     `flex cursor-pointer`
                     }

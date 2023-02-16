@@ -4,10 +4,11 @@ import { CurrentPlanCard } from '../components/Card/CurrentPlanCard'
 import { Header } from '../components/Header'
 import { ApiUsageCard } from '../components/Card/ApiUsageCard'
 import { useCurrentPlans,useSubscribedList } from 'src/api/dashboard'
+import { useIPFSPlan } from 'src/api/ipfs'
 import dynamic from 'next/dynamic'
 
 const CircleChart = dynamic(
-  () => import('../components/CircleChart'),
+  () => import('../components/Chart/CircleChart'),
   { ssr: false }
 )
 
@@ -37,12 +38,18 @@ export default function Dashboard() {
     loading: listLoading,
   } = useSubscribedList()
 
+  const {
+    data: ipfsPlanData ,
+    loading:ipfsPlanLoading,
+    error:ipfsPlanError,
+  } = useIPFSPlan()
+
   let paid:boolean = false
-  if(!currentPlan && !planLoading){
+  if(!currentPlan && !planLoading && !ipfsPlanLoading){
     paid = true
   }
 
-  if( planLoading && listLoading){
+  if( planLoading && listLoading && ipfsPlanLoading){
     return<></>
   }
 
@@ -75,7 +82,10 @@ export default function Dashboard() {
                   planList = {currentPlan?.subscribedPlan}
                 />
                 <div className='mt-6'>
-                  <CircleChart/>
+                  <CircleChart
+                    planShow = {false}
+                    plandata = {ipfsPlanData?.subscribedPlan}
+                  />
                 </div>
               </div>
             </div>

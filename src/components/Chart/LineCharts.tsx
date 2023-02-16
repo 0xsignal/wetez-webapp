@@ -33,7 +33,11 @@ type ECOption = echarts.ComposeOption<
   | LineSeriesOption
 >;
 
-let base = +new Date(2000, 9, 3);
+
+
+export default function LineCharts() {
+
+  let base = +new Date(2000, 9, 3);
 let oneDay = 24 * 3600 * 1000;
 let date = [];
 
@@ -95,7 +99,7 @@ const option: ECOption = {
   ]
 };
 
-export default function LineCharts() {
+
   useEffect(()=>{
     const CicleChart = echarts.init(document.getElementById('echartsContentLineChart') as HTMLElement);
     const ChartOption:ECOption = option;

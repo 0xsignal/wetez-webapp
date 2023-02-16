@@ -4,7 +4,9 @@ import useSWR from 'swr'
 export type IPFSPlan = {
   subscribedPlan:{
     id: number
-    todayUsage: number
+    totalStorage: number,
+    transferUp : number,
+    transferDown : number,
     status: 1 | 2 | 3
     expireAt: number
     chain:{
@@ -12,10 +14,12 @@ export type IPFSPlan = {
       name: string
     }
     plan:{
-      id: number
-      name: string
-      chainId: number
-      dayLimit: number
+      id: number,
+      name: string,
+      chainId: number,
+      totalStorage:number,
+      transferUp : number,
+      transferDown : number,
     }
     endpoints:string[]
   }
@@ -74,4 +78,70 @@ export const activeGateway = async(data:{
   return res
 }
 
+
+export type IPFSStats24h = {
+  items:{
+    time: number
+    count: number
+    totalStorage: number
+    transferUp: number
+    transferDown: number
+  }[]
+}
+
+export const useIPFSStats24h = () => {
+  
+  const{ data, error } = useSWR<IPFSStats24h>('/v2/stats/last24h',url => 
+    post(url,{chainId:14}),
+  )
+  return {
+    data,
+    loading: !error && !data,
+    error,
+  }
+}
+
+export type IPFSStats7d = {
+  items:{
+    time: number
+    count: number
+    totalStorage: number
+    transferUp: number
+    transferDown: number
+  }[]
+}
+
+export const useIPFSStats7d = () => {
+  
+  const{ data, error } = useSWR<IPFSStats7d>('/v2/stats/last7d',url => 
+    post(url,{chainId:14}),
+  )
+  return {
+    data,
+    loading: !error && !data,
+    error,
+  }
+}
+
+export type IPFSStats1m = {
+  items:{
+    time: number
+    count: number
+    totalStorage: number
+    transferUp: number
+    transferDown: number
+  }[]
+}
+
+export const useIPFSStats1m = () => {
+  
+  const{ data, error } = useSWR<IPFSStats1m>('/v2/stats/last1m',url => 
+    post(url,{chainId:14}),
+  )
+  return {
+    data,
+    loading: !error && !data,
+    error,
+  }
+}
 

@@ -1,5 +1,4 @@
-import React from 'react';
-import Link from 'next/link';
+import React, { useEffect } from 'react';
 import { useState } from 'react'
 import { GatewayInput } from './GatewayInput';
 import { GatewayList } from '../List/GatewayList';
@@ -28,7 +27,12 @@ export function GatewaySelect({
 }:GatewaySelectProps) {
 
   let nextId = gatewayItemList.length - 1;
+  console.log(gatewayItemList)
   const [gatewayList,setGatewayList] = useState(gatewayItemList);
+
+  useEffect(()=>{
+    setGatewayList(gatewayItemList)
+  },[gatewayItemList])
 
   function addGatewayList(gatewayName:string){
     const res =  addGateway({gateway:gatewayName})
@@ -45,25 +49,14 @@ export function GatewaySelect({
   }
 
   function delateGatewayLsit(gatewayID:number){
-    
+    const res =  delateGateway({gatewayID:gatewayID})
+    if(res != null){
+      setGatewayList(
+        gatewayList.filter(t => t.id !== gatewayID)
+      );
+    }
   }
 
-  // function addGateway(gatewayName:string){
-  //   setGatewayList([
-  //     ...gatewayList,
-  //     {
-  //       id: nextId++,
-  //       name: 'https://' + gatewayName + '.wetez-ipfs.io',
-  //       active: false,
-  //     }
-  //   ]);
-  // }
-
-  // function delateGateway(gatewayId?:number){
-  //   setGatewayList(
-  //     gatewayList.filter(t => t.id !== gatewayId)
-  //   );
-  // }
 
   return(
     <div className='bg-white/5 rounded-[24px] px-6 py-6'>
@@ -83,7 +76,8 @@ export function GatewaySelect({
       </div>
       <GatewayList
         gatewayItemList={gatewayList}
-        deleteGateway={delateGateway}
+        deleteGateway={delateGatewayLsit}
+        activeGateway={activeGateway}
       />
     </div>
   )
