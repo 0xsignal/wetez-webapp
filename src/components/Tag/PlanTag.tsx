@@ -4,7 +4,7 @@ type TagProps = {
   name?: string;
 };
 
-export default function StatusTag({
+export default function PlanTag({
   name = "free",
 }:TagProps){
 

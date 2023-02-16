@@ -107,7 +107,7 @@ export function CurrentPlanCard({
           <div className='mt-6 text-base text-white/50'>
             You don't have a paid plan. Please select a plan to prevent storage issues beyond your plan limits.
           </div>
-          <Link href="/dashboard">
+          <Link href="/premium">
             <div className='bg-[#2A23FF] rounded-[23px] mt-6 w-1/3'>
               <div className='px-8 py-3 flex items-center'>
                 <div className='text-base text-white'>

@@ -11,7 +11,7 @@ import { useIPFSGatewayList,useIPFSPlan } from 'src/api/ipfs';
 import { addGateway,removeGateway,activeGateway } from 'src/api/ipfs';
 
 const CircleChart = dynamic(
-  () => import('../components/CircleChart'),
+  () => import('../components/Chart/CircleChart'),
   { ssr: false }
 )
 
@@ -29,10 +29,12 @@ export default function Ipfs() {
     error:gatewayListError,
   } = useIPFSGatewayList()
 
-  console.log(gatewayListData)
-
   if( ipfsPlanLoading && gatewayListLoading){
-    return<></>
+    return(
+      <div className='text-black text-7xl'>
+        h1
+      </div>
+    )
   }
 
   return(
@@ -59,7 +61,10 @@ export default function Ipfs() {
               />
             </div>
             <div className=''>
-              <CircleChart/>
+              <CircleChart
+                planShow = {true}
+                plandata = {ipfsPlanData?.subscribedPlan}
+              />
             </div>
           </div>
           <div className='mt-6'>

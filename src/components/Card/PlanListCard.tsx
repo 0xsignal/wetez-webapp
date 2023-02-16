@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import PlanTags from '../Tag/PlanTag';
+import PlanTag from '../Tag/PlanTag';
 
 type IpfsItemProps = {
   planType?: string;
@@ -96,7 +96,7 @@ function IpfsCard(){
     <div className='rounded-[16px] px-6 py-6 bg-white/5'>
       <div className='flex space-x-4'>
         <h1 className='text-white text-2xl font-bold'> My IPFS Plan </h1>
-        <PlanTags
+        <PlanTag
           name = "Free"
         />
       </div>

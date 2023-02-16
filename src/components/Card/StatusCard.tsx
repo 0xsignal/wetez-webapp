@@ -8,7 +8,9 @@ import { EndpontsList } from 'src/components/List/EndpointsList';
 type StatusCardProps = {
   planStatus:{
     id: number
-    todayUsage: number
+    totalStorage: number
+    transferUp : number
+    transferDown : number
     status: 1 | 2 | 3
     expireAt: number
     chain:{
@@ -19,7 +21,9 @@ type StatusCardProps = {
       id: number
       name: string
       chainId: number
-      dayLimit: number
+      totalStorage: number
+      transferUp : number
+      transferDown : number
     }
     endpoints:string[]
   } | undefined
@@ -29,7 +33,9 @@ export function StatusCard(
   {
     planStatus = {
     id : 1,
-    todayUsage : 1000,
+    totalStorage: 0,
+    transferUp: 0,
+    transferDown: 0,
     status : 1,
     expireAt : 10000,
     chain : {
@@ -40,7 +46,9 @@ export function StatusCard(
       id : 14,
       name : 'Free',
       chainId : 14,
-      dayLimit : 1000,
+      totalStorage: 0,
+      transferDown: 0,
+      transferUp: 0,
     },
     endpoints : [ 
     ]
