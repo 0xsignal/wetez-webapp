@@ -9,6 +9,7 @@ import { GatewaySelect } from '../components/Ipfs/GatewaySelect';
 import dynamic from 'next/dynamic'
 import { useIPFSGatewayList,useIPFSPlan } from 'src/api/ipfs';
 import { addGateway,removeGateway,activeGateway } from 'src/api/ipfs';
+import { useIPFSStats1m,useIPFSStats24h,useIPFSStats7d } from 'src/api/ipfs';
 
 const CircleChart = dynamic(
   () => import('../components/Chart/CircleChart'),
@@ -29,14 +30,32 @@ export default function Ipfs() {
     error:gatewayListError,
   } = useIPFSGatewayList()
 
-  if( ipfsPlanLoading && gatewayListLoading){
+
+  const {
+    data: ipfsStats24hData ,
+    loading: ipfsStats24hLoading,
+    error: ipfsStats24hError,
+  } = useIPFSStats24h()
+
+  const {
+    data: ipfsStats7dData ,
+    loading: ipfsStats7dLoading,
+    error: ipfsStats7dError,
+  } = useIPFSStats7d()
+
+  const {
+    data: ipfsStats1mData ,
+    loading: ipfsStats1mLoading,
+    error: ipfsStats1mError,
+  } = useIPFSStats1m()
+
+  if( ipfsPlanLoading && gatewayListLoading && ipfsStats24hLoading && ipfsStats7dLoading && ipfsStats1mLoading){
     return(
       <div className='text-black text-7xl'>
         h1
       </div>
     )
   }
-
   return(
     <>
       <Meta
@@ -76,7 +95,12 @@ export default function Ipfs() {
             />
           </div>
           <div className='mt-6'>
-            <UsageBoard/>
+            <UsageBoard
+              planStatus = {ipfsPlanData?.subscribedPlan}
+              items24h = {ipfsStats24hData?.items}
+              items7d = {ipfsStats7dData?.items}
+              items1m = {ipfsStats1mData?.items}
+            />
           </div>
         </div>
       </div>

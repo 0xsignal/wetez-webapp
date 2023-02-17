@@ -33,21 +33,16 @@ type ECOption = echarts.ComposeOption<
   | LineSeriesOption
 >;
 
-
-
-export default function LineCharts() {
-
-  let base = +new Date(2000, 9, 3);
-let oneDay = 24 * 3600 * 1000;
-let date = [];
-
-let data = [Math.random() * 300];
-
-for (let i = 1; i < 100; i++) {
-  var now = new Date((base += oneDay));
-  date.push([now.getFullYear(), now.getMonth() + 1, now.getDate()].join('/'));
-  data.push(Math.round((Math.random() - 0.5) * 20 + data[i - 1]));
+type LineAreaChartPrpos = {
+  data:{}[],
+  date:{}[]
 }
+
+export default function LineAreaChart({
+  data = [0],
+  date = [''],
+}) {
+
 
 const option: ECOption = {
   tooltip: {
@@ -104,7 +99,7 @@ const option: ECOption = {
     const CicleChart = echarts.init(document.getElementById('echartsContentLineChart') as HTMLElement);
     const ChartOption:ECOption = option;
     CicleChart.setOption(ChartOption);
-  },[])
+  },[data,date])
 
 
   return(
