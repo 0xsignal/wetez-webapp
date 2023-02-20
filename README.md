@@ -1,3 +1,18 @@
+## Dependency
+
+整体并没有使用开箱即用的组件（比如 AntDesign、Element 等），使用以下依赖封装的组件
+
+- [Next.js](https://nextjs.org/)
+- [SWR](https://swr.vercel.app/)
+- [TailwindCss](https://tailwindcss.com/docs/installation)
+- [HeadlessUI](https://headlessui.com/)
+
+## Deploy
+
+
+
+----
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
