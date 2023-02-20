@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import PlanTag from '../Tag/PlanTag';
+import { useCreateOrder } from 'src/api/premium';
 
 type IpfsItemProps = {
   planType?: string;
@@ -48,6 +49,11 @@ function IpfsItemCard({
   let buttonStyleClass = active ? buttonStyle['activeStatus'] : buttonStyle['inactiveStatus'];
   let buttonWordingText = active ? buttonWording['activeWording'] : buttonWording['inactiveWording'];
 
+  const{
+    trigger:createOrderTrigger,
+    data: createOrderData,
+   } = useCreateOrder()
+
   return (
     <div className={`${itemCardClass}`}>
       <div className='text-2xl font-bold text-[#9FADC7] px-8 pt-3'>
@@ -66,9 +72,9 @@ function IpfsItemCard({
         <div className='text-lg text-[#9FADC7] px-8'> {transformDown}</div>
       </div>
       <div className={`${buttonStyleClass}`}>
-        <Link href='/'>
+        <button onClick={ () =>{createOrderTrigger({chainId:14,planId:55})}}>
           {buttonWordingText}
-        </Link>
+        </button>
       </div>
     </div>
   )
