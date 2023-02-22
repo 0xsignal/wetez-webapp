@@ -2,6 +2,47 @@ import React from 'react';
 import Link from 'next/link';
 import PlanTag from '../Tag/PlanTag';
 import { useCreateOrder } from 'src/api/premium';
+import { Tab } from '@headlessui/react';
+import { Fragment } from 'react';
+import clsx from 'clsx';
+
+const tabList = [
+  {
+    name: 'All subscriptions',
+    type: 'All',
+    chainId: 0,
+  },
+  {
+    name: 'Ethereum',
+    type: 1,
+    chainId: 1
+  },
+  {
+    name: 'IPFS',
+    type: 2,
+    chainId: 14,
+  },
+  {
+    name: 'Polygon',
+    type: 2,
+    chainId: 2,
+  },
+  {
+    name: 'COSMOS',
+    type: 2,
+    chainId: 3,
+  },
+  {
+    name: 'Solana',
+    type: 2,
+    chainId: 4,
+  },
+  {
+    name: 'Aptos',
+    type: 2,
+    chainId: 5,
+  },
+]
 
 type IpfsItemProps = {
   planType?: string;
@@ -157,9 +198,11 @@ function IpfsCard(){
 
 export default function PlanListCard() {
   return(
-    <>
-      <IpfsCard/>
-    </>
+    <div>
+      <div className=''>
+        
+      </div>
+    </div>
   )
 
 }

@@ -1,7 +1,8 @@
 import React from 'react';
 import { Dialog, Transition } from '@headlessui/react'
-import { Fragment, useEffect } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 import { pass } from '../../lib/fp';
+import Link from 'next/link';
 
 type BillingDetailModalProps = {
   isOpen?: boolean;
@@ -10,31 +11,40 @@ type BillingDetailModalProps = {
   planType?: string;
   planMeta?: string;
   planPrice?: string;
-  planStatus?: string;
+  planStatus?: number;
   orderTime?: string;
   fromEmail?: string;
   toEmail?: string;
   company?: string;
   paymentMethod?: string;
+  currency?: string;
   closeModal?: () => void;
 };
 
 export function BillingDetailModal({
   isOpen = false,
-  id = '1234567890123456789',
-  planNetwork = 'IPFS',
-  planType = 'Team',
-  planMeta = '200GB',
-  planPrice = '50$',
-  planStatus = 'Paid',
-  orderTime = '2022-12-05 20:53:56',
-  fromEmail = '12345@gmail.com',
-  toEmail = '12345@gmail.com',
-  company = 'EYISNS BUSINESS GROUP LTD',
-  paymentMethod = 'Binance Pay id *2736, Token Payment, USDC',
+  id = '',
+  planNetwork = '',
+  planType = '',
+  planMeta = '',
+  planPrice = '',
+  planStatus = 1,
+  orderTime = '',
+  fromEmail = '',
+  toEmail = '',
+  company = '',
+  paymentMethod = '',
+  currency = '',
   closeModal = pass,
  }:BillingDetailModalProps){
 
+  const SERVER_ENTRY = 'https://test-portal-api.wetez.io/api'
+
+  const [orderPdfDownlink,setOrderPdfDownlink] = useState(`${SERVER_ENTRY}` + '/v1/payment/export_order_pdf?order_id=' + `${id}`)
+
+  useEffect(() => {
+    setOrderPdfDownlink(`${SERVER_ENTRY}` + '/v1/payment/export_order_pdf?order_id=' + `${id}`)
+  },[id])
 
   return(
     <div className=''>
@@ -42,7 +52,7 @@ export function BillingDetailModal({
         <Dialog as="div" className="relative z-10" onClose={closeModal}>
           <Transition.Child
             as={Fragment}
-            enter="ease-out duration-300"
+            enter="ease-out duration-250"
             enterFrom="opacity-0"
             enterTo="opacity-100"
             leave="ease-in duration-200"
@@ -115,7 +125,7 @@ export function BillingDetailModal({
                           Price
                         </h3>
                         <div className='border-[1px] border-white/10'></div>
-                        <p className='text-lg text-white/50 py-1'>{planPrice}</p>
+                        <p className='text-lg text-white/50 py-1'>{planPrice} {currency}</p>
                       </div>
                       <div className='space-y-4'>
                         <h3 className='text-base text-white/30'>
@@ -164,12 +174,13 @@ export function BillingDetailModal({
                   </div>
 
                   <div className="mt-6 float-right">
-                    <button
-                      className="bg-[#2A23FF] outline-none rounded-[24px] px-8 py-2 text-center text-base text-white"
-                      onClick={closeModal}
-                    >
-                      Export PDF
-                    </button>
+                    <Link href={orderPdfDownlink} target='_blank'>
+                      <div
+                        className="bg-[#2A23FF] outline-none rounded-[24px] px-8 py-2 text-center text-base text-white"
+                      >
+                        Export PDF
+                      </div>
+                    </Link>
                   </div>
                 </Dialog.Panel>
               </Transition.Child>
