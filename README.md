@@ -2,10 +2,10 @@
 
 整体并没有使用开箱即用的组件（比如 AntDesign、Element 等），使用以下依赖封装的组件
 
-- [Next.js](https://nextjs.org/)
-- [SWR](https://swr.vercel.app/)
-- [TailwindCss](https://tailwindcss.com/docs/installation)
-- [HeadlessUI](https://headlessui.com/)
+- React Framework:[Next.js](https://nextjs.org/)
+- Data Fetching:[SWR](https://swr.vercel.app/)
+- CSS Framework:[TailwindCss](https://tailwindcss.com/docs/installation)
+- Headless UI Component:[HeadlessUI](https://headlessui.com/)
 
 ## Deploy
 

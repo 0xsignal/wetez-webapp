@@ -102,9 +102,15 @@ export default function CircleChart({
     }
     transferDownArray=[transferDownNum]
 
+    console.log(transferDownArray)
+
   },[plandata])
 
-  const option: ECOption = {
+  let option: ECOption ={}
+
+  useEffect(() => {
+
+  option= {
     // ...
     angleAxis: {
       max: 100,
@@ -197,7 +203,7 @@ export default function CircleChart({
         silent: true,
       }
     ]
-  };
+  };},[plandata])
 
 
   useEffect(()=>{
@@ -232,7 +238,7 @@ export default function CircleChart({
                   Total Storage:
                 </div>
                 <div className='text-white/50 text-base'>
-                  50%
+                  {totalStorageNum}%
                 </div>
               </div>
               <div className='flex items-center gap-x-2 mt-4'>
@@ -242,7 +248,7 @@ export default function CircleChart({
                   Up Data:
                 </div>
                 <div className='text-white/50 text-base'>
-                  50%
+                {transferDownNum}%
                 </div>
               </div>
               <div className='flex items-center gap-x-2 mt-4'>
@@ -252,7 +258,7 @@ export default function CircleChart({
                   Down Data:
                 </div>
                 <div className='text-white/50 text-base'>
-                  50%
+                  {transferDownNum}%
                 </div>
               </div>
             </div>
