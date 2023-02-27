@@ -21,7 +21,7 @@ const MenuList = [
     inactiveIcon:'/image/posapi_icon_inactive.png',
     hoverIcon:'/image/posapi_icon_hover.png',
     activeIcon:'/image/posapi_icon_active.png',
-    url:'/test',
+    url:'/posapi',
     classNameActive:'flex items-center space-x-4 py-2',
     classNameInactive:'group py-2',
   },

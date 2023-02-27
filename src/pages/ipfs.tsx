@@ -71,7 +71,9 @@ export default function Ipfs() {
             description="Whole data about your plans here"
           />
           <div className='mt-10'>
-            <ApiKeyCard/>
+            <ApiKeyCard
+              apiKey=''
+            />
           </div>
           <div className='mt-10 grid grid-cols-2 gap-4'>
             <div className=''>
