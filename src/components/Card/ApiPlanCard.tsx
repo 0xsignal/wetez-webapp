@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 import { Popover, Transition } from '@headlessui/react'
 import clsx from 'clsx';
 import Link from 'next/link';
+import PercentChart from '../Chart/PercentChart';
 
 
 type ApiPlanCardProps = {
@@ -25,11 +26,11 @@ export function UpgradeShow({
   if(show){
     return (
       <Link href=''>
-        <div className='rounded-[24px] p-2 flex items-center mt-2'>
+        <div className='w-4/5 rounded-[24px] px-1 py-3 flex items-center mt-4 space-x-2 border-[1px] border-white/20 justify-center'>
           <div className='text-base text-white/50'>
-            Upraged
-            <img src='/image/arrow_upgrade.png' className='w-4'/>
+            Upgrade
           </div>
+          <img src='/image/arrow_upgrade.png' className='h-5'/>
         </div>
       </Link>
     )
@@ -56,6 +57,9 @@ export default function ApiPlanCard({
   let statusStyle = ''
   let textStyle = ''
   let upgradeShowStatus = false
+
+  const usagePercent = Number((usage/dayLimit).toFixed(2))*100
+  const usageCicle = Number((usage/dayLimit).toFixed(2))*535
 
   switch(name){
     case 'Ethereum':
@@ -96,7 +100,7 @@ export default function ApiPlanCard({
   }
 
   return (
-    <div className='bg-white/5 rounded-[24px] px-6 pt-5 pb-12 hover:border-[1px] hover:border-white/20'>
+    <div className='bg-white/5 rounded-[24px] px-6 pt-5 pb-4 hover:border-[1px] hover:border-white/20'>
       <div className='flex items-center space-x-4'>
         <img src={logoImage} className='w-8'/>
         <div className='text-2xl text-white font-bold'>{name}</div>
@@ -138,9 +142,9 @@ export default function ApiPlanCard({
         </div>
       </div>
       
-      <div className='flex items-center'>
-        <div className='mt-10'>
-          <div className='text-4xl text-white/50 font-brand'>
+      <div className='flex items-center space-x-6'>
+        <div className='mt-2'>
+          <div className='text-4xl text-white/50 font-brand tracking-widest'>
             {dayLimit}
           </div>
           <UpgradeShow
@@ -148,12 +152,15 @@ export default function ApiPlanCard({
             id = {id}
           />
         </div>
-      </div>
-      
-      <div className=''>
-
-      </div>
-              
+        <div className='grow'/>
+        <div className='pr-10'>
+          <PercentChart
+            status = {apiStatus}
+            usage = {usagePercent}
+            usageCircle = {usageCicle}
+          />
+        </div>
+      </div>       
 
     </div>
   )

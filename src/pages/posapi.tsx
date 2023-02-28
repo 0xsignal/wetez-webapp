@@ -40,6 +40,10 @@ export default function Posapi() {
           <Header
             title="POS APIs"
             description="Whole data about your plans here"
+            url = ''
+            back = {false}
+            backTitle = ""
+            backUrl=""
           />
           <div className='mt-10'>
             <ApiKeyCard

@@ -1,6 +1,7 @@
 import { post } from '../lib/fetcher';
 import useSWRInfinite from 'swr/infinite'
 import useSWRMutation from 'swr/mutation'
+import useSWR from 'swr'
 
 export type ApiList = {
   apiKey: string,
@@ -65,5 +66,107 @@ export const useApiList = () => {
     error,
     size,
     setSize,
+  }
+}
+
+export type ChainPlan = {
+  subscribedPlan:{
+    id: number
+    totalStorage: number,
+    transferUp : number,
+    transferDown : number,
+    status: 1 | 2 | 3
+    expireAt: number
+    chain:{
+      chainId: number
+      name: string
+    }
+    plan:{
+      id: number,
+      name: string,
+      chainId: number,
+      totalStorage:number,
+      transferUp : number,
+      transferDown : number,
+    }
+    endpoints:string[]
+  }
+}
+
+export const useChainPlan = (chainId:number,isReady:boolean) => {
+  
+  const{ data, error } = useSWR<ChainPlan>(isReady ? '/v1/get_premium_plans' : null,url => 
+    post(url,{chainId: chainId}),
+  )
+  return {
+    data,
+    loading: !error && !data,
+    error,
+  }
+}
+
+export type ChainStats24h = {
+  items:{
+    time: number
+    count: number
+    totalStorage: number
+    transferUp: number
+    transferDown: number
+  }[]
+}
+
+export const useChainStats24h = (chainId:number,isReady:boolean) => {
+  
+  const{ data, error } = useSWR<ChainStats24h>(isReady ? '/v2/stats/last24h': null,url => 
+    post(url,{chainId:chainId}),
+  )
+  return {
+    data,
+    loading: !error && !data,
+    error,
+  }
+}
+
+export type ChainStats7d = {
+  items:{
+    time: number
+    count: number
+    totalStorage: number
+    transferUp: number
+    transferDown: number
+  }[]
+}
+
+export const useChainStats7d = (chainId:number,isReady:boolean) => {
+  
+  const{ data, error } = useSWR<ChainStats7d>(isReady? '/v2/stats/last7d':null,url => 
+    post(url,{chainId:chainId}),
+  )
+  return {
+    data,
+    loading: !error && !data,
+    error,
+  }
+}
+
+export type ChainStats1m = {
+  items:{
+    time: number
+    count: number
+    totalStorage: number
+    transferUp: number
+    transferDown: number
+  }[]
+}
+
+export const useChainStats1m = (chainId:number,isReady:boolean) => {
+  
+  const{ data, error } = useSWR<ChainStats1m>(isReady ? '/v2/stats/last1m': null ,url => 
+    post(url,{chainId:chainId}),
+  )
+  return {
+    data,
+    loading: !error && !data,
+    error,
   }
 }

@@ -42,6 +42,10 @@ export default function Premium() {
           <Header
             title="Premium"
             description="Select all the subscriptions or choose single network for the plan"
+            url = ''
+            back = {false}
+            backTitle = ""
+            backUrl=""
           />
           <div className='mt-10'>
             <PlanListCard />
