@@ -42,7 +42,7 @@ export const ApiListFetcher:(
   pageIndex: number,
 ) => Promise<ApiList> = pageIndex =>
   post<ApiList>(
-    apiListAPI,{page: Number(pageIndex) + 1, pageSize: 10}
+    apiListAPI,{page: Number(pageIndex) + 1, pageSize: 10, chainType: 1}
 )
 
 export const useApiList = () => {
@@ -72,10 +72,11 @@ export const useApiList = () => {
 export type ChainPlan = {
   subscribedPlan:{
     id: number
+    todayUsage: number
     totalStorage: number,
     transferUp : number,
     transferDown : number,
-    status: 1 | 2 | 3
+    status: 1 | 2 | 0 | -2
     expireAt: number
     chain:{
       chainId: number
@@ -88,6 +89,7 @@ export type ChainPlan = {
       totalStorage:number,
       transferUp : number,
       transferDown : number,
+      dayLimit: number,
     }
     endpoints:string[]
   }

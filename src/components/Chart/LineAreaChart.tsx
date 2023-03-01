@@ -65,7 +65,7 @@ const option: ECOption = {
   },
   grid:{
     left: '3%',
-    right: '2%',
+    right: '3%',
   },
 
   series: [

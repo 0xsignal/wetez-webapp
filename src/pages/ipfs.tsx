@@ -102,6 +102,7 @@ export default function Ipfs() {
           </div>
           <div className='mt-6'>
             <UsageBoard
+              type = "IPFS"
               planStatus = {ipfsPlanData?.subscribedPlan}
               items24h = {ipfsStats24hData?.items}
               items7d = {ipfsStats7dData?.items}
@@ -110,7 +111,6 @@ export default function Ipfs() {
           </div>
         </div>
       </div>
-
     </>
   )
-}
+}   

@@ -11,7 +11,7 @@ type ApiPlanCardProps = {
   status: number,
   usage: number,
   dayLimit: number,
-
+  chainId: number,
 }
 
 type UpgradeShowProps = {
@@ -50,6 +50,7 @@ export default function ApiPlanCard({
   status =  0,
   usage = 0,
   dayLimit = 0,
+  chainId = 0
 }:ApiPlanCardProps){
 
   let logoImage = ''
@@ -124,7 +125,7 @@ export default function ApiPlanCard({
                 >
                   <Popover.Panel className="absolute mt-2 right-1 w-32 z-10 p-4 rounded-[16px] backdrop-blur-[40px] bg-white/5 ">
                     <div className='text-base text-white/50 text-center'>
-                      <Link href=''>
+                      <Link href={`/chain/${chainId}`}>
                         API Details
                       </Link>
                     </div>

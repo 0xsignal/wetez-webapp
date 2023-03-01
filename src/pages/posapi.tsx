@@ -59,6 +59,7 @@ export default function Posapi() {
                   {(apiList.map((item) => (
                     <ApiPlanCard
                       id = {item.id}
+                      chainId = {item.chain.chainId}
                       name = {item.chain.name}
                       status = {item.status}
                       usage = {item.todayUsage}
@@ -75,6 +76,4 @@ export default function Posapi() {
       </div>
     </>
   )
-
-
 }

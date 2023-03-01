@@ -7,7 +7,8 @@ export type IPFSPlan = {
     totalStorage: number,
     transferUp : number,
     transferDown : number,
-    status: 1 | 2 | 3
+    todayUsage: number,
+    status: 1 | 2 | 0 | -2
     expireAt: number
     chain:{
       chainId: number
@@ -17,6 +18,7 @@ export type IPFSPlan = {
       id: number,
       name: string,
       chainId: number,
+      dayLimit: number,
       totalStorage:number,
       transferUp : number,
       transferDown : number,
@@ -26,7 +28,6 @@ export type IPFSPlan = {
 }
 
 export const useIPFSPlan = () => {
-  
   const{ data, error } = useSWR<IPFSPlan>('/v1/get_premium_plans',url => 
     post(url,{chainId: 14}),
   )
@@ -45,7 +46,6 @@ export type IPFSGatewayList = {
 }[]
 
 export const useIPFSGatewayList = () => {
-  
   const{ data, error } = useSWR<IPFSGatewayList>('/v1/ipfs/gateway/list',url => 
     post(url,{}),
   )
@@ -77,7 +77,6 @@ export const activeGateway = async(data:{
   const res = await post('/v1/ipfs/gateway/active',data)
   return res
 }
-
 
 export type IPFSStats24h = {
   items:{
