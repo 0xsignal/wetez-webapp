@@ -41,7 +41,7 @@ const MenuList = [
     inactiveIcon:'/image/node_icon_inactive.png',
     hoverIcon:'/image/node_icon_hover.png',
     activeIcon:'/image/node_icon_active.png',
-    url:'/test',
+    url:'/node',
     classNameActive:'flex items-center space-x-4 py-2',
     classNameInactive:'group py-2',
   },
