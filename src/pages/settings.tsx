@@ -22,6 +22,10 @@ export default function Settings() {
           <Header
             title="Settings"
             description="Select all the subscriptions or choose single network for the plan"
+            url = ''
+            back = {false}
+            backTitle = ""
+            backUrl=""
           />
           <div className='mt-10'>
             <div className='bg-white/5 rounded-[24px] px-6 py-6'>

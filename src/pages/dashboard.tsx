@@ -67,6 +67,10 @@ export default function Dashboard() {
           <Header
             title="Dashboard"
             description="Whole data about your plans here"
+            url = ''
+            back = {false}
+            backTitle = ""
+            backUrl=""
           />
           <div className='px-0 py-10'>
             <div className='grid grid-cols-5 gap-4'>

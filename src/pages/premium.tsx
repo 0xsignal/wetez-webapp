@@ -5,8 +5,7 @@ import { Header } from '../components/Header';
 import PlanListCard from '../components/Card/PlanListCard';
 import Contact from '../components/Premium/Contact';
 import Link from 'next/link';
-import { useCreateOrder,OrderList,OrderListFetcher,useOrderList} from '../api/premium'
-import { useEffect } from 'react';
+import { OrderList,useOrderList} from '../api/premium'
 import { useEvent } from 'src/lib/hooks';
 import InfiniteList from 'src/components/List/InfiniteList';
 import BillingListItem from 'src/components/Premium/BillingListItem';
@@ -43,6 +42,10 @@ export default function Premium() {
           <Header
             title="Premium"
             description="Select all the subscriptions or choose single network for the plan"
+            url = ''
+            back = {false}
+            backTitle = ""
+            backUrl=""
           />
           <div className='mt-10'>
             <PlanListCard />
