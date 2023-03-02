@@ -70,6 +70,10 @@ export default function Node(){
                   symbol = {item.symbol}
                   open = {pass}
                   key = {item.id}
+                  address = {item.validatorAddress}
+                  stakerDelegate = {item.stakerAmount}
+                  slash = {item.slash}
+                  delegateAmout = {item.delegateAmount}
                 />
               ))}
             </div>

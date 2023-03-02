@@ -67,7 +67,6 @@ export default function Posapi() {
                 </div>
               </InfiniteList>
             </div>
-            
           </div>
         </div>
       </div>

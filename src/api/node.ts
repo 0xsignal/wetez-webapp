@@ -14,7 +14,7 @@ type NodeList = {
     apy: string,
     validatorAddress: string,
     delegateAmount: string,
-    stakerAmout: string,
+    stakerAmount: string,
     slash: string,
   }[],
 }

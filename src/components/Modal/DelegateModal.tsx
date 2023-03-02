@@ -4,7 +4,7 @@ import { Fragment } from 'react'
 import { pass } from '../../lib/fp';
 import Link from 'next/link';
 
-type DelagateModalProps = {
+type DelegateModalProps = {
   isOpen?: boolean,
   id?: string,
   symbol: string,
@@ -17,7 +17,7 @@ type DelagateModalProps = {
   closeModal?: () => void;
 };
 
-export function DelagateModal({
+export function DelegateModal({
   isOpen = false,
   id = '',
   symbol = '',
@@ -28,7 +28,7 @@ export function DelagateModal({
   stakerDelegate = '',
   slash = '',
   closeModal = pass,
- }:DelagateModalProps){
+ }:DelegateModalProps){
 
   return(
     <div className=''>
@@ -82,11 +82,11 @@ export function DelagateModal({
                     <div className='text-2xl text-white font-bold'>
                       Delegate Steps
                     </div>
-                    <div className='text-base text-white/50 mt-6'>
+                    <div className='text-base text-white/50 mt-6 mb-3'>
                       {description}
                     </div>
                     <Link href={link} target='_blank'>
-                      <div className='rounded-[26px] px-4 py-2 border-[1px] text_white/50 text-base text-center'>
+                      <div className='rounded-[26px] px-4 py-2 border-[1px] text-white/50 text-base text-center border-white/20 w-1/4'>
                         Learn More
                       </div>
                     </Link>
@@ -101,7 +101,7 @@ export function DelagateModal({
                       <div className='text-white/30 text-sm'>Delegated Address Amount</div>
                       <div className='text-white/30 text-sm'>Slash Record</div>
                     </div>
-                    <div className='border-[1px] border-white/10 mt-2'/>
+                    <div className='border-[0.5px] border-white/10 mt-3'/>
                     <div className='mt-6 grid grid-cols-3 gap-4'>
                       <div className='text-white/30 text-sm'>{delegateAmout}{symbol}</div>
                       <div className='text-white/30 text-sm'>{stakerDelegate}</div>

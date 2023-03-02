@@ -1,11 +1,28 @@
 import React from "react";
 import { pass } from "src/lib/fp";
+import { DelegateModal } from "../Modal/DelegateModal";
+import { useState } from "react";
+
+const delegateSteps = [
+  {
+    id: 1,
+    description:'',
+    link:''
+  },
+  {
+
+  },
+]
 
 type NodeItemCardProps = {
   id: string,
   name: string,
   apy: string,
   symbol: string,
+  address: string,
+  delegateAmout: string,
+  stakerDelegate: string,
+  slash: string,
   open: () => void
 }
 
@@ -14,10 +31,17 @@ export default function NodeItemCard ({
   name = '',
   apy = '',
   symbol = '',
+  address = '',
+  delegateAmout = '',
+  stakerDelegate = '',
+  slash = '',
   open = pass,
 }:NodeItemCardProps){
 
-  let logoImage = ''
+  const [isOpen, setIsOpen] = useState<boolean>(false)
+
+
+  let logoImage = '';
 
   switch(symbol){
     case 'ETH':
@@ -110,10 +134,28 @@ export default function NodeItemCard ({
      case 'NYM':
       logoImage = '/image/chainLogo/NYM.png'
      break
+     default:
+      logoImage = ''
+    break
   }
+
 
   return(
     <div className="bg-white/5 rounded-[24px] px-6 py-3">
+      <DelegateModal
+        isOpen = {isOpen}
+        id = {id}
+        symbol = {symbol}
+        address = {address}
+        description = ''
+        link = ''
+        delegateAmout = {delegateAmout}
+        stakerDelegate = {stakerDelegate}
+        slash = {slash}
+        closeModal = {() => {
+          setIsOpen(false)
+        }}
+      />
       <div className="mx-auto mt-4 rounded-[16px] bg-[#182036] p-2 w-fit">
         <img src={logoImage} className="mx-auto w-10 h-10"/>
       </div>
@@ -127,8 +169,8 @@ export default function NodeItemCard ({
         {symbol} APY
       </div>
       <div 
-        className="mt-4 mb-3 bg-[#2A23FF] rounded-[24px] mx-auto text-center px-4 py-3 text-white w-4/5"
-        onClick={open}
+        className="mt-4 mb-3 bg-[#2A23FF] rounded-[24px] mx-auto text-center px-4 py-3 text-white w-4/5 cursor-pointer"
+        onClick={() => setIsOpen(true)}
         >
         Delegate
       </div>

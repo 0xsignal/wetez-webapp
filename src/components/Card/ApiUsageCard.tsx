@@ -60,10 +60,10 @@ export function ApiUsageCard({
           <img src="/image/help_tips_icon.png" className='h-6'/>
         </div>
         <div className='mt-6'>
-          <div className='grid grid-cols-5 gap-1 text-base text-white/30'>
-            <span className='pl-2'>Network</span>
-            <span className='grow pl-10 col-span-3'>Usage</span>
-            <span className='pl-6'>Status</span>
+          <div className='grid grid-cols-7 gap-1 text-base text-white/30'>
+            <span className='pl-2 col-span-2'>Network</span>
+            <span className='grow col-span-4'>Usage</span>
+            <span className=''>Status</span>
           </div>
           <div className='border-[0.5px] border-white/10 mt-2'></div>
         </div>
