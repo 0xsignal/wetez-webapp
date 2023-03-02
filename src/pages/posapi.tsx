@@ -9,7 +9,6 @@ import { Meta } from 'src/components/Meta';
 
 
 export default function Posapi() {
-
   const { data, error, loading, size, setSize } = useApiList()
   
   const getApiList =  (data: ApiList[] | undefined) =>
