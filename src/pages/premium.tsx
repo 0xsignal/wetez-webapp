@@ -23,7 +23,6 @@ export default function Premium() {
   const onLoadMore = useEvent(() => setSize(size + 1))
   const canLoadMore = size < (data == undefined ? 0 : data?.[data?.length - 1]?.pagination.totalPages)
 
-  console.log(data)
 
   if (loading || !data) return <>加载中</>
   if (error) return <>加载失败</>

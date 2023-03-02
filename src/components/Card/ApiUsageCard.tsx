@@ -67,7 +67,7 @@ export function ApiUsageCard({
           </div>
           <div className='border-[0.5px] border-white/10 mt-2'></div>
         </div>
-        <div className='mt-4'>
+        <div className='mt-4 space-y-1'>
         {(subscribePlanList.map((item) => (
           <PlanListItem
             key={item.id}

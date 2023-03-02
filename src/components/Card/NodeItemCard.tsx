@@ -17,20 +17,117 @@ export default function NodeItemCard ({
   open = pass,
 }:NodeItemCardProps){
 
+  let logoImage = ''
+
+  switch(symbol){
+    case 'ETH':
+     logoImage = '/image/chainLogo/ETH.png'
+    break
+    case 'XTZ':
+      logoImage = '/image/chainLogo/XTZ.png'
+     break
+     case 'ATOM':
+      logoImage = '/image/chainLogo/ATOM.png'
+     break
+     case 'IRIS':
+      logoImage = '/image/chainLogo/IRIS.png'
+     break
+     case 'IOTX':
+      logoImage = '/image/chainLogo/IOTX.png'
+     break
+     case 'MATIC':
+      logoImage = '/image/chainLogo/MATIC.png'
+     break
+     case 'SOL':
+      logoImage = '/image/chainLogo/SOL.png'
+     break
+     case 'WAN':
+      logoImage = '/image/chainLogo/WAN.png'
+     break
+     case 'ROSE':
+      logoImage = '/image/chainLogo/ROSE.png'
+     break
+     case 'KAVA':
+      logoImage = '/image/chainLogo/KAVA.png'
+     break
+     case 'AKT':
+      logoImage = '/image/chainLogo/AKT.png'
+     break
+     case 'ATP':
+      logoImage = '/image/chainLogo/ATP.png'
+     break
+     case 'MTRG':
+      logoImage = '/image/chainLogo/MTRG.png'
+     break
+     case 'ROWAN':
+      logoImage = '/image/chainLogo/ROWAN.png'
+     break
+     case 'PDEX':
+      logoImage = '/image/chainLogo/PDEX.png'
+     break
+     case 'MINA':
+      logoImage = '/image/chainLogo/MINA.png'
+     break
+     case 'FRA':
+      logoImage = '/image/chainLogo/FRA.png'
+     break
+     case 'EDG':
+      logoImage = '/image/chainLogo/EDG.png'
+     break
+     case 'PCX':
+      logoImage = '/image/chainLogo/PCX.png'
+     break
+     case 'IOST':
+      logoImage = '/image/chainLogo/IOST.png'
+     break
+     case 'NMT':
+      logoImage = '/image/chainLogo/NMT.png'
+     break
+     case 'JUNO':
+      logoImage = '/image/chainLogo/JUNO.png'
+     break
+     case 'GRAVITON':
+      logoImage = '/image/chainLogo/GRAVITON.png'
+     break
+     case 'EVMOS':
+      logoImage = '/image/chainLogo/EVMOS.png'
+     break
+     case 'UMEE':
+      logoImage = '/image/chainLogo/UMEE.png'
+     break
+     case 'FLIX':
+      logoImage = '/image/chainLogo/FLIX.png'
+     break
+     case 'CFX':
+      logoImage = '/image/chainLogo/CFX.png'
+     break
+     case 'MYRIA':
+      logoImage = '/image/chainLogo/MYRIA.png'
+     break
+     case 'DBIO':
+      logoImage = '/image/chainLogo/DBIO.png'
+     break
+     case 'NYM':
+      logoImage = '/image/chainLogo/NYM.png'
+     break
+  }
 
   return(
     <div className="bg-white/5 rounded-[24px] px-6 py-3">
+      <div className="mx-auto mt-4 rounded-[16px] bg-[#182036] p-2 w-fit">
+        <img src={logoImage} className="mx-auto w-10 h-10"/>
+      </div>
       <div className="mt-4 text-white font-bold text-base text-center">
         {name}
       </div>
-      <div className="mt-8 text-4xl text-white/50 font-brand">
-        {apy}
+      <div className="mt-6 text-4xl text-white/50 font-brand text-center">
+        {apy}%
       </div>
-      <div className="mt-2 text-base text-white/30">
+      <div className="mt-2 text-base text-white/30 text-center">
         {symbol} APY
       </div>
       <div 
-        className="mt-3 bg-[#2A23FF] rounded-[24px] mx-auto text-center px-4 py-2 text-white"
+        className="mt-4 mb-3 bg-[#2A23FF] rounded-[24px] mx-auto text-center px-4 py-3 text-white w-4/5"
         onClick={open}
         >
         Delegate

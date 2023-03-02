@@ -102,7 +102,6 @@ export default function CircleChart({
     }
     transferDownArray=[transferDownNum]
 
-    console.log(transferDownArray)
 
   },[plandata])
 

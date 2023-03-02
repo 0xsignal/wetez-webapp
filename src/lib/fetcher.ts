@@ -79,19 +79,16 @@ export const post: <T>(
   })
 }
 
-export const fetcherOutLink: <T>(url: string, config: FetcherConfig) => Promise<T> = (
-  url,
-  config = {},
+export const fetcherOutLink: <T>(url: string) => Promise<T> = (
+  url
 ) => {
-
   url = `${url}`
   const urlObject = new URL(url)
-  
-  return fetch(urlObject, config)
+  return fetch(urlObject)
   .then(response => response.json())
   .then(json => {
     switch(true){
-      case json.status === 80000:
+      case json.status === "80000":
         return json
         default:
           throw new Error(json.message || '未知错误')
@@ -105,6 +102,5 @@ export const fetcherOutLink: <T>(url: string, config: FetcherConfig) => Promise<
 }
 
 export const getOutLink: <T>(url: string, config?: FetcherConfig) => Promise<T> = (
-  url,
-  config = {},
-) => fetcherOutLink(url, config)
+  url
+) => fetcherOutLink(url)

@@ -33,22 +33,48 @@ export default function PlanListItem(
     
     switch(network){
       case 'Ethereum':
-        logoImage = '/image/ethereum_logo_icon.png'
+        logoImage = '/image/chainLogo/ETH.png'
         break
       case 'Polygon':
-        logoImage = '/image/polygon_logo_icon.png'
+        logoImage = '/image/chainLogo/MATIC.png'
         break
       case 'Cosmos':
-        logoImage = '/image/cosmos_logo_icon.png'
+        logoImage = '/image/chainLogo/ATOM.png'
         break
       case 'Arbitrum':
-        logoImage = '/image/arbitrum_logo_icon.png'
+        logoImage = '/image/chainLogo/Arbitrum.png'
+        break
+      case 'Solana':
+        logoImage = '/image/chainLogo/SOL.png'
+        break
+      case 'Kava':
+        logoImage = '/image/chainLogo/KAVA.png'
+        break
+      case 'IRISnet':
+        logoImage = '/image/chainLogo/IRIS.png'
+        break
+      case 'Juno':
+        logoImage = '/image/chainLogo/JUNO.png'
+        break
+      case 'Umee':
+        logoImage = '/image/chainLogo/UMEE.png'
+        break
+      case 'Evmos':
+        logoImage = '/image/chainLogo/EVMOS.png'
+        break
+      case 'OKC':
+        logoImage = '/image/chainLogo/OKX.png'
+        break
+      case 'HSC':
+        logoImage = '/image/chainLogo/EVMOS.png'
+        break
+      case 'Gravity':
+        logoImage = '/image/chainLogo/GRAVITON.png'
         break
       default:
-        logoImage = '/image/ethereum_logo_icon.png'
+        logoImage = '/image/chainLogo/EVMOS.png'
         break
     }
-
     switch(status){
       case 1:
         apiStatus = 'Active'
@@ -69,8 +95,10 @@ export default function PlanListItem(
 
   return(
     <div className='grid grid-cols-5 gap-1 py-2 space-x-2 items-center'>
-      <div className='flex items-center space-x-2'>
-        <img src={logoImage} className='w-10'/>
+      <div className='flex items-center space-x-2.5'>
+        <div className='rounded-full p-1 bg-white/5 w-10'>
+          <img src={logoImage} className='w-8'/>
+        </div>
         <p className='text-lg text-white'>{network}</p>
       </div>
       <div className='flex space-x-4 items-center col-span-3 pl-8'>

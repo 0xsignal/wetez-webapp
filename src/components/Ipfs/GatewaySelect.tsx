@@ -27,7 +27,6 @@ export function GatewaySelect({
 }:GatewaySelectProps) {
 
   let nextId = gatewayItemList.length - 1;
-  console.log(gatewayItemList)
   const [gatewayList,setGatewayList] = useState(gatewayItemList);
 
   useEffect(()=>{

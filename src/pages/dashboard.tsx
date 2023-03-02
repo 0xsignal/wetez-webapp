@@ -64,32 +64,34 @@ export default function Dashboard() {
       <div className='flex'>
         <Menu/>
         <div className='grow bg-[#182036] pl-10 pr-10'>
-          <Header
-            title="Dashboard"
-            description="Whole data about your plans here"
-            url = ''
-            back = {false}
-            backTitle = ""
-            backUrl=""
-          />
-          <div className='px-0 py-10'>
-            <div className='grid grid-cols-5 gap-4'>
-              <div className='col-span-3'>
-                <ApiUsageCard
-                  subscribePlanList={subscribedList?.list}
-                />
-              </div>
-              <div className='col-span-2'>
-                <CurrentPlanCard
-                  paid = {paid}
-                  tagList = {TagList}
-                  planList = {currentPlan?.subscribedPlan}
-                />
-                <div className='mt-6'>
-                  <CircleChart
-                    planShow = {false}
-                    plandata = {ipfsPlanData?.subscribedPlan}
+          <div className='max-w-6xl mx-auto'>
+            <Header
+              title="Dashboard"
+              description="Whole data about your plans here"
+              url = ''
+              back = {false}
+              backTitle = ""
+              backUrl=""
+            />
+            <div className='px-0 py-10'>
+              <div className='grid grid-cols-5 gap-4'>
+                <div className='col-span-3'>
+                  <ApiUsageCard
+                    subscribePlanList={subscribedList?.list}
                   />
+                </div>
+                <div className='col-span-2'>
+                  <CurrentPlanCard
+                    paid = {paid}
+                    tagList = {TagList}
+                    planList = {currentPlan?.subscribedPlan}
+                  />
+                  <div className='mt-6'>
+                    <CircleChart
+                      planShow = {false}
+                      plandata = {ipfsPlanData?.subscribedPlan}
+                    />
+                  </div>
                 </div>
               </div>
             </div>

@@ -64,19 +64,46 @@ export default function ApiPlanCard({
 
   switch(name){
     case 'Ethereum':
-      logoImage = '/image/ethereum_logo_icon.png'
+      logoImage = '/image/chainLogo/ETH.png'
       break
     case 'Polygon':
-      logoImage = '/image/polygon_logo_icon.png'
+      logoImage = '/image/chainLogo/MATIC.png'
       break
     case 'Cosmos':
-      logoImage = '/image/cosmos_logo_icon.png'
+      logoImage = '/image/chainLogo/ATOM.png'
       break
     case 'Arbitrum':
-      logoImage = '/image/arbitrum_logo_icon.png'
+      logoImage = '/image/chainLogo/Arbitrum.png'
+      break
+    case 'Solana':
+      logoImage = '/image/chainLogo/SOL.png'
+      break
+    case 'Kava':
+      logoImage = '/image/chainLogo/KAVA.png'
+      break
+    case 'IRISnet':
+      logoImage = '/image/chainLogo/IRIS.png'
+      break
+    case 'Juno':
+      logoImage = '/image/chainLogo/JUNO.png'
+      break
+    case 'Umee':
+      logoImage = '/image/chainLogo/UMEE.png'
+      break
+    case 'Evmos':
+      logoImage = '/image/chainLogo/EVMOS.png'
+      break
+    case 'OKC':
+      logoImage = '/image/chainLogo/OKX.png'
+      break
+    case 'HSC':
+      logoImage = '/image/chainLogo/EVMOS.png'
+      break
+    case 'Gravity':
+      logoImage = '/image/chainLogo/GRAVITON.png'
       break
     default:
-      logoImage = '/image/ethereum_logo_icon.png'
+      logoImage = '/image/chainLogo/EVMOS.png'
       break
   }
 
@@ -103,7 +130,9 @@ export default function ApiPlanCard({
   return (
     <div className='bg-white/5 rounded-[24px] px-6 pt-5 pb-4 hover:border-[1px] hover:border-white/20'>
       <div className='flex items-center space-x-4'>
-        <img src={logoImage} className='w-8'/>
+        <div className='rounded-[16px] bg-[#182036] p-1.5 w-12'>
+          <img src={logoImage} className='w-8 h-8 mx-auto'/>
+        </div>
         <div className='text-2xl text-white font-bold'>{name}</div>
         <div className={statusStyle}>{apiStatus}</div>
         <div className='grow'/>

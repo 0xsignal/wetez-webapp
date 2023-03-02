@@ -16,7 +16,13 @@ export default function Node(){
     error: nodeListError,
   } = useNodeList()
 
-  console.log(nodeListData?.list)
+  if(nodeListLoading){
+    return(
+      <div>
+        加载中
+      </div>
+    )
+  }
 
   return(
     <>
@@ -27,7 +33,7 @@ export default function Node(){
       />
        <div className='flex'>
         <Menu/>
-        <div className='grow bg-[#182036] pl-10 pr-10 overflow-y-auto h-screen pb-6 '>
+        <div className='grow bg-[#182036] pl-10 pr-10 overflow-y-auto h-screen pb-6'>
           <div className='max-w-6xl mx-auto'>
             <Header
               title="Node"
@@ -55,14 +61,15 @@ export default function Node(){
                 )}
               </Disclosure>
             </div>
-            <div className='mt-12 grid grid-cols-4 gap-3'>
+            <div className='mt-12 grid grid-cols-4 gap-x-4 gap-y-6'>
               {nodeListData?.list.map((item) => (
                 <NodeItemCard
                   id = {item.id}
-                  name = {item.name}
+                  name = {item.nodeName}
                   apy = {item.apy}
                   symbol = {item.symbol}
                   open = {pass}
+                  key = {item.id}
                 />
               ))}
             </div>
