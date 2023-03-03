@@ -5,9 +5,9 @@ import { useState } from "react";
 
 const delegateSteps = [
   {
-    id: 1,
-    description:'',
-    link:''
+    id: 0,
+    description:" <P>1. Download and login a wallet that supports XTZ staking (imToken/Trust Wallet/Atomic/etc.)</p><P>2. Copy this delegate address and enter the wallet's staking section, paste to choose the validator Wetez</p><P>3. Click [delegate] to finish the delegation and wait for the staking reward</p> ",
+    link:'https://docs.wetez.io/wetez/user/staking/tezos'
   },
   {
 
@@ -23,6 +23,7 @@ type NodeItemCardProps = {
   delegateAmout: string,
   stakerDelegate: string,
   slash: string,
+  indexArray: number,
   open: () => void
 }
 
@@ -35,6 +36,7 @@ export default function NodeItemCard ({
   delegateAmout = '',
   stakerDelegate = '',
   slash = '',
+  indexArray = 0,
   open = pass,
 }:NodeItemCardProps){
 
@@ -147,8 +149,6 @@ export default function NodeItemCard ({
         id = {id}
         symbol = {symbol}
         address = {address}
-        description = ''
-        link = ''
         delegateAmout = {delegateAmout}
         stakerDelegate = {stakerDelegate}
         slash = {slash}

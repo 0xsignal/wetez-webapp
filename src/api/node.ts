@@ -1,5 +1,6 @@
 import { getOutLink } from 'src/lib/fetcher'
 import useSWR from 'swr'
+import useSWRImmutable from 'swr/immutable'
 
 type NodeList = {
   info:{
@@ -21,7 +22,7 @@ type NodeList = {
 
 export const useNodeList = () => {
   
-  const{ data, error } = useSWR<NodeList>("https://api.wetez.io/blossom/v1/officialapi/wallet/poollist",getOutLink)
+  const{ data, error } = useSWRImmutable<NodeList>("https://api.wetez.io/blossom/v1/officialapi/wallet/poollist",getOutLink)
 
   return {
     data,

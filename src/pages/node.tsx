@@ -62,7 +62,7 @@ export default function Node(){
               </Disclosure>
             </div>
             <div className='mt-12 grid grid-cols-4 gap-x-4 gap-y-6'>
-              {nodeListData?.list.map((item) => (
+              {nodeListData?.list.map((item,index) => (
                 <NodeItemCard
                   id = {item.id}
                   name = {item.nodeName}
@@ -74,6 +74,7 @@ export default function Node(){
                   stakerDelegate = {item.stakerAmount}
                   slash = {item.slash}
                   delegateAmout = {item.delegateAmount}
+                  indexArray = {index}
                 />
               ))}
             </div>
