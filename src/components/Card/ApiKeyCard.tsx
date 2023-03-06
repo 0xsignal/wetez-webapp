@@ -24,9 +24,6 @@ export function ApiKeyCard({
         </div>
         <div className='grow'>
         </div>
-        <button className='border-[1px] border-white/20 px-10 py-3 text-base text-white/50 rounded-[26px]'>
-          Reset
-        </button>
       </div>
     </div>
   )

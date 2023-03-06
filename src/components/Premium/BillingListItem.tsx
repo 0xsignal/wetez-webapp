@@ -23,8 +23,7 @@ export default function BillingListItem({
 }:BillingListItemProps){
 
   const [isOpen, setIsOpen] = useState<boolean>(false)
-
-
+  
   const {
     data: orderDtailData,
     trigger: orderDtailTrigger,

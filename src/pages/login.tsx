@@ -58,7 +58,6 @@ export default function Login() {
     setRefreshReCaptcha(r => !r);
   }
 
-  
   return(
     <>
       <Meta
@@ -146,5 +145,4 @@ export default function Login() {
         </div>
     </>
   )
-
 }

@@ -9,7 +9,6 @@ import { Meta } from 'src/components/Meta';
 
 
 export default function Posapi() {
-
   const { data, error, loading, size, setSize } = useApiList()
   
   const getApiList =  (data: ApiList[] | undefined) =>
@@ -20,8 +19,6 @@ export default function Posapi() {
 
   const onLoadMore = useEvent(() => setSize(size + 1))
   const canLoadMore = size < (data == undefined ? 0 : data?.[data?.length - 1]?.pagination.totalPages)
-
-  console.log(data)
 
   if (loading || !data) return <>加载中</>
   if (error) return <>加载失败</>
@@ -59,6 +56,7 @@ export default function Posapi() {
                   {(apiList.map((item) => (
                     <ApiPlanCard
                       id = {item.id}
+                      chainId = {item.chain.chainId}
                       name = {item.chain.name}
                       status = {item.status}
                       usage = {item.todayUsage}
@@ -69,12 +67,9 @@ export default function Posapi() {
                 </div>
               </InfiniteList>
             </div>
-            
           </div>
         </div>
       </div>
     </>
   )
-
-
 }

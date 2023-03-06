@@ -9,7 +9,6 @@ import { Register } from '../api/auth';
 import { useRouter } from 'next/router';
 import ButtonLoading from 'src/components/ButtonLoading';
 
-
 export default function Signup() {
 
   const [email, setEmail] = useState<string>('');

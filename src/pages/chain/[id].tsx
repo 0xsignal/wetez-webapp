@@ -5,6 +5,9 @@ import { Header } from "src/components/Header";
 import { useRouter } from 'next/router'
 import { useChainPlan,useChainStats1m,useChainStats24h,useChainStats7d } from "src/api/posapi";
 import { StatusCard } from "src/components/Card/StatusCard";
+import ApiMetricCard from "src/components/Card/ApiMetricCard";
+import UsageBoard from "src/components/Ipfs/UsageBoard";
+
 
 export default function ChainItem(){
 
@@ -35,7 +38,7 @@ export default function ChainItem(){
     error: chainStats1mError,
   } = useChainStats1m(Number(id),isReady)
   
-  if(!isReady){
+  if(!isReady && chainPlanLoading && chainStats24hLoading && chainStats7dLoading && chainStats1mLoading){
     return (
       <div>加载中</div>
     )
@@ -51,6 +54,7 @@ export default function ChainItem(){
        <div className='flex'>
         <Menu/>
         <div className='grow bg-[#182036] pl-10 pr-10 overflow-y-auto h-screen pb-6'>
+          <div className="max-w-6xl">
           <Header
             title = {`${chainPlanData?.subscribedPlan.chain.name} Mainnet`} 
             description= {`${chainPlanData?.subscribedPlan.chain.name} Mainnet API Endpoint, learn more about API settings`}
@@ -66,9 +70,21 @@ export default function ChainItem(){
               />
             </div>
             <div className=''>
-              
+              <ApiMetricCard
+                plandata={chainPlanData?.subscribedPlan}
+              />
             </div>
           </div>
+          <div className="mt-10">
+            <UsageBoard
+              type = 'Api'
+              planStatus = {chainPlanData?.subscribedPlan}
+              items24h = {chainStats24hData?.items}
+              items7d = {chainStats7dData?.items}
+              items1m = {chainStats1mData?.items}
+            />
+          </div>
+        </div>
         </div>
       </div>
     </>

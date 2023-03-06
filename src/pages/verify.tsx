@@ -3,7 +3,6 @@ import { useRouter } from 'next/router';
 import { VerifyEmail } from 'src/api/auth';
 import { useEffect } from 'react';
 
-
 export default function Verify() {
 
   const router = useRouter()

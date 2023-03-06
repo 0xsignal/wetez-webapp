@@ -53,7 +53,7 @@ export type SubscribedList = {
 export const useSubscribedList = () => {
   
   const{ data, error } = useSWR<SubscribedList>('/v1/get_subscribed_list',url => 
-    post(url,{page:1,pageSize:6}),
+    post(url,{page:1,pageSize:6,chainType:1,hideInactive:true}),
   )
   return {
     data,

@@ -11,7 +11,7 @@ type StatusCardProps = {
     totalStorage: number
     transferUp : number
     transferDown : number
-    status: 1 | 2 | 3
+    status: 1 | 2 | 0 | -2
     expireAt: number
     chain:{
       chainId: number

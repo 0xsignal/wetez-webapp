@@ -1,15 +1,19 @@
 import React from 'react';
-import { DataSelect } from './DataSelect';
 import { gbConvert } from 'src/lib/format';
+import moment from 'moment';
+import { DataSelectWithinListbox } from '../PosApi/DataSelectWithinListbox';
+import { DataSelect } from './DataSelect';
 
 
 type UsageBoardProps = {
+  type: string,
   planStatus:{
     id: number
     totalStorage: number
     transferUp : number
     transferDown : number
-    status: 1 | 2 | 3
+    todayUsage: number
+    status: 1 | 2 | 0 | -2
     expireAt: number
     chain:{
       chainId: number
@@ -19,6 +23,7 @@ type UsageBoardProps = {
       id: number
       name: string
       chainId: number
+      dayLimit: number
       totalStorage: number
       transferUp : number
       transferDown : number
@@ -49,11 +54,13 @@ type UsageBoardProps = {
 }
 
 export default function UsageBoard({
+  type = '',
   planStatus = {
     id : 1,
     totalStorage: 0,
     transferUp: 0,
     transferDown: 0,
+    todayUsage: 0,
     status : 1,
     expireAt : 10000,
     chain : {
@@ -64,6 +71,7 @@ export default function UsageBoard({
       id : 14,
       name : 'Free',
       chainId : 14,
+      dayLimit: 10,
       totalStorage: 0,
       transferDown: 0,
       transferUp: 0,
@@ -94,6 +102,10 @@ export default function UsageBoard({
 }],
 }:UsageBoardProps){
 
+  const timeNow = moment().format('LL')
+
+  if(type == 'IPFS'){
+
   const totalStorage = gbConvert(planStatus.plan.totalStorage)
 
   return(
@@ -107,7 +119,7 @@ export default function UsageBoard({
             {totalStorage} GB
           </div>
           <div className='text-white/50'>
-            Total Storage in Fri 16 Dec 2022
+            Total Storage in {timeNow}
           </div>
         </div>
         <div className='mt-4'>
@@ -119,5 +131,32 @@ export default function UsageBoard({
         </div>
       </div>
     </div>
-  )
+  )}
+  else {
+    return(
+      <div className='bg-white/5 rounded-[24px]'>
+        <div className='px-6 py-6'>
+          <div className='text-xl text-white font-bold'>
+            Volume History
+          </div>
+          <div className='mt-4 flex gap-x-2 text-sm'>
+            <div className='font-bold text-white'>
+              {planStatus.todayUsage}
+            </div>
+            <div className='text-white/50'>
+              in {timeNow}
+            </div>
+          </div>
+          <div className='mt-4'>
+            <DataSelectWithinListbox
+              items24h = {items24h}
+              items7d = {items7d}
+              items1m = {items1m}
+
+            />
+          </div>
+        </div>
+      </div>
+    )
+  }
 }

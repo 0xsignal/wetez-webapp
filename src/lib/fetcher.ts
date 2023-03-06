@@ -78,3 +78,29 @@ export const post: <T>(
     body: JSON.stringify(data),
   })
 }
+
+export const fetcherOutLink: <T>(url: string) => Promise<T> = (
+  url
+) => {
+  url = `${url}`
+  const urlObject = new URL(url)
+  return fetch(urlObject)
+  .then(response => response.json())
+  .then(json => {
+    switch(true){
+      case json.status === "80000":
+        return json
+        default:
+          throw new Error(json.message || '未知错误')
+    }
+  })
+  .then(json => json.data)
+  .catch(error => {
+    const message = error.msg || error.message
+    throw error
+  })
+}
+
+export const getOutLink: <T>(url: string, config?: FetcherConfig) => Promise<T> = (
+  url
+) => fetcherOutLink(url)

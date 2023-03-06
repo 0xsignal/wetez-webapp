@@ -16,7 +16,7 @@ type CicleChartProps = {
     totalStorage: number,
     transferUp : number,
     transferDown : number,
-    status: 1 | 2 | 3
+    status: 1 | 2 | 0 | -2 ,
     expireAt: number
     chain:{
       chainId: number
@@ -102,7 +102,6 @@ export default function CircleChart({
     }
     transferDownArray=[transferDownNum]
 
-    console.log(transferDownArray)
 
   },[plandata])
 
