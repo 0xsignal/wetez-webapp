@@ -1,34 +1,7 @@
 import { post } from '../lib/fetcher';
 import useSWRInfinite from 'swr/infinite'
 import useSWRMutation from 'swr/mutation'
-
-export type PlanDetail = {
-  subscribedPlan:{
-    id: number
-    totalStorage: number,
-    transferUp : number,
-    transferDown : number,
-    status: 1 | 2 | 3
-    expireAt: number
-    chain:{
-      chainId: number
-      name: string
-    }
-    plan:{
-      id: number,
-      name: string,
-      chainId: number,
-      totalStorage:number,
-      transferUp : number,
-      transferDown : number,
-    }
-    endpoints:string[]
-  },
-  upgradeablePlans:{
-    id: number
-  }[]
-}
-
+import useSWR from 'swr'
 
 export type CreateOrder = {
   orderId: string,
@@ -134,7 +107,7 @@ export const useOrderList = () =>{
   const { data, error, size, setSize } = useSWRInfinite<OrderList>(
     getKey,
     OrderListFetcher,
-    { revalidateFirstPage: false, initialSize: 1 },
+    { revalidateFirstPage: true, initialSize: 1 },
   )
 
   return {
@@ -144,5 +117,88 @@ export const useOrderList = () =>{
     size,
     setSize,
   }
+}
 
+export type userInfo ={
+  id: number,
+  apiKey: string,
+  subscribedPlans:{
+    id: number
+    todayUsage: number
+    totalStorage: number,
+    transferUp : number,
+    transferDown : number,
+    status: 1 | 2 | 0 | -2,
+    expireAt: number,
+    chain:{
+      chainId: number,
+      name: string,
+    }
+    plan:{
+      id: number,
+      name: string,
+      chainId: number,
+      dayLimit: number,
+      price: number,
+      totalStorage:number,
+      transferUp : number,
+      transferDown : number,
+    }
+  }[]
+}
+
+export const useUserrInfo = () => {
+  
+  const{ data, error } = useSWR<userInfo>('/v1/get_user',url => 
+    post(url,{}),
+  )
+  return {
+    data,
+    loading: !error && !data,
+    error,
+  }
+}
+
+export type PlanDetail = {
+  currentPlan: string,
+  list:{
+    id: number,
+    name: string,
+    chainId: number,
+    price: number,
+    dayLimit: number,
+    secondLimit : number,
+    totalStorage: number,
+    transferUp: number,
+    transferDown: number,
+    current: boolean,
+  }[] | undefined
+}
+
+export const usePlanDetail = (chainId:number,isReady:boolean,isRequest:boolean) => {
+  const{ data, error } = useSWR<PlanDetail>((isReady && isRequest) ? '/v1/get_chain_plans': null,url => 
+    post(url,{chainId: chainId}),
+  )
+  return {
+    data,
+    loading: !error && !data,
+    error,
+  }
+}
+
+export const PlanDetailFunc = async(url:string, { arg: PostData }:any) => {
+  const res = await post(url,PostData)
+  return res
+}
+
+export const usePlanDetailFunc = () => {
+  
+  const{ data, trigger, isMutating,error } = useSWRMutation<PlanDetail>('/v1/get_chain_plans',PlanDetailFunc)
+  return {
+    trigger,
+    loading: !error && !data,
+    isMutating,
+    data,
+    error,
+  }
 }

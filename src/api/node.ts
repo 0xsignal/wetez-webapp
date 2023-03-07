@@ -1,5 +1,4 @@
 import { getOutLink } from 'src/lib/fetcher'
-import useSWR from 'swr'
 import useSWRImmutable from 'swr/immutable'
 
 type NodeList = {

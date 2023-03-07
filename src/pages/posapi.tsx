@@ -9,19 +9,22 @@ import { Meta } from 'src/components/Meta';
 
 
 export default function Posapi() {
-  const { data, error, loading, size, setSize } = useApiList()
+  const { 
+    data: apiListData, 
+    error: apiListError, 
+    isLoading: apiListLoading, size, setSize } = useApiList()
   
-  const getApiList =  (data: ApiList[] | undefined) =>
-    data?.map(page => page?.list).filter(Boolean)
+  const getApiList =  (apiListData: ApiList[] | undefined) =>
+  apiListData?.map(page => page?.list).filter(Boolean)
     .reduce((accu, curr) => accu.concat(curr), [])
   
-  const apiList = getApiList(data) || []
+  const apiList = getApiList(apiListData) || []
 
   const onLoadMore = useEvent(() => setSize(size + 1))
-  const canLoadMore = size < (data == undefined ? 0 : data?.[data?.length - 1]?.pagination.totalPages)
+  const canLoadMore = size < (apiListData == undefined ? 0 : apiListData?.[apiListData?.length - 1]?.pagination.totalPages)
 
-  if (loading || !data) return <>加载中</>
-  if (error) return <>加载失败</>
+  if (apiListLoading) return <>加载中</>
+  if (apiListError) return <>加载失败</>
 
 
   return(
@@ -44,7 +47,7 @@ export default function Posapi() {
           />
           <div className='mt-10'>
             <ApiKeyCard
-              apiKey = {data[0]?.apiKey}
+              apiKey = {apiListData?.[0]?.apiKey || ''}
             />
             <div className='mt-2 py-2'>
               <div className='my-8 text-xl text-white/30 font-bold'> All Plans</div>

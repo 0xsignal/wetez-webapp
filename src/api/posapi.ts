@@ -1,6 +1,5 @@
 import { post } from '../lib/fetcher';
 import useSWRInfinite from 'swr/infinite'
-import useSWRMutation from 'swr/mutation'
 import useSWR from 'swr'
 
 export type ApiList = {
@@ -54,15 +53,15 @@ export const useApiList = () => {
     return [pageIndex]
   }
 
-  const { data, error, size, setSize } = useSWRInfinite<ApiList>(
+  const { data, error, isLoading, size, setSize } = useSWRInfinite<ApiList>(
     getKey,
     ApiListFetcher,
-    { revalidateFirstPage: false },
+    { revalidateFirstPage: true, initialSize: 1 },
   )
 
   return {
     data,
-    loading: !error && !data,
+    isLoading,
     error,
     size,
     setSize,

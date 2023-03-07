@@ -6,6 +6,7 @@ import { ApiUsageCard } from '../components/Card/ApiUsageCard'
 import { useCurrentPlans,useSubscribedList } from 'src/api/dashboard'
 import { useIPFSPlan } from 'src/api/ipfs'
 import dynamic from 'next/dynamic'
+import DashboardSkethon from 'src/components/Skethon/DashboardSkethon'
 
 const CircleChart = dynamic(
   () => import('../components/Chart/CircleChart'),
@@ -50,7 +51,7 @@ export default function Dashboard() {
   }
 
   if( planLoading && listLoading && ipfsPlanLoading){
-    return<></>
+    return <DashboardSkethon/>
   }
 
 

@@ -3,17 +3,6 @@ import { pass } from "src/lib/fp";
 import { DelegateModal } from "../Modal/DelegateModal";
 import { useState } from "react";
 
-const delegateSteps = [
-  {
-    id: 0,
-    description:" <P>1. Download and login a wallet that supports XTZ staking (imToken/Trust Wallet/Atomic/etc.)</p><P>2. Copy this delegate address and enter the wallet's staking section, paste to choose the validator Wetez</p><P>3. Click [delegate] to finish the delegation and wait for the staking reward</p> ",
-    link:'https://docs.wetez.io/wetez/user/staking/tezos'
-  },
-  {
-
-  },
-]
-
 type NodeItemCardProps = {
   id: string,
   name: string,

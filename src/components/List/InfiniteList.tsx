@@ -23,7 +23,7 @@ import { useIntersectionObserver } from 'usehooks-ts'
   })
   const shouldLoadMore = canLoadMore && !!entry?.isIntersecting
   useEffect(() => {
-    if (!shouldLoadMore) return
+    if (!shouldLoadMore) return 
     onLoadMore()
   }, [entry, onLoadMore, shouldLoadMore])
 

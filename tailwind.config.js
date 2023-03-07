@@ -10,6 +10,13 @@ module.exports = {
       source: ['Source Sans Pro', ...defaultTheme.fontFamily.sans],
       brand: ['Black Ops One']
     },
+    keyframes: {
+      shimmer: {
+        '100%': {
+          transform: 'translateX(100%)',
+        },
+      },
+    },
     extend: {
 
     },
