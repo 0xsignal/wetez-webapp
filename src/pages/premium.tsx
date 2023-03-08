@@ -28,7 +28,9 @@ export default function Premium() {
   const { 
     data: orderListData, 
     error: orderListError, 
-    loading: orderListLoading, size, setSize } = useOrderList()
+    loading: orderListLoading, 
+    size: orderListSize, 
+    setSize: setOrderListSize } = useOrderList()
   
   const getOrderList =  (orderListData: OrderList[] | undefined) =>
     orderListData?.map(page => page?.list).filter(Boolean)
@@ -36,8 +38,8 @@ export default function Premium() {
   
   const orderList = getOrderList(orderListData) || []
 
-  const onLoadMore = useEvent(() => setSize(size + 1))
-  const canLoadMore = size < (orderListData == undefined ? 0 : orderListData?.[orderListData?.length - 1]?.pagination.totalPages)
+  const onLoadMore = useEvent(() => setOrderListSize(orderListSize + 1))
+  const canLoadMore = orderListSize < (orderListData == undefined ? 0 : orderListData?.[orderListData?.length - 1]?.pagination.totalPages)
 
   const{
     data: userInfoData,

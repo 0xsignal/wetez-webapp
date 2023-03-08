@@ -74,7 +74,7 @@ export function IpfsItemCard({
         <div className='text-lg text-[#9FADC7] px-8'> {transferDownGB}</div>
       </div>
       <div className={`${buttonStyleClass}`}>
-        <button onClick={ () =>{createOrderTrigger({chainId:chainId,planId:planId})}}>
+        <button onClick={ () =>{createOrderTrigger()}}>
           {buttonWordingText}
         </button>
       </div>
@@ -223,7 +223,7 @@ export function ApiItemCard({
         <div className='text-lg text-[#9FADC7] px-8'> {dayLimit}</div>
       </div>
       <div className={`${buttonStyleClass}`}>
-        <button onClick={ () =>{createOrderTrigger({chainId:chainId,planId:planId})}}>
+        <button onClick={ () =>{createOrderTrigger()}}>
           {buttonWordingText}
         </button>
       </div>

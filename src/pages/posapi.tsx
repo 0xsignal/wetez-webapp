@@ -6,13 +6,19 @@ import InfiniteList from 'src/components/List/InfiniteList';
 import { useEvent } from 'src/lib/hooks';
 import ApiPlanCard from 'src/components/Card/ApiPlanCard';
 import { Meta } from 'src/components/Meta';
+import { SWRConfig } from 'swr'
+
+
 
 
 export default function Posapi() {
+
   const { 
     data: apiListData, 
     error: apiListError, 
-    isLoading: apiListLoading, size, setSize } = useApiList()
+    isLoading: apiListLoading, 
+    size: apiListSize, 
+    setSize: setApiListSize } = useApiList()
   
   const getApiList =  (apiListData: ApiList[] | undefined) =>
   apiListData?.map(page => page?.list).filter(Boolean)
@@ -20,12 +26,12 @@ export default function Posapi() {
   
   const apiList = getApiList(apiListData) || []
 
-  const onLoadMore = useEvent(() => setSize(size + 1))
-  const canLoadMore = size < (apiListData == undefined ? 0 : apiListData?.[apiListData?.length - 1]?.pagination.totalPages)
+  const onLoadMore = useEvent(() => setApiListSize(apiListSize + 1))
+  const canLoadMore = apiListSize < (apiListData == undefined ? 0 : apiListData?.[apiListData?.length - 1]?.pagination.totalPages)
 
   if (apiListLoading) return <>加载中</>
   if (apiListError) return <>加载失败</>
-
+  
 
   return(
     <>

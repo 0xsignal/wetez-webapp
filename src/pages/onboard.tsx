@@ -46,13 +46,13 @@ export default function Onboard() {
             <div className='flex gap-x-10 mt-12 items-center justify-center'>
               <button 
                 className='bg-[#2A23FF] w-2/5 text-white text-center py-4 text-lg rounded-[23px]'
-                onClick={() => {routeEmail}}
+                onClick={routeEmail}
               >
                 Check Email
               </button>
               <button 
                 className='w-2/5 text-white text-center py-4 text-lg rounded-[23px] border-[1px] border-white/20'
-                onClick={() => routeLogin}
+                onClick={routeLogin}
               >
                 Go Homepage
               </button>

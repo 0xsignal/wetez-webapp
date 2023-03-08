@@ -90,26 +90,28 @@ export const orderListAPI = '/v1/payment/get_order_list'
 
 export const OrderListFetcher:(
   pageIndex: number,
-) => Promise<OrderList> = pageIndex =>
+  orderListAPI: string,
+) => Promise<OrderList> = (pageIndex) =>
   post<OrderList>(
     orderListAPI,{page: Number(pageIndex) + 1}
 )
 
 export const useOrderList = () =>{
+
   const getKey:(
     pageIndex: number,
-    previousPageData:OrderList,
-  ) => [number] | null = (pageIndex,previousPageData) => {
+    previousPageData: OrderList,
+  ) => [string,number] | null = (pageIndex,previousPageData) => {
     if(previousPageData && !previousPageData.list.length) return null
-    return [pageIndex]
+    return [orderListAPI,pageIndex+1]
   }
 
   const { data, error, size, setSize } = useSWRInfinite<OrderList>(
     getKey,
-    OrderListFetcher,
-    { revalidateFirstPage: true, initialSize: 1 },
+    ([orderListAPI,pageIndex]) => post(orderListAPI,{page:pageIndex}),
+    { revalidateFirstPage: false, initialSize: 1, }
   )
-
+  
   return {
     data,
     loading: !error && !data,
