@@ -3,40 +3,32 @@ import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useEffect, useState } from 'react'
 import { pass } from '../../lib/fp';
 import Link from 'next/link';
+import moment from 'moment';
+import TimeCounter from '../TimeCounter';
 
-type BillingDetailModalProps = {
-  isOpen?: boolean;
-  id?: string;
-  planNetwork?: string;
-  planType?: string;
-  planMeta?: string;
-  planPrice?: string;
-  planStatus?: number;
-  orderTime?: string;
-  fromEmail?: string;
-  toEmail?: string;
-  company?: string;
-  paymentMethod?: string;
-  currency?: string;
-  closeModal?: () => void;
+type PaymentModalProps = {
+  isOpen?: boolean,
+  id?: string,
+  currency?: string,
+  totalAmout?: string,
+  expireTime?: number,
+  qrcodeImgLink?: string,
+  qrContent?: string,
+  closeModal?: () => void,
 };
 
 export function PaymentModal({
   isOpen = false,
   id = '',
-  planNetwork = '',
-  planType = '',
-  planMeta = '',
-  planPrice = '',
-  planStatus = 1,
-  orderTime = '',
-  fromEmail = '',
-  toEmail = '',
-  company = '',
-  paymentMethod = '',
   currency = '',
+  totalAmout = '',
+  expireTime = 0,
+  qrcodeImgLink = '',
+  qrContent = '',
   closeModal = pass,
- }:BillingDetailModalProps){
+ }:PaymentModalProps){
+
+
 
   return(
     <div className=''>
@@ -75,18 +67,22 @@ export function PaymentModal({
                   >
                     Use Binance to Pay
                   </Dialog.Title>
-                  
                   <div className='mt-10 text-center'>
                     <div className='text-base text-white/50'>
                       Your order created successfully, please complete the payment within
                     </div>
-                    <div className='text-base text-white/50 mt-10'>
+                    <div className='mt-2 text-2xl text-white font-bold'>
+                      <TimeCounter
+                        arriveTime = {expireTime}
+                      />
+                    </div>
+                    <div className='text-base text-white/50 mt-3'>
                       otherwise the order will be automatically cancelled
                     </div>
                   </div>
 
-                  <div className='mt-10 bg-white/5 border-[1px] border-white/20 rounded-[12px] flex px-4 py-2'>
-                    <img src='/image/binance_logo.png' className='w-4'/>
+                  <div className='mt-10 mx-auto w-1/3 bg-white/5 border-[1px] border-white/20 rounded-[12px] space-x-3 flex px-4 py-3 items-center justify-center'>
+                    <img src='/image/binance_logo.png' className='w-8'/>
                     <div className='text-2xl text-white'>
                       Binance Pay
                     </div>
@@ -96,11 +92,14 @@ export function PaymentModal({
                     <div className='text-center text-[#FFE200] text-base'>
                       Use Binance Pay to Scan QR Code and Send
                     </div>
-
+                    <img src={qrcodeImgLink} className="mx-auto w-44 h-44 mt-3"/>
+                    <div className='mt-3 text-center font-bold text-2xl text-white'>
+                      {totalAmout} {currency}
+                    </div>
                   </div>
                   
                   <div 
-                    className='mt-10 text-base text-white/50'
+                    className='mt-10 text-base text-white/50 text-center'
                   >
                     I have completed the payment?
                   </div>

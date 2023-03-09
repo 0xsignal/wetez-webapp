@@ -42,7 +42,7 @@ export const fetcher: <T>(url: string, config: FetcherConfig) => Promise<T> = (
     switch(true){
       case json.status === 80000:
         return json
-      case json.status === 80401:
+      case json.status === 81007:
         removeUserSession()
         Router.replace({
           pathname: '/login',

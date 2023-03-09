@@ -5,8 +5,8 @@ import useSWR from 'swr'
 
 export type CreateOrder = {
   orderId: string,
-  ccurrency: string,
-  totalAmout: string,
+  currency: string,
+  totalAmount: string,
   expireTime: number,
   qrcodeImgLink: string,
   qrContent: string,
@@ -50,8 +50,8 @@ export type OrderDetail = {
   }
 }
 
-export const OrderDetailFunc = async(url:string, { arg: PostData }:any) => {
-  const res = await post(url,PostData)
+export const OrderDetailFunc = async(url:string, { arg }:{ arg:{orderId: number}}) => {
+  const res = await post(url,arg)
   return res
 }
 
@@ -166,7 +166,7 @@ export type PlanDetail = {
   list:{
     id: number,
     name: string,
-    chainId: number,
+    chain_id: number,
     price: number,
     dayLimit: number,
     secondLimit : number,
@@ -188,19 +188,17 @@ export const usePlanDetail = (chainId:number,isReady:boolean,isRequest:boolean) 
   }
 }
 
-export const PlanDetailFunc = async(url:string, { arg: PostData }:any) => {
-  const res = await post(url,PostData)
+export const PlanDetailFunc = async(url:string, { arg }:{arg:{chainId:number}}) => {
+  const res = await post(url,arg)
   return res
 }
 
 export const usePlanDetailFunc = () => {
   
-  const{ data, trigger, isMutating,error } = useSWRMutation<PlanDetail>('/v1/get_chain_plans',PlanDetailFunc)
+  const{ trigger, isMutating, error } = useSWRMutation<PlanDetail>('/v1/get_chain_plans',PlanDetailFunc)
   return {
     trigger,
-    loading: !error && !data,
     isMutating,
-    data,
     error,
   }
 }

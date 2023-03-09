@@ -4,6 +4,7 @@ import PlanTag from '../Tag/PlanTag';
 import { gbConvert } from 'src/lib/format';
 import PlanLoadingSkethon from '../Skethon/PlanLoadingSkethon';
 import { PaymentModal } from '../Modal/PaymentModal';
+import { useState } from 'react';
 
 type IpfsItemProps = {
   planType: string,
@@ -56,8 +57,29 @@ export function IpfsItemCard({
     data: createOrderData,
    } = useCreateOrder()
 
+  const [isPaymentOpen,setIsPaymentOpen] = useState(false)
+
+  const [paymentId,setPaymentId] = useState<string | undefined>('')
+  const [paymentCurrency,setPaymentCurrency] = useState<string | undefined>('')
+  const [paymentAmout,setPaymentAmout] = useState<string | undefined>('')
+  const [paymentExpireTime,setPaymentExpireTime] = useState<number | undefined>(0)
+  const [paymentQrcodeImgLink,setPaymentQrcodeImgLink] = useState<string | undefined>('')
+  const [paymentQrContent,setPaymentQrContent] = useState<string | undefined>('')
+  
   return (
     <div className={`${itemCardClass}`}>
+      <PaymentModal
+        isOpen = {isPaymentOpen}
+        id = {paymentId} 
+        currency = {paymentCurrency}
+        totalAmout = {paymentAmout}
+        expireTime = {paymentExpireTime}
+        qrcodeImgLink = {paymentQrcodeImgLink}
+        qrContent = {paymentQrContent}
+        closeModal = {() => {
+          setIsPaymentOpen(false)
+        }}
+      />
       <div className='text-2xl font-bold text-[#9FADC7] px-8 pt-3'>
         {planType}
       </div>
@@ -67,14 +89,28 @@ export function IpfsItemCard({
         <div className="text-lg text-[#00F4FF] mt-2">/Mo</div>
       </div>
       <div className='mt-6 space-y-2'>
-        <div className='text-lg text-[#9FADC7] px-8'> {totalStorageGB}</div>
+        <div className='text-lg text-[#9FADC7] px-8'> {totalStorageGB} GB</div>
         <div className='border-[1px] border-white/10'></div>
-        <div className='text-lg text-[#9FADC7] px-8'> {transferUpGB}</div>
+        <div className='text-lg text-[#9FADC7] px-8'> {transferUpGB} GB</div>
         <div className='border-[1px] border-white/10'></div>
-        <div className='text-lg text-[#9FADC7] px-8'> {transferDownGB}</div>
+        <div className='text-lg text-[#9FADC7] px-8'> {transferDownGB} GB</div>
       </div>
       <div className={`${buttonStyleClass}`}>
-        <button onClick={ () =>{createOrderTrigger()}}>
+        <button onClick={async() =>{
+          if(planType == 'Free'){
+            
+          } else {
+            const res = await createOrderTrigger({chainId:chainId,planId:planId})
+            setPaymentId(res?.orderId)
+            setPaymentCurrency(res?.currency)
+            setPaymentAmout(res?.totalAmount)
+            setPaymentExpireTime(res?.expireTime)
+            setPaymentQrcodeImgLink(res?.qrcodeImgLink)
+            setPaymentQrContent(res?.qrContent)
+            setIsPaymentOpen(true)
+          }
+          
+        }}>
           {buttonWordingText}
         </button>
       </div>
@@ -101,7 +137,7 @@ type IpfsCardProps = {
   list:{
     id: number,
     name: string,
-    chainId: number,
+    chain_id: number,
     price: number,
     dayLimit: number,
     secondLimit : number,
@@ -118,7 +154,7 @@ export function IpfsCard({
   list =[{
     id: 0,
     name: '',
-    chainId: 0,
+    chain_id: 0,
     price: 0,
     dayLimit: 1,
     secondLimit : 1,
@@ -151,7 +187,7 @@ export function IpfsCard({
             price = {item.price}
             active = {item.current}
             planId = {item.id}
-            chainId = {item.chainId}
+            chainId = {item.chain_id}
             totalStorage = {item.totalStorage}
             transformUp = {item.transferUp}
             transformDown = {item.transferDown}
@@ -237,7 +273,7 @@ type ApiCardProps = {
   list:{
     id: number,
     name: string,
-    chainId: number,
+    chain_id: number,
     price: number,
     dayLimit: number,
     secondLimit : number,
@@ -254,7 +290,7 @@ export function ApiCard({
   list =[{
     id: 0,
     name: '',
-    chainId: 0,
+    chain_id: 0,
     price: 0,
     dayLimit: 1,
     secondLimit : 1,
@@ -287,7 +323,7 @@ export function ApiCard({
             secondLimit = {item.secondLimit}
             active = {item.current}
             planId = {item.id}
-            chainId = {item.chainId}
+            chainId = {item.chain_id}
             name = {name}
           />
         ))}
@@ -305,7 +341,7 @@ type PlanDetailCardPrpos = {
   list:{
     id: number,
     name: string,
-    chainId: number,
+    chain_id: number,
     price: number,
     dayLimit: number,
     secondLimit : number,
@@ -324,7 +360,7 @@ export default function PlanDetailCard({
   list =[{
     id: 0,
     name: '',
-    chainId: 0,
+    chain_id: 0,
     price: 0,
     dayLimit: 1,
     secondLimit : 1,
@@ -352,11 +388,14 @@ export default function PlanDetailCard({
         <></>
       )
     default:
+      if(loading){
+        return <PlanLoadingSkethon/>
+      }
       return(
         <ApiCard
-        name = {name}
-        currentPlan = {currentPlan}
-        list = {list}
+          name = {name}
+          currentPlan = {currentPlan}
+          list = {list}
         />
       )
     break

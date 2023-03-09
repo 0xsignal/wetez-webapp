@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { PlanDetail, useCreateOrder, usePlanDetailFunc } from 'src/api/premium';
+import { OrderDetailFunc, PlanDetail, useCreateOrder, usePlanDetailFunc } from 'src/api/premium';
 import { Listbox,Transition } from '@headlessui/react';
 import { Fragment } from 'react';
 import clsx from 'clsx';
@@ -36,7 +36,7 @@ type PlanListProps = {
   list:{
     id: number,
     name: string,
-    chainId: number,
+    chain_id: number,
     price: number,
     dayLimit: number,
     secondLimit : number,
@@ -77,7 +77,7 @@ export default function PlanList({
   list = [{
     id: 0,
     name: '',
-    chainId: -1,
+    chain_id: -1,
     price: 0,
     dayLimit: 1,
     secondLimit : 1,
@@ -90,8 +90,7 @@ export default function PlanList({
 
   const{
     trigger: planDetailTrigger,
-    isMutating: planDetailIsMutating, 
-    data: planDetailData,
+    isMutating: planDetailIsMutating,
    } = usePlanDetailFunc()
   
   const listLength = subscribedPlans.length
