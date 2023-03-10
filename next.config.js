@@ -18,8 +18,9 @@ const nextConfig = {
       '/signup':{page:'/signup'},
       '/login':{page:'/login'},
       '/premium':{page:'/premium'},
-      '/test':{page:'/test'},
       '/onboard':{page:'/onboard'},
+      '/posapi/':{page:'/posapi'},
+      '/node':{page:'/node'},
     }
   }
 }

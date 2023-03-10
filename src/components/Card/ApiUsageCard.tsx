@@ -5,7 +5,7 @@ type ApiUsageCardProp = {
   subscribePlanList:{
     id: number
     todayUsage: number
-    status: 1 | 2 | 3
+    status: 1 | 2 | 0 | -2
     expireAt: number
     chain:{
       chainId: number
@@ -28,11 +28,11 @@ export function ApiUsageCard({
     expireAt: 1000,
     chain:{
       chainId: 1,
-      name: 'Ethereum'
+      name: ''
     },
     plan:{
       id: 1,
-      name: 'Free',
+      name: '',
       chainId: 1,
       dayLimit: 1000,
     },

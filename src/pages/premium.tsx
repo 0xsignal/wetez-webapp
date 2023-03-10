@@ -2,30 +2,60 @@ import React from 'react';
 import { Meta } from '../components/Meta';
 import { Menu } from '../components/Menu';
 import { Header } from '../components/Header';
-import PlanListCard from '../components/Card/PlanListCard';
+import PlanList from '../components/List/PlanList';
 import Contact from '../components/Premium/Contact';
-import Link from 'next/link';
-import { OrderList,useOrderList} from '../api/premium'
+import { OrderList,useOrderList,useUserrInfo,usePlanDetail} from '../api/premium'
 import { useEvent } from 'src/lib/hooks';
 import InfiniteList from 'src/components/List/InfiniteList';
 import BillingListItem from 'src/components/Premium/BillingListItem';
+import { useRouter } from 'next/router';
 
 export default function Premium() {
 
-  const { data, error, loading, size, setSize } = useOrderList()
+  const {query,isReady} = useRouter()
+  const id = query.chainid
+  let isRequest = false
+
+  if(isReady){
+    if(query.chainid != undefined){
+      isRequest = true
+    } else {
+      isRequest = false
+    }
+  }
+
+  const { 
+    data: orderListData, 
+    error: orderListError, 
+    loading: orderListLoading, 
+    size: orderListSize, 
+    setSize: setOrderListSize } = useOrderList()
   
-  const getOrderList =  (data: OrderList[] | undefined) =>
-    data?.map(page => page?.list).filter(Boolean)
+  const getOrderList =  (orderListData: OrderList[] | undefined) =>
+    orderListData?.map(page => page?.list).filter(Boolean)
     .reduce((accu, curr) => accu.concat(curr), [])
   
-  const orderList = getOrderList(data) || []
+  const orderList = getOrderList(orderListData) || []
 
-  const onLoadMore = useEvent(() => setSize(size + 1))
-  const canLoadMore = size < (data == undefined ? 0 : data?.[data?.length - 1]?.pagination.totalPages)
+  const onLoadMore = useEvent(() => setOrderListSize(orderListSize + 1))
+  const canLoadMore = orderListSize < (orderListData == undefined ? 0 : orderListData?.[orderListData?.length - 1]?.pagination.totalPages)
+
+  const{
+    data: userInfoData,
+    loading: userInfoLoading,
+    error: userInfoError, 
+  } = useUserrInfo()
+
+  const{
+    data: planDetailData,
+    loading: planDetailLoading,
+    error: planDetailError,
+  } = usePlanDetail(Number(id),isReady,isRequest)
 
 
-  if (loading || !data) return <>加载中</>
-  if (error) return <>加载失败</>
+  if (orderListLoading && userInfoLoading && planDetailLoading) return <>加载中</>
+  if (orderListError) return <>加载失败</>
+
 
   return(
     <>
@@ -37,6 +67,7 @@ export default function Premium() {
       <div className='flex'>
         <Menu/>
         <div className='grow bg-[#182036] pl-10 pr-10 overflow-y-auto h-screen pb-12'>
+          <div className='max-w-6xl mx-auto'>
           <Header
             title="Premium"
             description="Select all the subscriptions or choose single network for the plan"
@@ -46,7 +77,14 @@ export default function Premium() {
             backUrl=""
           />
           <div className='mt-10'>
-            <PlanListCard />
+            <PlanList
+              keyId = {Number(id)}
+              id = {userInfoData?.id}
+              apiKey = {userInfoData?.apiKey}
+              subscribedPlans = {userInfoData?.subscribedPlans}
+              currentPlan = {planDetailData?.currentPlan}
+              list = {planDetailData?.list}
+            />
           </div>
           <div className='mt-10'>
             <Contact />
@@ -104,6 +142,7 @@ export default function Premium() {
             </div>
           </div>
         </div>
+      </div>
     </>
   )
 }

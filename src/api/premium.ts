@@ -1,39 +1,12 @@
 import { post } from '../lib/fetcher';
 import useSWRInfinite from 'swr/infinite'
 import useSWRMutation from 'swr/mutation'
-
-export type PlanDetail = {
-  subscribedPlan:{
-    id: number
-    totalStorage: number,
-    transferUp : number,
-    transferDown : number,
-    status: 1 | 2 | 3
-    expireAt: number
-    chain:{
-      chainId: number
-      name: string
-    }
-    plan:{
-      id: number,
-      name: string,
-      chainId: number,
-      totalStorage:number,
-      transferUp : number,
-      transferDown : number,
-    }
-    endpoints:string[]
-  },
-  upgradeablePlans:{
-    id: number
-  }[]
-}
-
+import useSWR from 'swr'
 
 export type CreateOrder = {
   orderId: string,
-  ccurrency: string,
-  totalAmout: string,
+  currency: string,
+  totalAmount: string,
   expireTime: number,
   qrcodeImgLink: string,
   qrContent: string,
@@ -77,8 +50,8 @@ export type OrderDetail = {
   }
 }
 
-export const OrderDetailFunc = async(url:string, { arg: PostData }:any) => {
-  const res = await post(url,PostData)
+export const OrderDetailFunc = async(url:string, { arg }:{ arg:{orderId: number}}) => {
+  const res = await post(url,arg)
   return res
 }
 
@@ -117,26 +90,28 @@ export const orderListAPI = '/v1/payment/get_order_list'
 
 export const OrderListFetcher:(
   pageIndex: number,
-) => Promise<OrderList> = pageIndex =>
+  orderListAPI: string,
+) => Promise<OrderList> = (pageIndex) =>
   post<OrderList>(
     orderListAPI,{page: Number(pageIndex) + 1}
 )
 
 export const useOrderList = () =>{
+
   const getKey:(
     pageIndex: number,
-    previousPageData:OrderList,
-  ) => [number] | null = (pageIndex,previousPageData) => {
+    previousPageData: OrderList,
+  ) => [string,number] | null = (pageIndex,previousPageData) => {
     if(previousPageData && !previousPageData.list.length) return null
-    return [pageIndex]
+    return [orderListAPI,pageIndex+1]
   }
 
   const { data, error, size, setSize } = useSWRInfinite<OrderList>(
     getKey,
-    OrderListFetcher,
-    { revalidateFirstPage: false, initialSize: 1 },
+    ([orderListAPI,pageIndex]) => post(orderListAPI,{page:pageIndex}),
+    { revalidateFirstPage: false, initialSize: 1, }
   )
-
+  
   return {
     data,
     loading: !error && !data,
@@ -144,5 +119,131 @@ export const useOrderList = () =>{
     size,
     setSize,
   }
+}
 
+export type userInfo ={
+  id: number,
+  apiKey: string,
+  subscribedPlans:{
+    id: number
+    todayUsage: number
+    totalStorage: number,
+    transferUp : number,
+    transferDown : number,
+    status: 1 | 2 | 0 | -2,
+    expireAt: number,
+    chain:{
+      chainId: number,
+      name: string,
+    }
+    plan:{
+      id: number,
+      name: string,
+      chainId: number,
+      dayLimit: number,
+      price: number,
+      totalStorage:number,
+      transferUp : number,
+      transferDown : number,
+    }
+  }[]
+}
+
+export const useUserrInfo = () => {
+  
+  const{ data, error } = useSWR<userInfo>('/v1/get_user',url => 
+    post(url,{}),
+  )
+  return {
+    data,
+    loading: !error && !data,
+    error,
+  }
+}
+
+export type PlanDetail = {
+  currentPlan: string,
+  list:{
+    id: number,
+    name: string,
+    chain_id: number,
+    price: number,
+    dayLimit: number,
+    secondLimit : number,
+    totalStorage: number,
+    transferUp: number,
+    transferDown: number,
+    current: boolean,
+  }[] | undefined
+}
+
+export const usePlanDetail = (chainId:number,isReady:boolean,isRequest:boolean) => {
+  const{ data, error } = useSWR<PlanDetail>((isReady && isRequest) ? '/v1/get_chain_plans': null,url => 
+    post(url,{chainId: chainId}),
+  )
+  return {
+    data,
+    loading: !error && !data,
+    error,
+  }
+}
+
+export async function PlanDetailFunc (url:string,{ arg }: {arg:{chainId:number}}){
+  const res = await post(url,arg)
+  return res
+}
+
+export const usePlanDetailFunc = () => {
+  
+  const{ trigger, isMutating, error } = useSWRMutation<PlanDetail>('/v1/get_chain_plans',PlanDetailFunc)
+  return {
+    trigger,
+    isMutating,
+    error,
+  }
+}
+
+export const DowngradeFreeFunc = async(url:string, { arg }:{arg:{chainId:number}}) => {
+  const res = await post(url,arg)
+  return res
+}
+
+export const useDowngradeFreeFunc = () => {
+  
+  const{ trigger, isMutating, error } = useSWRMutation('/v1/payment/downgrade_to_free_plan',DowngradeFreeFunc)
+  return {
+    trigger,
+    isMutating,
+    error,
+  }
+}
+
+export type OrderStatus = {
+  status: number,
+  shippingStatus : number,
+}
+
+export const CheckOrderStatus = async(url:string, { arg }:{ arg:{orderId:string} }) => {
+  const res = await post(url,arg)
+  return res
+}
+
+export const useCheckOrderStatus = () => {
+  
+  const { trigger, isMutating, error } = useSWRMutation<OrderStatus>('/v1/payment/check_order_status', CheckOrderStatus)
+  return {
+    trigger,
+    isMutating,
+    error,
+  }
+}
+
+export const useCheckOrderStatusInterval = (orderId:string,isRequest:boolean) => {
+  const { data, error } =  useSWR<OrderStatus>(isRequest ? '/v1/payment/check_order_status' : null,url =>
+    post(url,{orderId:orderId},),{ refreshInterval: 1500 }
+  )
+  return {
+    data,
+    error
+  }
 }

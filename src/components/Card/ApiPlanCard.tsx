@@ -50,7 +50,7 @@ export default function ApiPlanCard({
   status =  0,
   usage = 0,
   dayLimit = 0,
-  chainId = 0
+  chainId = 1
 }:ApiPlanCardProps){
 
   let logoImage = ''

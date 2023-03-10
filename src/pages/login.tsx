@@ -120,7 +120,7 @@ export default function Login() {
                   />
                   <button 
                     className='inline-flex justify-center items-center bg-[#2A23FF] w-full text-white text-center py-3 text-lg rounded-[28px] disabled:bg-white/20' 
-                    onClick={() => login}
+                    onClick={login}
                     disabled={!valid}
                   >
                     <ButtonLoading

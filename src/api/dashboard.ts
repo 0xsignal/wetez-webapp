@@ -35,7 +35,7 @@ export type SubscribedList = {
   list:{
       id: number
       todayUsage: number
-      status: 1 | 2 | 3
+      status: 1 | 2 | -2 | 0
       expireAt: number
       chain:{
         chainId: number

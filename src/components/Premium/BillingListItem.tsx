@@ -14,11 +14,11 @@ type BillingListItemProps = {
 };
 
 export default function BillingListItem({
-  listItemId = '1234567890123456789',
-  listItemDate = '12:00:32 Fri 16 Dec 2022',
-  listItemNetwork = 'Polygon',
-  listItemPlan = 'Team',
-  listItemTotal = '50',
+  listItemId = '',
+  listItemDate = '',
+  listItemNetwork = '',
+  listItemPlan = '',
+  listItemTotal = '',
   listItemCurrency = '',
 }:BillingListItemProps){
 
@@ -69,6 +69,7 @@ export default function BillingListItem({
         <div 
           className='text-right text-[#00F4FF] text-base py-6 cursor-pointer' 
           onClick={async () => {
+            //@ts-ignore
             await orderDtailTrigger({orderId:listItemId})
             setIsOpen(true)
           }}>

@@ -1,7 +1,7 @@
 import { post } from '../lib/fetcher';
 import useSWRInfinite from 'swr/infinite'
-import useSWRMutation from 'swr/mutation'
 import useSWR from 'swr'
+
 
 export type ApiList = {
   apiKey: string,
@@ -38,31 +38,24 @@ export type ApiList = {
 
 export const apiListAPI = '/v1/get_subscribed_list'
 
-export const ApiListFetcher:(
-  pageIndex: number,
-) => Promise<ApiList> = pageIndex =>
-  post<ApiList>(
-    apiListAPI,{page: Number(pageIndex) + 1, pageSize: 10, chainType: 1}
-)
-
 export const useApiList = () => {
   const getKey: (
     pageIndex: number,
-    previousPageData: ApiList,
-  ) => [number] | null = (pageIndex, previousPageData) => {
-    if (previousPageData && !previousPageData.list?.length) return null
-    return [pageIndex]
+    previousPageData?: ApiList,
+  ) => [string, number] | null = (pageIndex, previousPageData) => {
+    if (previousPageData && !previousPageData.list.length) return null
+    return [apiListAPI, pageIndex+1]
   }
 
-  const { data, error, size, setSize } = useSWRInfinite<ApiList>(
+  const { data, error, isLoading, size, setSize } = useSWRInfinite<ApiList>(
     getKey,
-    ApiListFetcher,
+    ([apiListAPI,pageIndex]) => post(apiListAPI,{ page: pageIndex, pageSize: 10, chainType: 1}),
     { revalidateFirstPage: false },
   )
 
   return {
     data,
-    loading: !error && !data,
+    isLoading,
     error,
     size,
     setSize,
