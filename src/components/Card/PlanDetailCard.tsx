@@ -388,7 +388,8 @@ export function ApiCard({
     transferUp: 1,
     transferDown: 1,
     current: false,
-  }]
+  }],
+
 }:ApiCardProps){
   return(
     <div className='rounded-[16px] px-6 py-6 bg-white/5'>
@@ -440,6 +441,29 @@ type PlanDetailCardPrpos = {
     transferDown: number,
     current: boolean,
   }[],
+  subscribedPlans:{
+    id: number
+    totalStorage: number,
+    transferUp : number,
+    transferDown : number,
+    todayUsage: number,
+    status: 1 | 2 | 0 | -2,
+    expireAt: number,
+    chain:{
+      chainId: number,
+      name: string,
+    }
+    plan:{
+      id: number,
+      name: string,
+      dayLimit: number,
+      chainId: number,
+      price: number,
+      totalStorage:number,
+      transferUp : number,
+      transferDown : number,
+    }
+  }[] | undefined,
 }
 
 export default function PlanDetailCard({
@@ -458,7 +482,30 @@ export default function PlanDetailCard({
     transferUp: 1,
     transferDown: 1,
     current: false,
-  }]
+  }],
+  subscribedPlans = [{
+    id: 0,
+    totalStorage: 0,
+    transferUp : 0,
+    transferDown : 0,
+    todayUsage: 0,
+    status: 1,
+    expireAt: 0,
+    chain:{
+      chainId: 14,
+      name: '',
+    },
+    plan:{
+      id: 0,
+      name: '',
+      chainId: 0,
+      dayLimit: 1,
+      price: 0,
+      totalStorage: 1,
+      transferUp : 1,
+      transferDown : 1,
+    },
+  }],
 }:PlanDetailCardPrpos){
   switch(chainId){
     case 14:
@@ -475,7 +522,9 @@ export default function PlanDetailCard({
     break
     case 0 :
       return(
-        <AllSubList/>
+        <AllSubList
+          subscribedPlans={subscribedPlans}
+        />
       )
     default:
       if(loading){

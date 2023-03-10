@@ -191,6 +191,7 @@ export default function PlanList({
           currentPlan = {currentPlanName}
           list = {planList}
           loading = {planDetailIsMutating}
+          subscribedPlans = {subscribedPlans}
         />
       </div>
     </div>

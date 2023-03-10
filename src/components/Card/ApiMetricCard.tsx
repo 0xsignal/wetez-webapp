@@ -61,7 +61,6 @@ export default function ApiMetricCard({
       break
   }
 
-
   return (
     <div className='bg-white/5 rounded-[24px] px-6 py-6'>
       <div className="flex items-center space-x-2">
