@@ -13,8 +13,7 @@ import { useRouter } from 'next/router';
 export default function Premium() {
 
   const {query,isReady} = useRouter()
-  const id = Number(query.chainid)
-  console.log(query.chainid)
+  const id = query.chainid
   let isRequest = false
 
   if(isReady){
@@ -51,7 +50,7 @@ export default function Premium() {
     data: planDetailData,
     loading: planDetailLoading,
     error: planDetailError,
-  } = usePlanDetail(id,isReady,isRequest)
+  } = usePlanDetail(Number(id),isReady,isRequest)
 
 
   if (orderListLoading && userInfoLoading && planDetailLoading) return <>加载中</>
@@ -79,6 +78,7 @@ export default function Premium() {
           />
           <div className='mt-10'>
             <PlanList
+              keyId = {Number(id)}
               id = {userInfoData?.id}
               apiKey = {userInfoData?.apiKey}
               subscribedPlans = {userInfoData?.subscribedPlans}

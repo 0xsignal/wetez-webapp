@@ -7,6 +7,7 @@ import PlanDetailCard from '../Card/PlanDetailCard';
 
 
 type PlanListProps = {
+  keyId?: number,
   id?: number,
   apiKey?: string,
   subscribedPlans:{
@@ -48,8 +49,9 @@ type PlanListProps = {
 }
 
 export default function PlanList({
-  id: number,
-  apiKey: string,
+  keyId = 0,
+  id = 0,
+  apiKey = '',
   subscribedPlans = [{
     id: 0,
     totalStorage: 0,
@@ -93,9 +95,9 @@ export default function PlanList({
     isMutating: planDetailIsMutating,
    } = usePlanDetailFunc()
   
+
+  // 根据后端接口的返回，初始化下拉列表的选项
   const listLength = subscribedPlans.length
-
-
   let categoryList: {
     id: number,
     name: string,
@@ -105,12 +107,20 @@ export default function PlanList({
     categoryList.push({id:subscribedPlans[i].chain.chainId,name:subscribedPlans[i].chain.name})
   }
 
-  const [selected,setSelected] = useState(categoryList[0])
+  // 根据 url 判断跳转到的初始化 chain plan
+  let indexSelected = 0;
+  const [selected,setSelected] = useState(categoryList[indexSelected])
+  useEffect(()=>{
+    indexSelected = categoryList.findIndex(x=>x.id === keyId) === -1 ? 0 : categoryList.findIndex(x=>x.id === keyId)
+    setSelected(categoryList[indexSelected])
+  },[subscribedPlans])
+
+  // 根据下拉列表选择的变化，切换对应的 chain plan
   const [planList,setPlanList] = useState(list)
   const [currentPlanName,setCurrentPlanName] = useState(currentPlan)
-
   const upgradeListData = async() => {
-    const res = await planDetailTrigger({chainId:selected.id})
+    //@ts-ignore swr 存在 type error
+    const res = await planDetailTrigger({chainId:selected.id},)
     setPlanList(res?.list || [])
     setCurrentPlanName(res?.currentPlan || '')
   }

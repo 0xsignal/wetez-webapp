@@ -7,6 +7,7 @@ type ConfirmModalProps = {
   title?: string,
   description?: string,
   closeModal?: () => void,
+  confirmModal?: () => void,
 }
 
 export default function ConfirmModal({
@@ -14,6 +15,7 @@ export default function ConfirmModal({
   title = '',
   description = '',
   closeModal = pass,
+  confirmModal = pass,
 }:ConfirmModalProps){
 
   return(
@@ -29,7 +31,7 @@ export default function ConfirmModal({
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <div className="fixed inset-0 bg-black bg-opacity-70" />
+          <div className="fixed inset-0 bg-black bg-opacity-80" />
         </Transition.Child>
 
         <div className="fixed inset-0 overflow-y-auto">
@@ -43,8 +45,32 @@ export default function ConfirmModal({
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <Dialog.Panel className="w-full max-w-3xl transform overflow-hidden rounded-2xl bg-[#182036] p-10 text-left align-middle shadow-xl transition-all">
-                
+              <Dialog.Panel className="w-full max-w-xl transform overflow-hidden rounded-2xl bg-black p-10 text-left align-middle transition-all">
+                <Dialog.Title
+                    as="h4"
+                    className="text-2xl font-bold leading-6 text-white text-center"
+                  >
+                    {title}
+                </Dialog.Title>
+
+                <div className="text-xl text-center text-white/50 mt-10 leading-relaxed tracking-wide">
+                  {description}
+                </div>
+
+                <div className="mt-10 grid grid-cols-2 divide-x-[1px] divide-white/20">
+                  <div 
+                    className = "text-center text-xl text-white/50 cursor-pointer"
+                    onClick = {closeModal}
+                    >
+                    Cancel
+                  </div>
+                  <div 
+                    className = "text-center text-xl text-[#00F4FF] cursor-pointer"
+                    onClick = {confirmModal}
+                    >
+                    Confirm
+                  </div>
+                </div>
                 
               </Dialog.Panel>
             </Transition.Child>

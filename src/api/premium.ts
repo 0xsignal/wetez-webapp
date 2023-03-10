@@ -188,7 +188,7 @@ export const usePlanDetail = (chainId:number,isReady:boolean,isRequest:boolean) 
   }
 }
 
-export const PlanDetailFunc = async(url:string, { arg }:{arg:{chainId:number}}) => {
+export async function PlanDetailFunc (url:string,{ arg }: {arg:{chainId:number}}){
   const res = await post(url,arg)
   return res
 }
@@ -200,5 +200,50 @@ export const usePlanDetailFunc = () => {
     trigger,
     isMutating,
     error,
+  }
+}
+
+export const DowngradeFreeFunc = async(url:string, { arg }:{arg:{chainId:number}}) => {
+  const res = await post(url,arg)
+  return res
+}
+
+export const useDowngradeFreeFunc = () => {
+  
+  const{ trigger, isMutating, error } = useSWRMutation('/v1/payment/downgrade_to_free_plan',DowngradeFreeFunc)
+  return {
+    trigger,
+    isMutating,
+    error,
+  }
+}
+
+export type OrderStatus = {
+  status: number,
+  shippingStatus : number,
+}
+
+export const CheckOrderStatus = async(url:string, { arg }:{ arg:{orderId:string} }) => {
+  const res = await post(url,arg)
+  return res
+}
+
+export const useCheckOrderStatus = () => {
+  
+  const { trigger, isMutating, error } = useSWRMutation<OrderStatus>('/v1/payment/check_order_status', CheckOrderStatus)
+  return {
+    trigger,
+    isMutating,
+    error,
+  }
+}
+
+export const useCheckOrderStatusInterval = (orderId:string,isRequest:boolean) => {
+  const { data, error } =  useSWR<OrderStatus>(isRequest ? '/v1/payment/check_order_status' : null,url =>
+    post(url,{orderId:orderId},),{ refreshInterval: 1500 }
+  )
+  return {
+    data,
+    error
   }
 }

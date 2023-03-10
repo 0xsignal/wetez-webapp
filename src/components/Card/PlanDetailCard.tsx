@@ -1,10 +1,13 @@
-import { useCreateOrder } from 'src/api/premium';
+import { useCreateOrder,useDowngradeFreeFunc } from 'src/api/premium';
 import React from 'react';
 import PlanTag from '../Tag/PlanTag';
 import { gbConvert } from 'src/lib/format';
 import PlanLoadingSkethon from '../Skethon/PlanLoadingSkethon';
-import { PaymentModal } from '../Modal/PaymentModal';
+import PaymentModal from '../Modal/PaymentModal';
+import ConfirmModal from '../Modal/ConfirmModal';
 import { useState } from 'react';
+import { useRouter } from 'next/router';
+import AllSubList from '../List/AllSubList';
 
 type IpfsItemProps = {
   planType: string,
@@ -57,6 +60,13 @@ export function IpfsItemCard({
     data: createOrderData,
    } = useCreateOrder()
 
+   const{
+    trigger: downGradeTrigger,
+    error: downGradeError,
+   } = useDowngradeFreeFunc()
+
+   const router = useRouter()
+
   const [isPaymentOpen,setIsPaymentOpen] = useState(false)
 
   const [paymentId,setPaymentId] = useState<string | undefined>('')
@@ -65,6 +75,8 @@ export function IpfsItemCard({
   const [paymentExpireTime,setPaymentExpireTime] = useState<number | undefined>(0)
   const [paymentQrcodeImgLink,setPaymentQrcodeImgLink] = useState<string | undefined>('')
   const [paymentQrContent,setPaymentQrContent] = useState<string | undefined>('')
+
+  const [isConfirmOpen,setIsConfirmOpen] = useState(false)
   
   return (
     <div className={`${itemCardClass}`}>
@@ -78,6 +90,23 @@ export function IpfsItemCard({
         qrContent = {paymentQrContent}
         closeModal = {() => {
           setIsPaymentOpen(false)
+        }}
+        confirmModal = {() => {
+          setIsPaymentOpen(false)
+          router.reload()
+        }}
+      />
+      <ConfirmModal
+        isOpen = {isConfirmOpen}
+        title = {'Switch to a free plan'}
+        description = {'Your current plan is a paid one. If you confirm to switch to a free plan, your paid plan will become invalid. Are you sure you want to proceed with this operation?'}
+        closeModal = {()=>{
+          setIsConfirmOpen(false)
+        }}
+        confirmModal = {async ()=>{
+          await downGradeTrigger({chainId:chainId})
+          setIsConfirmOpen(false)
+          router.reload()
         }}
       />
       <div className='text-2xl font-bold text-[#9FADC7] px-8 pt-3'>
@@ -98,9 +127,10 @@ export function IpfsItemCard({
       <div className={`${buttonStyleClass}`}>
         <button onClick={async() =>{
           if(planType == 'Free'){
-            
+            setIsConfirmOpen(true)
           } else {
-            const res = await createOrderTrigger({chainId:chainId,planId:planId})
+            //@ts-ignore
+            const res = await createOrderTrigger({chainId:chainId,planId:planId},)
             setPaymentId(res?.orderId)
             setPaymentCurrency(res?.currency)
             setPaymentAmout(res?.totalAmount)
@@ -109,7 +139,6 @@ export function IpfsItemCard({
             setPaymentQrContent(res?.qrContent)
             setIsPaymentOpen(true)
           }
-          
         }}>
           {buttonWordingText}
         </button>
@@ -243,8 +272,55 @@ export function ApiItemCard({
     data: createOrderData,
    } = useCreateOrder()
 
+   const{
+    trigger: downGradeTrigger,
+    error: downGradeError,
+   } = useDowngradeFreeFunc()
+
+   const router = useRouter()
+
+  const [isPaymentOpen,setIsPaymentOpen] = useState(false)
+
+  const [paymentId,setPaymentId] = useState<string | undefined>('')
+  const [paymentCurrency,setPaymentCurrency] = useState<string | undefined>('')
+  const [paymentAmout,setPaymentAmout] = useState<string | undefined>('')
+  const [paymentExpireTime,setPaymentExpireTime] = useState<number | undefined>(0)
+  const [paymentQrcodeImgLink,setPaymentQrcodeImgLink] = useState<string | undefined>('')
+  const [paymentQrContent,setPaymentQrContent] = useState<string | undefined>('')
+
+  const [isConfirmOpen,setIsConfirmOpen] = useState(false)
+
   return (
     <div className={`${itemCardClass}`}>
+      <PaymentModal
+        isOpen = {isPaymentOpen}
+        id = {paymentId} 
+        currency = {paymentCurrency}
+        totalAmout = {paymentAmout}
+        expireTime = {paymentExpireTime}
+        qrcodeImgLink = {paymentQrcodeImgLink}
+        qrContent = {paymentQrContent}
+        closeModal = {() => {
+          setIsPaymentOpen(false)
+        }}
+        confirmModal = {() => {
+          setIsPaymentOpen(false)
+          router.reload()
+        }}
+      />
+      <ConfirmModal
+        isOpen = {isConfirmOpen}
+        title = {'Switch to a free plan'}
+        description = {'Your current plan is a paid one. If you confirm to switch to a free plan, your paid plan will become invalid. Are you sure you want to proceed with this operation?'}
+        closeModal = {()=>{
+          setIsConfirmOpen(false)
+        }}
+        confirmModal = {async ()=>{
+          await downGradeTrigger({chainId:chainId})
+          setIsConfirmOpen(false)
+          router.reload()
+        }}
+      />
       <div className='text-2xl font-bold text-[#9FADC7] px-8 pt-3'>
         {planType}
       </div>
@@ -259,7 +335,21 @@ export function ApiItemCard({
         <div className='text-lg text-[#9FADC7] px-8'> {dayLimit}</div>
       </div>
       <div className={`${buttonStyleClass}`}>
-        <button onClick={ () =>{createOrderTrigger()}}>
+      <button onClick={async() =>{
+          if(planType == 'Free'){
+            setIsConfirmOpen(true)
+          } else {
+            //@ts-ignore
+            const res = await createOrderTrigger({chainId:chainId,planId:planId},)
+            setPaymentId(res?.orderId)
+            setPaymentCurrency(res?.currency)
+            setPaymentAmout(res?.totalAmount)
+            setPaymentExpireTime(res?.expireTime)
+            setPaymentQrcodeImgLink(res?.qrcodeImgLink)
+            setPaymentQrContent(res?.qrContent)
+            setIsPaymentOpen(true)
+          }
+        }}>
           {buttonWordingText}
         </button>
       </div>
@@ -385,7 +475,7 @@ export default function PlanDetailCard({
     break
     case 0 :
       return(
-        <></>
+        <AllSubList/>
       )
     default:
       if(loading){
