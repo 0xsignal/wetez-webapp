@@ -6,9 +6,7 @@ import InfiniteList from 'src/components/List/InfiniteList';
 import { useEvent } from 'src/lib/hooks';
 import ApiPlanCard from 'src/components/Card/ApiPlanCard';
 import { Meta } from 'src/components/Meta';
-import { SWRConfig } from 'swr'
-
-
+import PosapiSkethon from 'src/components/Skethon/PosapiSkethon';
 
 
 export default function Posapi() {
@@ -29,8 +27,7 @@ export default function Posapi() {
   const onLoadMore = useEvent(() => setApiListSize(apiListSize + 1))
   const canLoadMore = apiListSize < (apiListData == undefined ? 0 : apiListData?.[apiListData?.length - 1]?.pagination.totalPages)
 
-  if (apiListLoading) return <>加载中</>
-  if (apiListError) return <>加载失败</>
+  if (apiListLoading) return <PosapiSkethon/>
   
 
   return(
@@ -42,7 +39,8 @@ export default function Posapi() {
       />
        <div className='flex'>
         <Menu/>
-        <div className='grow bg-[#182036] pl-10 pr-10 overflow-y-auto h-screen pb-6'>
+        <div className='grow bg-[#182036] pl-10 pr-16 overflow-y-auto h-screen pb-6'>
+        <div className='max-w-6xl mx-auto'>
           <Header
             title="POS APIs"
             description="Whole data about your plans here"
@@ -78,6 +76,7 @@ export default function Posapi() {
             </div>
           </div>
         </div>
+      </div>
       </div>
     </>
   )

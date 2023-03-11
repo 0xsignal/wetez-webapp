@@ -10,6 +10,7 @@ import dynamic from 'next/dynamic'
 import { useIPFSGatewayList,useIPFSPlan } from 'src/api/ipfs';
 import { addGateway,removeGateway,activeGateway } from 'src/api/ipfs';
 import { useIPFSStats1m,useIPFSStats24h,useIPFSStats7d } from 'src/api/ipfs';
+import IpfsSkethon from 'src/components/Skethon/IpfsSkethon';
 
 const CircleChart = dynamic(
   () => import('../components/Chart/CircleChart'),
@@ -49,6 +50,10 @@ export default function Ipfs() {
     error: ipfsStats1mError,
   } = useIPFSStats1m()
 
+  if(ipfsPlanLoading && gatewayListLoading && ipfsStats24hLoading && ipfsStats7dLoading && ipfsStats1mLoading){
+    <IpfsSkethon/>
+  }
+
   
   return(
     <>
@@ -58,8 +63,10 @@ export default function Ipfs() {
         image=''
       />
       <div className='flex'>
+        <div className=''></div>
         <Menu/>
-        <div className='grow bg-[#182036] pl-10 pr-10 overflow-y-auto h-screen'>
+        <div className='grow bg-[#182036] pl-10 pr-16 overflow-y-auto h-screen pb-6'>
+          <div className='max-w-6xl mx-auto'>
           <Header
             title="IPFS"
             description="Whole data about your plans here"
@@ -105,6 +112,7 @@ export default function Ipfs() {
           </div>
         </div>
       </div>
+    </div>
     </>
   )
 }   

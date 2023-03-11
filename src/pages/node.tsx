@@ -6,6 +6,7 @@ import { Menu } from 'src/components/Menu';
 import { Header } from 'src/components/Header';
 import { Disclosure } from '@headlessui/react'
 import { pass } from 'src/lib/fp';
+import NodeSkethon from 'src/components/Skethon/NodeSkethon';
 
 
 export default function Node(){
@@ -18,9 +19,7 @@ export default function Node(){
 
   if(nodeListLoading){
     return(
-      <div>
-        加载中
-      </div>
+      <NodeSkethon/>
     )
   }
 
@@ -33,7 +32,7 @@ export default function Node(){
       />
        <div className='flex'>
         <Menu/>
-        <div className='grow bg-[#182036] pl-10 pr-10 overflow-y-auto h-screen pb-6'>
+        <div className='grow bg-[#182036] pl-10 pr-16 overflow-y-auto h-screen pb-6'>
           <div className='max-w-6xl mx-auto'>
             <Header
               title="Node"

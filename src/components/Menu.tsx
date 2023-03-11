@@ -151,8 +151,12 @@ export function Menu()
         <div className="mt-24 grow">
           <div className='space-y-4 flex flex-col h-full'>
           {MenuList.slice(0,5).map((item) => (
-            <div key={item.id}>
-              <Link href={item.url}>
+            <div key={item.id} 
+              className = 'cursor-pointer'
+              onClick = {()=>{
+                router.push(`${item.url}`)
+              }}
+              >
                 <MenuItem
                   itemUrl={item.id}
                   path={activeMenu?.id}
@@ -164,7 +168,6 @@ export function Menu()
                   classNameActive={item.classNameActive}
                   classNameInactive={item.classNameInactive}
                 />
-              </Link>
             </div>
           ))}
           <div className="grow">

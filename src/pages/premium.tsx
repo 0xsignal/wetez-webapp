@@ -9,6 +9,7 @@ import { useEvent } from 'src/lib/hooks';
 import InfiniteList from 'src/components/List/InfiniteList';
 import BillingListItem from 'src/components/Premium/BillingListItem';
 import { useRouter } from 'next/router';
+import PremiumSkethon from 'src/components/Skethon/PremiumSkethon';
 
 export default function Premium() {
 
@@ -53,7 +54,7 @@ export default function Premium() {
   } = usePlanDetail(Number(id),isReady,isRequest)
 
 
-  if (orderListLoading && userInfoLoading && planDetailLoading) return <>加载中</>
+  if (orderListLoading && userInfoLoading && planDetailLoading) return <PremiumSkethon/>
   if (orderListError) return <>加载失败</>
 
 
@@ -66,7 +67,7 @@ export default function Premium() {
       />
       <div className='flex'>
         <Menu/>
-        <div className='grow bg-[#182036] pl-10 pr-10 overflow-y-auto h-screen pb-12'>
+        <div className='grow bg-[#182036] pl-10 pr-16 overflow-y-auto h-screen pb-12'>
           <div className='max-w-6xl mx-auto'>
           <Header
             title="Premium"
