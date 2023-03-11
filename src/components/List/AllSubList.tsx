@@ -2,6 +2,7 @@ import React from "react";
 import UsagePercentChart from "../Chart/UsagePercentChart";
 import moment from "moment";
 import { useRouter } from "next/router";
+import { gbConvert } from "src/lib/format";
 
 type AllSubListProps = {
   subscribedPlans:{
@@ -151,8 +152,17 @@ export function ListItem({
     timeShow = moment(expireAt*1000).format('L')
   }
 
-  let usageApi = Number((todayUsage / dayLimit).toFixed(2))*62.8
+  // 计算环形图百分比，62.8 是圆的周长
 
+  const usageApi = Number((todayUsage / dayLimit).toFixed(2))*62.8
+
+  const totalStorageShow = gbConvert(totalStrorage)
+  const transferUpShow = gbConvert(transferUp)
+  const transferDownShow = gbConvert(transferDown)
+
+  const usageTotalStorage = Number((totalStorageUsage / totalStrorage).toFixed(2))*62.8
+  const usageTransferUp = Number((transferUpUsage / transferUp ).toFixed(2))*62.8
+  const usageTransferDown = Number((transferDownUsage / transferDown ).toFixed(2))*62.8
 
   if(chainId == 14){
     return(
@@ -167,17 +177,17 @@ export function ListItem({
         <div className="col-span-2 flex items-center space-x-3">
           <UsagePercentChart
             status = {status}
-            usageCircle = {usageApi}
+            usageCircle = {usageTotalStorage}
           />
           <div className="text-base text-white/30">
-            {totalStrorage} GB TotalStorage / day
+            {totalStorageShow} GB TotalStorage / day
           </div>
         </div>
         <div className="text-base text-white/30 col-span-2">
           {timeShow}
         </div>
         <div className="text-base text-white/30">
-          {price}
+          ${price} / Mo
         </div>
         <div 
           className="bg-[#2A23FF] rounded-[24px] px-5 py-2 flex items-center justify-center cursor-pointer space-x-3"
@@ -202,17 +212,17 @@ export function ListItem({
         <div className="col-span-2 flex items-center space-x-3">
           <UsagePercentChart
             status = {status}
-            usageCircle = {usageApi}
+            usageCircle = {usageTransferUp}
           />
           <div className="text-base text-white/30">
-            {totalStrorage} GB TotalStorage / day
+            {transferUpShow} GB TransferUp / day
           </div>
         </div>
         <div className="text-base text-white/30 col-span-2">
           {timeShow}
         </div>
         <div className="text-base text-white/30">
-          {price}
+          ${price} / Mo
         </div>
         <div 
           className="bg-[#2A23FF] rounded-[24px] px-5 py-2 flex items-center justify-center cursor-pointer space-x-3"
@@ -237,17 +247,17 @@ export function ListItem({
         <div className="col-span-2 flex items-center space-x-3">
           <UsagePercentChart
             status = {status}
-            usageCircle = {usageApi}
+            usageCircle = {usageTransferDown}
           />
           <div className="text-base text-white/30">
-            {totalStrorage} GB TotalStorage / day
+            {transferDownShow} GB TransferDown / day
           </div>
         </div>
         <div className="text-base text-white/30 col-span-2">
           {timeShow}
         </div>
         <div className="text-base text-white/30">
-          {price}
+          ${price} / Mo
         </div>
         <div 
           className="bg-[#2A23FF] rounded-[24px] px-5 py-2 flex items-center justify-center cursor-pointer space-x-3"
@@ -288,7 +298,7 @@ export function ListItem({
           {timeShow}
         </div>
         <div className="text-base text-white/30">
-          {price}
+          ${price} / Mo
         </div>
         <div 
           className="bg-[#2A23FF] rounded-[24px] px-5 py-2 flex items-center justify-center cursor-pointer space-x-3"

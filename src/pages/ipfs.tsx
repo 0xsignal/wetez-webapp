@@ -49,13 +49,7 @@ export default function Ipfs() {
     error: ipfsStats1mError,
   } = useIPFSStats1m()
 
-  if( ipfsPlanLoading && gatewayListLoading && ipfsStats24hLoading && ipfsStats7dLoading && ipfsStats1mLoading){
-    return(
-      <div className='text-black text-7xl'>
-        h1
-      </div>
-    )
-  }
+  
   return(
     <>
       <Meta
