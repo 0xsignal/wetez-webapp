@@ -11,7 +11,7 @@ import ButtonLoading from '../components/ButtonLoading';
 import { SignIn } from '../api/auth';
 
 
-export default function Login() {
+export default function Login(){
 
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
@@ -31,7 +31,7 @@ export default function Login() {
   const valid:boolean = (email != '') && (password != '')
 
   function checkEmail(input: string){
-    const regEmail = /^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/
+    const regEmail = /^[\w-.]+@([\w-]+\.)+[\w-]{2,}$/i
     if(input){
       if(regEmail.test(input)){
         setEmailError("")

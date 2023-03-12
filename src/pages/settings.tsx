@@ -2,23 +2,25 @@ import React from 'react';
 import { Meta } from '../components/Meta'
 import { Menu } from '../components/Menu'
 import { Header } from '../components/Header'
-import { AccountPassword } from '../components/Settings/AccountPassword';
-import { useState } from 'react';
-import { useUserrInfo } from 'src/api/premium';
+import { useAccountInfo } from 'src/api/setting';
 import EmailEdit from 'src/components/Form/EmailEdit';
+import Captcha from '../components/Captcha/Captcha';
+import NameEdit from 'src/components/Form/NameEdit';
+import PasswordEdit from 'src/components/Form/PasswordEdit';
+import { CaptchaFooter } from 'src/components/Captcha/CaptchaFooter';
+import SettingsSkethon from 'src/components/Skethon/SettingsSkethon';
+
 
 export default function Settings() {
-
-  const [isEditing, setIsEditing] = useState(false);
 
   const {
     data: userInfoData,
     loading: userInfoLoading,
     error: userInfoError,
-  } = useUserrInfo()
+  } = useAccountInfo()
 
   if(userInfoLoading){
-    return <>加载中</>
+    return <SettingsSkethon/>
   }
 
   return(
@@ -30,25 +32,41 @@ export default function Settings() {
       />
       <div className='flex'>
         <Menu/>
-        <div className='grow bg-[#182036] pl-10 pr-16 overflow-y-auto h-screen'>
+        <div className='grow bg-[#182036] pl-10 pr-16 pb-20 overflow-y-auto h-screen'>
           <div className='max-w-6xl mx-auto'>
           <Header
             title="Settings"
-            description="Select all the subscriptions or choose single network for the plan"
+            description="Account Settings : name, email and password"
             url = ''
             back = {false}
             backTitle = ""
             backUrl=""
           />
-          <div className='mt-10'>
-            <div className='bg-white/5 rounded-[24px] px-6 py-6'>
-              <EmailEdit
-                isEdit = {true}
-                email = {'Test001@gmail.com'}
-              />
+          <Captcha>
+            <div className='mt-10'>
+              <div className='bg-white/5 rounded-[24px] px-6 py-6'>
+                <NameEdit
+                  name = {userInfoData?.email}
+                />
+              <div className='mt-10 border-[0.5px] border-white/10'></div>
+              <div className='mt-10'>
+                <EmailEdit
+                  email = {userInfoData?.email}
+                />
+              </div>
+              <div className='mt-10 border-[0.5px] border-white/10'></div>
+              <div className='mt-10'>
+                <PasswordEdit
+                />
+              </div>
+                
+              </div>
+              <div className='mt-12 text-center'>
+                <CaptchaFooter/>
+              </div>
             </div>
-            
-          </div>
+          </Captcha>
+          
         </div>
       </div>
     </div>
