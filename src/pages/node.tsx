@@ -6,6 +6,7 @@ import { Menu } from 'src/components/Menu';
 import { Header } from 'src/components/Header';
 import { Disclosure } from '@headlessui/react'
 import { pass } from 'src/lib/fp';
+import NodeSkethon from 'src/components/Skethon/NodeSkethon';
 
 
 export default function Node(){
@@ -18,22 +19,20 @@ export default function Node(){
 
   if(nodeListLoading){
     return(
-      <div>
-        加载中
-      </div>
+      <NodeSkethon/>
     )
   }
 
   return(
     <>
        <Meta
-        title=''
+        title='Node'
         description=''
         image=''
       />
        <div className='flex'>
         <Menu/>
-        <div className='grow bg-[#182036] pl-10 pr-10 overflow-y-auto h-screen pb-6'>
+        <div className='grow bg-[#182036] pl-10 pr-16 overflow-y-auto h-screen pb-12'>
           <div className='max-w-6xl mx-auto'>
             <Header
               title="Node"
@@ -61,7 +60,7 @@ export default function Node(){
                 )}
               </Disclosure>
             </div>
-            <div className='mt-12 grid grid-cols-4 gap-x-4 gap-y-6'>
+            <div className='mt-12 grid grid-cols-4 gap-x-6 gap-y-6'>
               {nodeListData?.list.map((item,index) => (
                 <NodeItemCard
                   id = {item.id}

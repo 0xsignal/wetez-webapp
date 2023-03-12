@@ -155,7 +155,7 @@ export default function PlanList({
                 leaveFrom="opacity-100"
                 leaveTo="opacity-0"
               >
-                <Listbox.Options className="absolute mt-1 w-full text-left overflow-auto rounded-[6px] text-white/50 bg-[#1A2238] text-sm h-64 overflow-x-auto">
+                <Listbox.Options className="absolute mt-1 w-full text-left overflow-y-auto rounded-[6px] text-white/50 shadow-lg bg-[#1A2238] text-sm h-64 ">
                   {categoryList.map((item) => (
                     <Listbox.Option
                       key={item.id}

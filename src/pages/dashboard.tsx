@@ -7,6 +7,8 @@ import { useCurrentPlans,useSubscribedList } from 'src/api/dashboard'
 import { useIPFSPlan } from 'src/api/ipfs'
 import dynamic from 'next/dynamic'
 import DashboardSkethon from 'src/components/Skethon/DashboardSkethon'
+import Notification from 'src/components/Notification'
+import React,{ useState } from 'react'
 
 const CircleChart = dynamic(
   () => import('../components/Chart/CircleChart'),
@@ -45,6 +47,8 @@ export default function Dashboard() {
     error:ipfsPlanError,
   } = useIPFSPlan()
 
+  const [isNotificationOpen,setIsNotificationOpen] = useState<boolean>( true )
+
   let paid:boolean = false
   if(!currentPlan && !planLoading && !ipfsPlanLoading){
     paid = true
@@ -55,6 +59,10 @@ export default function Dashboard() {
   }
 
 
+  function Close(){
+    setIsNotificationOpen(false)
+  }
+
   return(
     <>
       <Meta
@@ -62,9 +70,14 @@ export default function Dashboard() {
         description=''
         image=''
       />
+      <Notification
+        isOpen = {isNotificationOpen}
+        onClose = {Close}
+        message = {'text'}
+      />
       <div className='flex'>
         <Menu/>
-        <div className='grow bg-[#182036] pl-10 pr-10'>
+        <div className='grow bg-[#182036] pl-10 pr-16'>
           <div className='max-w-6xl mx-auto'>
             <Header
               title="Dashboard"

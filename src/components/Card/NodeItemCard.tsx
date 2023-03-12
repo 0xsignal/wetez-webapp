@@ -151,7 +151,7 @@ export default function NodeItemCard ({
       <div className="mt-4 text-white font-bold text-base text-center">
         {name}
       </div>
-      <div className="mt-6 text-4xl text-white/50 font-brand text-center">
+      <div className="mt-6 text-4xl text-white font-brand text-center">
         {apy}%
       </div>
       <div className="mt-2 text-base text-white/30 text-center">

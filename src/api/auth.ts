@@ -33,8 +33,6 @@ export const VerifyEmail = async (data:{
 
 }
 
-
-
 export const SignIn = async(data:{
   reCaptchaToken: string
   email:string
@@ -57,5 +55,38 @@ export const LogOut = async(data:{
 }) => {
   const res = await post('/v1/auth/logout',data)
   removeUserSession()
+  return res
+}
+
+export const ChangeName = async(data:{
+  name: string
+}) => {
+  const res = await post('/v1/update_name',data)
+  return res
+}
+
+export const SendEmailCode = async(data:{
+  email: string,
+  reCaptchaToken: string,
+}) => {
+  const res = await post('/v1/send_update_email',data)
+  return res
+}
+
+export const ChangeEmail = async(data:{
+  email: string,
+  oldEmailVerifyCode: string,
+  newEmailVerifyCode: string,
+}) => {
+  const res = await post('/v1/update_email',data)
+  return res
+}
+
+export const ChangePassword = async(data:{
+  reCaptchaToken: string,
+  oldPassword: string,
+  newPassword: string,
+}) => {
+  const res = await post('/v1/user/change_password',data)
   return res
 }

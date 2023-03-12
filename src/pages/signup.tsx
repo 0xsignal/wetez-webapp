@@ -53,7 +53,7 @@ export default function Signup() {
   }
 
   function checkPassword(input: string){
-    const regPassword = /^(?=.*[A-Z].{7,24})[a-zA-Z0-9]*$/
+    const regPassword = /^(?=.*[A-Z])(?=.*[a-z0-9])[!-~]{8,}$/
     if(input){
       if(regPassword.test(input)){
         setPasswordError("")
@@ -92,6 +92,8 @@ export default function Signup() {
     const registerResult = await Register(data);
     router.replace({pathname:'/onboard',query:{email:email},});
     setRefreshReCaptcha(r => !r);
+    setLoading(false);
+
   }
   return(
     <>

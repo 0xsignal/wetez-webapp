@@ -10,6 +10,9 @@ import dynamic from 'next/dynamic'
 import { useIPFSGatewayList,useIPFSPlan } from 'src/api/ipfs';
 import { addGateway,removeGateway,activeGateway } from 'src/api/ipfs';
 import { useIPFSStats1m,useIPFSStats24h,useIPFSStats7d } from 'src/api/ipfs';
+import IpfsSkethon from 'src/components/Skethon/IpfsSkethon';
+import { CaptchaFooter } from 'src/components/Captcha/CaptchaFooter';
+import { useAccountInfo } from 'src/api/setting';
 
 const CircleChart = dynamic(
   () => import('../components/Chart/CircleChart'),
@@ -17,6 +20,12 @@ const CircleChart = dynamic(
 )
 
 export default function Ipfs() {
+
+  const {
+    data: userInfoData,
+    loading: userInfoLoading,
+    error: userInfoError,
+  } = useAccountInfo()
 
   const {
     data: ipfsPlanData ,
@@ -49,23 +58,23 @@ export default function Ipfs() {
     error: ipfsStats1mError,
   } = useIPFSStats1m()
 
-  if( ipfsPlanLoading && gatewayListLoading && ipfsStats24hLoading && ipfsStats7dLoading && ipfsStats1mLoading){
-    return(
-      <div className='text-black text-7xl'>
-        h1
-      </div>
-    )
+  if(ipfsPlanLoading && gatewayListLoading && ipfsStats24hLoading && ipfsStats7dLoading && ipfsStats1mLoading){
+    <IpfsSkethon/>
   }
+
+  
   return(
     <>
       <Meta
-        title=''
+        title='IPFS'
         description=''
         image=''
       />
       <div className='flex'>
+        <div className=''></div>
         <Menu/>
-        <div className='grow bg-[#182036] pl-10 pr-10 overflow-y-auto h-screen'>
+        <div className='grow bg-[#182036] pl-10 pr-16 pb-20 overflow-y-auto h-screen'>
+          <div className='max-w-6xl mx-auto'>
           <Header
             title="IPFS"
             description="Whole data about your plans here"
@@ -76,7 +85,7 @@ export default function Ipfs() {
           />
           <div className='mt-10'>
             <ApiKeyCard
-              apiKey=''
+              apiKey={userInfoData?.apiKey}
             />
           </div>
           <div className='mt-10 grid grid-cols-2 gap-4'>
@@ -109,8 +118,12 @@ export default function Ipfs() {
               items1m = {ipfsStats1mData?.items}
             />
           </div>
+          <div className='mt-16 text-center'>
+            <CaptchaFooter/>
+          </div>
         </div>
       </div>
+    </div>
     </>
   )
 }   
