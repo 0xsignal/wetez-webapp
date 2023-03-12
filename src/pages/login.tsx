@@ -100,7 +100,9 @@ export default function Login() {
                   <div className='grow'>
                   </div>
                   <div className='text-white/50 text-sm'>
-                    Forget Password?
+                    <Link href='/forgotpassword'>
+                      Forgot Password?
+                    </Link>
                   </div>
                 </div>
                 <input 

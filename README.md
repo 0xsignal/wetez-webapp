@@ -2,14 +2,34 @@
 
 整体并没有使用开箱即用的组件（比如 AntDesign、Element 等），使用以下依赖封装的组件
 
-- React Framework:[Next.js](https://nextjs.org/)
-- Data Fetching:[SWR](https://swr.vercel.app/)
-- CSS Framework:[TailwindCss](https://tailwindcss.com/docs/installation)
-- Headless UI Component:[HeadlessUI](https://headlessui.com/)
+- React Framework: [Next.js](https://nextjs.org/)
+- Data Fetching: [SWR](https://swr.vercel.app/)
+- CSS Framework: [TailwindCss](https://tailwindcss.com/docs/installation)
+- Headless UI Component: [HeadlessUI](https://headlessui.com/)
+
+- Chart Component: [Echats](https://echarts.apache.org/handbook/zh/get-started/)
+- Svg: [Svg 画图](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Element/circle)
+
+## Roter
+
+- Dashboard: `/dashboard/`
+- Pos Api: `/posapi/`
+- Chain Api: `/chain/chainId/`
+- IPFS: `/ipfs/`
+- Node: `/node/`
+- Premium: `/premium/`
+- Premium 定位 Plan: `/premium?chainid={chainid}`
+- Settings: `/setting/`
+- Login: `/login/`
+- Signup: `/signup/`
+- Onboard: `/onboard/`
+- Verify: `/verify?token={token}`
+- Forget Password: `/forgetpassword?token={token}`
 
 ## Deploy
 
-
+- npm run build
+- npm run start
 
 ----
 

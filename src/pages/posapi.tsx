@@ -59,7 +59,7 @@ export default function Posapi() {
                 onLoadMore = {onLoadMore}
                 canLoadMore = {canLoadMore}
               >
-                <div className='grid grid-cols-2 gap-6'>
+                <div className='grid grid-cols-2 gap-x-5 gap-y-7'>
                   {(apiList.map((item) => (
                     <ApiPlanCard
                       id = {item.id}

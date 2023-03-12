@@ -60,7 +60,7 @@ export default function Node(){
                 )}
               </Disclosure>
             </div>
-            <div className='mt-12 grid grid-cols-4 gap-x-4 gap-y-6'>
+            <div className='mt-12 grid grid-cols-4 gap-x-6 gap-y-6'>
               {nodeListData?.list.map((item,index) => (
                 <NodeItemCard
                   id = {item.id}

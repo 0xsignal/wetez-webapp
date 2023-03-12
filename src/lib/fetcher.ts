@@ -1,5 +1,7 @@
+import React from 'react'
 import Router from 'next/router'
 import { getUserSession,removeUserSession } from './storage'
+import Notification from 'src/components/Notification'
 
 type Stringifiable =
   | string

@@ -33,8 +33,6 @@ export const VerifyEmail = async (data:{
 
 }
 
-
-
 export const SignIn = async(data:{
   reCaptchaToken: string
   email:string
@@ -59,3 +57,11 @@ export const LogOut = async(data:{
   removeUserSession()
   return res
 }
+
+export const changeName = async(data:{
+  name: string
+}) => {
+  const res = await post('/v1/update_name',data)
+  return res
+}
+

@@ -4,15 +4,27 @@ import { Menu } from '../components/Menu'
 import { Header } from '../components/Header'
 import { AccountPassword } from '../components/Settings/AccountPassword';
 import { useState } from 'react';
+import { useUserrInfo } from 'src/api/premium';
+import EmailEdit from 'src/components/Form/EmailEdit';
 
 export default function Settings() {
 
   const [isEditing, setIsEditing] = useState(false);
 
+  const {
+    data: userInfoData,
+    loading: userInfoLoading,
+    error: userInfoError,
+  } = useUserrInfo()
+
+  if(userInfoLoading){
+    return <>加载中</>
+  }
+
   return(
     <>
       <Meta
-        title=''
+        title='Setting'
         description=''
         image=''
       />
@@ -30,31 +42,12 @@ export default function Settings() {
           />
           <div className='mt-10'>
             <div className='bg-white/5 rounded-[24px] px-6 py-6'>
-              <h2 className='text-2xl text-white mt-4 font-bold'>
-                Name
-              </h2>
-              <p className='text-white/50 text-lg mt-2'>
-                Test001
-              </p>
-
-              <div className='mt-10'>
-                <h2 className='text-2xl text-white mt-4 font-bold'>
-                  Email
-                </h2>
-                <p className='text-white/50 text-lg mt-2'>
-                  Test001@gmail.com
-                </p>
-              </div>
-
-              <div className='mt-16 mb-4'>
-                <button className='bg-[#2A23FF] rounded-[24px] px-14 py-3 text-lg text-white'>
-                  Edit
-                </button>
-              </div>
+              <EmailEdit
+                isEdit = {true}
+                email = {'Test001@gmail.com'}
+              />
             </div>
-          </div>
-          <div className='mt-10'>
-            <AccountPassword />
+            
           </div>
         </div>
       </div>
