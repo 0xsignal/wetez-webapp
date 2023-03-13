@@ -25,7 +25,7 @@ export default function Onboard() {
   return(
     <>
       <Meta
-          title=''
+          title='Onboard'
           description=''
           image=''
         />

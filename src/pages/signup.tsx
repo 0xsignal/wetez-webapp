@@ -7,7 +7,7 @@ import { useState } from "react";
 import Captcha from '../components/Captcha/Captcha';
 import { Register } from '../api/auth';
 import { useRouter } from 'next/router';
-import ButtonLoading from 'src/components/ButtonLoading';
+import ButtonLoading from 'src/components/Button/ButtonLoading';
 import { getUserSession } from 'src/lib/storage';
 
 export default function Signup() {

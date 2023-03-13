@@ -1,7 +1,7 @@
 import React from 'react'
 import Router from 'next/router'
 import { getUserSession,removeUserSession } from './storage'
-import Notification from 'src/components/Notification'
+import { toast } from 'react-toastify';
 
 type Stringifiable =
   | string
@@ -50,13 +50,14 @@ export const fetcher: <T>(url: string, config: FetcherConfig) => Promise<T> = (
           pathname: '/login',
           query: { redirect: Router.query.redirect ?? Router.asPath },
         })
-        default:
-          throw new Error(json.message || '未知错误')
+      default:
+        throw new Error(json.message || '未知错误')
     }
   })
   .then(json => json.data)
   .catch(error => {
     const message = error.msg || error.message
+    toast.error(message)
     throw error
   })
 }

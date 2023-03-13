@@ -7,7 +7,7 @@ import { GoogleReCaptcha } from "react-google-recaptcha-v3";
 import { useState } from "react";
 import Captcha from '../components/Captcha/Captcha';
 import { useRouter } from 'next/router';
-import ButtonLoading from '../components/ButtonLoading';
+import ButtonLoading from '../components/Button/ButtonLoading';
 import { SendEmailLink } from '../api/auth';
 
 

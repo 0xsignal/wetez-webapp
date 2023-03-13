@@ -155,7 +155,6 @@ export default function EmailEdit({
                 setRefreshReCaptcha(r => !r)
                 setIsOldEmailCodeSent(true)
                 setOldEmailCodeTimer(60)
-                console.log(isOldEmailCodeSent)
               }}
               >
               {isOldEmailCodeSent?`${oldEmailCodeTimer}s`:'Send Code'}
@@ -217,7 +216,6 @@ export default function EmailEdit({
                 setRefreshReCaptcha(r => !r)
                 setIsOldEmailCodeSent(true)
                 setOldEmailCodeTimer(60)
-                console.log(isOldEmailCodeSent)
               }}
             >
               Save

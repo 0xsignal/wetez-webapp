@@ -1,5 +1,4 @@
 import React from 'react';
-import Link from 'next/link';
 import { useEffect } from 'react';
 import * as echarts from 'echarts/core';
 import { BarChart, BarSeriesOption } from 'echarts/charts';
@@ -7,6 +6,7 @@ import { PolarComponent, PolarComponentOption } from 'echarts/components';
 import { SVGRenderer } from 'echarts/renderers';
 import { LabelLayout, UniversalTransition } from 'echarts/features';
 import PlanTag from '../Tag/PlanTag';
+import { useRouter } from 'next/router';
 
 
 type CicleChartProps = {
@@ -81,6 +81,8 @@ export default function CircleChart({
   let totalStorageArray = [0]
   let transferUpArray = [0]
   let transferDownArray = [0]
+
+  const router =useRouter() 
 
 
   useEffect(()=>{
@@ -265,7 +267,12 @@ export default function CircleChart({
           <div className='mt-2 flex items-center'>
             <div className='grow'></div>
             <div className=''>
-              <button className='flex items-center justify-center bg-[#2A23FF] rounded-[23px] text-white px-6 py-2 text-base'>
+              <button 
+                className='flex items-center justify-center bg-[#2A23FF] rounded-[23px] text-white px-6 py-2 text-base'
+                onClick={()=>{
+                  router.push('/premium?chainid=14')
+                }}
+                >
                 More
                 <img src="/image/arrow_more_icon.png" className='h-4 ml-4'/>
               </button>

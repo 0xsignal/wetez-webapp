@@ -86,7 +86,7 @@ export default function ApiMetricCard({
         <div className="mt-2 text-base text-white/50">
           Requests / Day
         </div>
-        <Link href='/'>
+        <Link href='/premium'>
           <div className="mt-6 mb-3 mx-auto w-1/4 bg-[#2A23FF] flex text-white justify-center items-center px-4 py-2 rounded-[24px]">
             More
             <img src="/image/arrow_more_icon.png" className='h-4 ml-4'/>

@@ -66,7 +66,7 @@ export default function Ipfs() {
   return(
     <>
       <Meta
-        title='IPFS'
+        title='IPFS Management'
         description=''
         image=''
       />

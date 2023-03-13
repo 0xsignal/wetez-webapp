@@ -1,5 +1,6 @@
 import { post } from '../lib/fetcher';
 import { removeUserSession } from '../lib/storage';
+import useSWRMutation from 'swr/mutation'
 
 export const Register = async(data:{
   reCaptchaToken: string
@@ -105,4 +106,25 @@ export const ResetPassword = async(data:{
 }) => {
   const res = await post('/v1/reset_password',data)
   return res
+}
+
+export type resetKey = {
+  newApiKey: string,
+  reCaptchaToken: string,
+}
+
+export const resetKeyFunc:(url:string,{arg}:{arg:{reCaptchaToken: string}}) => Promise<resetKey> = async(url,{arg}) => {
+  const res = await post(url,arg)
+  return res
+}
+
+export const useResetKey = () => {
+  
+  const{ data, trigger,error } = useSWRMutation('/v1/user/reset_api_key',resetKeyFunc)
+  return {
+    trigger,
+    loading: !error && !data,
+    data,
+    error,
+  }
 }

@@ -2,6 +2,7 @@ import React from 'react';
 import { useRouter } from 'next/router';
 import { VerifyEmail } from 'src/api/auth';
 import { useEffect } from 'react';
+import { Meta } from 'src/components/Meta';
 
 export default function Verify() {
 
@@ -18,7 +19,8 @@ export default function Verify() {
   })
 
   return (
-    <>
-    </>
+    <Meta
+      title='Verify Email'
+    />
   )
 }

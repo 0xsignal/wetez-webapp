@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import '~react-toastify/dist/ReactToastify.css';
 
 /* hidden captcha global*/
 .grecaptcha-badge { 
@@ -68,4 +69,33 @@
 @keyframes nprogress-spinner {
   0%   { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+}
+
+.toast-container {
+  z-index: 9999;
+}
+
+.toast {
+  background-color: #1f2937;
+  color: #fff;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border-radius: 0.25rem;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
+}
+
+.toast-success {
+  background-color: #10b981;
+}
+
+.toast-error {
+  background-color: #ef4444;
+}
+
+.toast-warning {
+  background-color: #f59e0b;
+}
+
+.toast-info {
+  background-color: #3b82f6;
 }
