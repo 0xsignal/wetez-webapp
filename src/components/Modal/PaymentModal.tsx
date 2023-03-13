@@ -129,7 +129,6 @@ export function ModalStatus({
       <div 
         className='mt-10 text-base text-white/50 text-center cursor-pointer flex items-center justify-center space-x-2'
         onClick={async ()=>{
-          //@ts-ignore
           const res = await checkOrderTrigger({orderId:orderId})
           setOrderStatus(res?.status || 0)
         }}

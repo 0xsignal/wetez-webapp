@@ -119,7 +119,6 @@ export default function PlanList({
   const [planList,setPlanList] = useState(list)
   const [currentPlanName,setCurrentPlanName] = useState(currentPlan)
   const upgradeListData = async() => {
-    //@ts-ignore swr 存在 type error
     const res = await planDetailTrigger({chainId:selected.id},)
     setPlanList(res?.list || [])
     setCurrentPlanName(res?.currentPlan || '')

@@ -69,7 +69,6 @@ export default function BillingListItem({
         <div 
           className='text-right text-[#00F4FF] text-base py-6 cursor-pointer' 
           onClick={async () => {
-            //@ts-ignore
             await orderDtailTrigger({orderId:listItemId})
             setIsOpen(true)
           }}>

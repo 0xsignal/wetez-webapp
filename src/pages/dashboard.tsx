@@ -9,6 +9,7 @@ import dynamic from 'next/dynamic'
 import DashboardSkethon from 'src/components/Skethon/DashboardSkethon'
 import Notification from 'src/components/Notification'
 import React,{ useState } from 'react'
+import Captcha from 'src/components/Captcha/Captcha'
 
 const CircleChart = dynamic(
   () => import('../components/Chart/CircleChart'),
@@ -66,7 +67,7 @@ export default function Dashboard() {
   return(
     <>
       <Meta
-        title=''
+        title='Dashboard'
         description=''
         image=''
       />
@@ -89,11 +90,13 @@ export default function Dashboard() {
             />
             <div className='px-0 py-10'>
               <div className='grid grid-cols-5 gap-4'>
-                <div className='col-span-3'>
-                  <ApiUsageCard
-                    subscribePlanList={subscribedList?.list}
-                  />
-                </div>
+                <Captcha>
+                  <div className='col-span-3'>
+                    <ApiUsageCard
+                      subscribePlanList={subscribedList?.list}
+                    />
+                  </div>
+                </Captcha>
                 <div className='col-span-2'>
                   <CurrentPlanCard
                     paid = {paid}
