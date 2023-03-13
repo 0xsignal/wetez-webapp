@@ -59,16 +59,13 @@ export function StatusCard(
   if(planStatus.plan.name == 'Free'){
     expireAtTime = '01/01/2099'
   } else{
-    expireAtTime = moment(planStatus.expireAt).format('L')
+    expireAtTime = moment(planStatus.expireAt*1000).format('L')
 
   }
 
   return(
     <div className='bg-white/5 rounded-[26px]'>
       <div className='px-6 py-6'>
-        <div className='text-2xl text-white font-bold'>
-          Endpoints
-        </div>
         <EndpontsList
           endpoints={planStatus.endpoints}
         />

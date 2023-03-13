@@ -7,7 +7,6 @@ import { useCurrentPlans,useSubscribedList } from 'src/api/dashboard'
 import { useIPFSPlan } from 'src/api/ipfs'
 import dynamic from 'next/dynamic'
 import DashboardSkethon from 'src/components/Skethon/DashboardSkethon'
-import Notification from 'src/components/Notification'
 import React,{ useState } from 'react'
 import Captcha from 'src/components/Captcha/Captcha'
 import { useAccountInfo } from 'src/api/setting'
@@ -78,11 +77,7 @@ export default function Dashboard() {
         description=''
         image=''
       />
-      <Notification
-        isOpen = {isNotificationOpen}
-        onClose = {Close}
-        message = {'text'}
-      />
+      
       <div className='flex'>
         <Menu/>
         <div className='grow bg-[#182036] pl-10 pr-16'>

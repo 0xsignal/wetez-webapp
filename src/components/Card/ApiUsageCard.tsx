@@ -120,6 +120,7 @@ export function ApiUsageCard({
                               const res = await useResetKeyTrigger({reCaptchaToken:token})
                               setIsApikey(res?.newApiKey)
                               setIsConfirmOpen(false)
+                              setRefreshReCaptcha(r => !r);
                             }}
                           />
                           <div 

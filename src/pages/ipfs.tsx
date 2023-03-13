@@ -66,7 +66,7 @@ export default function Ipfs() {
   return(
     <>
       <Meta
-        title='IPFS'
+        title='IPFS Management'
         description=''
         image=''
       />
@@ -76,7 +76,7 @@ export default function Ipfs() {
         <div className='grow bg-[#182036] pl-10 pr-16 pb-20 overflow-y-auto h-screen'>
           <div className='max-w-6xl mx-auto'>
           <Header
-            title="IPFS Management"
+            title="IPFS"
             description="Whole data about your plans here"
             url = ''
             back = {false}

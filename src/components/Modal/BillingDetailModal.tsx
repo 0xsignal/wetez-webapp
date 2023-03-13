@@ -3,6 +3,7 @@ import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useEffect, useState } from 'react'
 import { pass } from '../../lib/fp';
 import Link from 'next/link';
+import CopyButton from '../Button/CopyButton';
 
 type BillingDetailModalProps = {
   isOpen?: boolean;
@@ -90,7 +91,9 @@ export function BillingDetailModal({
                     </div>
                     <div className='text-base text-white/50 mt-4 flex items-center gap-x-3'>
                       {id}
-                      <img src="/image/copy_bg_icon.png" className='h-6'/>
+                      <CopyButton
+                        text = {id}
+                      />
                     </div>
                   </div>
 

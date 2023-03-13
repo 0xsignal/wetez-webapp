@@ -30,6 +30,7 @@
 
 采用客户端渲染方式，并未有 SEO 需求，因此并未采用 SSR 等方式
 
+- npm install
 - npm run build
 - npm run start
 

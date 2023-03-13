@@ -4,7 +4,7 @@ import { Fragment, useState } from 'react'
 import { pass } from '../../lib/fp';
 import TimeCounter from '../TimeCounter';
 import { useCheckOrderStatus,useCheckOrderStatusInterval } from 'src/api/premium';
-import ButtonLoading from '../ButtonLoading'
+import ButtonLoading from '../Button/ButtonLoading'
 
 
 type PaymentModalProps = {
