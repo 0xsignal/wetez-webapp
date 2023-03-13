@@ -100,10 +100,10 @@ export function IpfsItemCard({
         isOpen = {isConfirmOpen}
         title = {'Switch to a free plan'}
         description = {'Your current plan is a paid one. If you confirm to switch to a free plan, your paid plan will become invalid. Are you sure you want to proceed with this operation?'}
-        closeModal = {()=>{
+        closeFunc = {()=>{
           setIsConfirmOpen(false)
         }}
-        confirmModal = {async ()=>{
+        confirmFunc = {async ()=>{
           await downGradeTrigger({chainId:chainId})
           setIsConfirmOpen(false)
           router.reload()
@@ -311,10 +311,10 @@ export function ApiItemCard({
         isOpen = {isConfirmOpen}
         title = {'Switch to a free plan'}
         description = {'Your current plan is a paid one. If you confirm to switch to a free plan, your paid plan will become invalid. Are you sure you want to proceed with this operation?'}
-        closeModal = {()=>{
+        closeFunc = {()=>{
           setIsConfirmOpen(false)
         }}
-        confirmModal = {async ()=>{
+        confirmFunc = {async ()=>{
           await downGradeTrigger({chainId:chainId})
           setIsConfirmOpen(false)
           router.reload()

@@ -33,7 +33,7 @@ export default function Posapi() {
   return(
     <>
        <Meta
-        title=''
+        title='Pos Api Management'
         description=''
         image=''
       />

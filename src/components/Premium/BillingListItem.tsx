@@ -10,7 +10,6 @@ type BillingListItemProps = {
   listItemPlan?: string;
   listItemTotal?: string;
   listItemCurrency?: string;
-
 };
 
 export default function BillingListItem({

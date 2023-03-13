@@ -14,7 +14,7 @@ export function ApiKeyCard({
     try {
       await navigator.clipboard.writeText(text);
     } catch (err) {
-    }
+  }
 
   }
 

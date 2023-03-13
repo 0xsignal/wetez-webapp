@@ -61,7 +61,7 @@ export default function Premium() {
   return(
     <>
     <Meta
-        title=''
+        title='Premium'
         description=''
         image=''
       />

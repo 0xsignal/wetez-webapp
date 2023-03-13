@@ -10,6 +10,7 @@ import DashboardSkethon from 'src/components/Skethon/DashboardSkethon'
 import Notification from 'src/components/Notification'
 import React,{ useState } from 'react'
 import Captcha from 'src/components/Captcha/Captcha'
+import { useAccountInfo } from 'src/api/setting'
 
 const CircleChart = dynamic(
   () => import('../components/Chart/CircleChart'),
@@ -48,6 +49,12 @@ export default function Dashboard() {
     error:ipfsPlanError,
   } = useIPFSPlan()
 
+  const {
+    data: accountInfoData,
+    loading: accountInfoLoading,
+    error: accountInfoError,
+  } = useAccountInfo()
+
   const [isNotificationOpen,setIsNotificationOpen] = useState<boolean>( true )
 
   let paid:boolean = false
@@ -55,7 +62,7 @@ export default function Dashboard() {
     paid = true
   }
 
-  if( planLoading && listLoading && ipfsPlanLoading){
+  if( planLoading && listLoading && ipfsPlanLoading && accountInfoLoading){
     return <DashboardSkethon/>
   }
 
@@ -93,6 +100,7 @@ export default function Dashboard() {
                 <Captcha>
                   <div className='col-span-3'>
                     <ApiUsageCard
+                      apikey={accountInfoData?.apiKey}
                       subscribePlanList={subscribedList?.list}
                     />
                   </div>

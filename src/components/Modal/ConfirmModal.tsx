@@ -6,22 +6,22 @@ type ConfirmModalProps = {
   isOpen?: boolean
   title?: string,
   description?: string,
-  closeModal?: () => void,
-  confirmModal?: () => void,
+  closeFunc?: () => void,
+  confirmFunc?: () => void,
 }
 
 export default function ConfirmModal({
   isOpen = false,
   title = '',
   description = '',
-  closeModal = pass,
-  confirmModal = pass,
+  closeFunc = pass,
+  confirmFunc = pass,
 }:ConfirmModalProps){
 
   return(
     <div className=''>
     <Transition appear show={isOpen} as={Fragment}>
-      <Dialog as="div" className="relative z-10" onClose={closeModal}>
+      <Dialog as="div" className="relative z-10" onClose={closeFunc}>
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-250"
@@ -60,13 +60,13 @@ export default function ConfirmModal({
                 <div className="mt-10 grid grid-cols-2 divide-x-[1px] divide-white/20">
                   <div 
                     className = "text-center text-xl text-white/50 cursor-pointer"
-                    onClick = {closeModal}
+                    onClick = {closeFunc}
                     >
                     Cancel
                   </div>
                   <div 
                     className = "text-center text-xl text-[#00F4FF] cursor-pointer"
-                    onClick = {confirmModal}
+                    onClick = {confirmFunc}
                     >
                     Confirm
                   </div>
