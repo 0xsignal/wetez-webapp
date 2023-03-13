@@ -44,7 +44,7 @@ export default function PasswordEdit(){
         return false
       }
     } else {
-      setConfirmPasswordError('Please confirm password')
+      setConfirmPasswordError('Please enter confirm password')
     }
   }
 

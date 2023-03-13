@@ -90,3 +90,19 @@ export const ChangePassword = async(data:{
   const res = await post('/v1/user/change_password',data)
   return res
 }
+
+export const SendEmailLink = async(data:{
+  email: string,
+  reCaptchaToken: string,
+}) => {
+  const res = await post('/v1/send_forget_password',data)
+  return res
+}
+
+export const ResetPassword = async(data:{
+  token: string,
+  newPassword: string,
+}) => {
+  const res = await post('/v1/reset_password',data)
+  return res
+}

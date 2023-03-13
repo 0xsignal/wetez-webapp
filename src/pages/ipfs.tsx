@@ -58,7 +58,7 @@ export default function Ipfs() {
     error: ipfsStats1mError,
   } = useIPFSStats1m()
 
-  if(ipfsPlanLoading && gatewayListLoading && ipfsStats24hLoading && ipfsStats7dLoading && ipfsStats1mLoading){
+  if(ipfsPlanLoading && gatewayListLoading && ipfsStats24hLoading && ipfsStats7dLoading && ipfsStats1mLoading && userInfoLoading){
     <IpfsSkethon/>
   }
 

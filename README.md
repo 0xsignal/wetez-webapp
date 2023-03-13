@@ -20,10 +20,11 @@
 - Premium 定位 Plan: `/premium?chainid={chainid}`
 - Settings: `/setting/`
 - Login: `/login/`
-- Signup: `/signup/`
+- Sign Up: `/signup/`
 - Onboard: `/onboard/`
 - Verify: `/verify?token={token}`
-- Forget Password: `/forgetpassword?token={token}`
+- Forget Password: `/forgetpassword`
+- Rest Password: `/resetpassword?token={token}`
 
 ## Deploy
 

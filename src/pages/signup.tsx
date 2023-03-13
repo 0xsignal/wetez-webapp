@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback,useEffect } from 'react';
 import { Meta } from '../components/Meta';
 import Link from 'next/link';
 import { SlideHero } from '../components/Hero/SlideHero';
@@ -8,6 +8,7 @@ import Captcha from '../components/Captcha/Captcha';
 import { Register } from '../api/auth';
 import { useRouter } from 'next/router';
 import ButtonLoading from 'src/components/ButtonLoading';
+import { getUserSession } from 'src/lib/storage';
 
 export default function Signup() {
 
@@ -23,12 +24,19 @@ export default function Signup() {
   const [refreshReCaptcha, setRefreshReCaptcha] = useState(false);
 
   const [loading,setLoading] = useState(false)
+  const userSesstion = getUserSession()
 
   const router = useRouter()
 
   const onVerify = useCallback((token:string) => {
     setToken(token);
   },[]);
+
+  useEffect(()=>{
+    if(userSesstion){
+      router.replace('/dashboard')
+    }
+  })
 
   const valid:boolean = 
     (email != '') && (password != '') && 
@@ -78,7 +86,7 @@ export default function Signup() {
         return false
       }
     } else {
-      setConfirmPasswordError('Please confirm password')
+      setConfirmPasswordError('Please enter confirm password')
     }
   }
 

@@ -12,14 +12,14 @@ export type CreateOrder = {
   qrContent: string,
 }
 
-export const CreateOrderFunc = async(url:string, { arg: PostData }:any) => {
-  const res = await post(url,PostData)
+export const CreateOrderFunc:( url: string, { arg }:{arg:{chainId:number,planId:number}}) => Promise<CreateOrder> = async(url,{arg}) => {
+  const res = await post(url,arg)
   return res
 }
 
 export const useCreateOrder = () => {
   
-  const{ data, trigger,error } = useSWRMutation<CreateOrder>('/v1/payment/create_order',CreateOrderFunc)
+  const{ data, trigger,error } = useSWRMutation('/v1/payment/create_order',CreateOrderFunc)
   return {
     trigger,
     loading: !error && !data,
@@ -50,13 +50,13 @@ export type OrderDetail = {
   }
 }
 
-export const OrderDetailFunc = async(url:string, { arg }:{ arg:{orderId: number}}) => {
+export const OrderDetailFunc:(url:string, { arg }:{ arg:{orderId: string}}) => Promise<OrderDetail> = async(url,{ arg }) => {
   const res = await post(url,arg)
   return res
 }
 
 export const useOrderDetail = () => {
-  const{ data, trigger,error } = useSWRMutation<OrderDetail>('/v1/payment/get_order_detail',OrderDetailFunc)
+  const{ data, trigger,error } = useSWRMutation('/v1/payment/get_order_detail',OrderDetailFunc)
   return {
     trigger,
     loading: !error && !data,
@@ -188,14 +188,14 @@ export const usePlanDetail = (chainId:number,isReady:boolean,isRequest:boolean) 
   }
 }
 
-export async function PlanDetailFunc (url:string,{ arg }: {arg:{chainId:number}}){
+export const PlanDetailFunc: (url:string,{ arg }: {arg:{chainId:number}})=>Promise<PlanDetail>=async(url, { arg })=> {
   const res = await post(url,arg)
   return res
 }
 
 export const usePlanDetailFunc = () => {
   
-  const{ trigger, isMutating, error } = useSWRMutation<PlanDetail>('/v1/get_chain_plans',PlanDetailFunc)
+  const{ trigger, isMutating, error } = useSWRMutation('/v1/get_chain_plans',PlanDetailFunc)
   return {
     trigger,
     isMutating,
@@ -203,7 +203,11 @@ export const usePlanDetailFunc = () => {
   }
 }
 
-export const DowngradeFreeFunc = async(url:string, { arg }:{arg:{chainId:number}}) => {
+export type DowngradeFree = {
+  success: boolean
+}
+
+export const DowngradeFreeFunc:(url:string, { arg }:{arg:{chainId:number}}) => Promise<DowngradeFree> = async(url,{arg}) => {
   const res = await post(url,arg)
   return res
 }
@@ -223,14 +227,14 @@ export type OrderStatus = {
   shippingStatus : number,
 }
 
-export const CheckOrderStatus = async(url:string, { arg }:{ arg:{orderId:string} }) => {
+export const CheckOrderStatus:(url:string, { arg }:{ arg:{orderId:string}}) => Promise<OrderStatus> =  async(url, { arg }) => {
   const res = await post(url,arg)
   return res
 }
 
 export const useCheckOrderStatus = () => {
   
-  const { trigger, isMutating, error } = useSWRMutation<OrderStatus>('/v1/payment/check_order_status', CheckOrderStatus)
+  const { trigger, isMutating, error } = useSWRMutation('/v1/payment/check_order_status', CheckOrderStatus)
   return {
     trigger,
     isMutating,

@@ -129,7 +129,6 @@ export function IpfsItemCard({
           if(planType == 'Free'){
             setIsConfirmOpen(true)
           } else {
-            //@ts-ignore
             const res = await createOrderTrigger({chainId:chainId,planId:planId},)
             setPaymentId(res?.orderId)
             setPaymentCurrency(res?.currency)

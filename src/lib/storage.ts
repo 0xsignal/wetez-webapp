@@ -1,10 +1,15 @@
 import moment from "moment";
 
 export function getLocalStorage(key: string) {
-    return localStorage.getItem(key)
+    const isClient = typeof window !== 'undefined';
+    if(isClient){
+        return localStorage.getItem(key)
+    }
 }
 
 export function getUserSession() {
+    const isClient = typeof window !== 'undefined';
+    if(isClient){
     const authorization = localStorage.getItem("Authorization");
     if (authorization) {
         const expire = localStorage.getItem("expire");
@@ -17,10 +22,13 @@ export function getUserSession() {
         }
     } else {
         return null
-    } 
+    }}
 }
 
 export function removeUserSession(){
-    localStorage.removeItem("Authorization");
-    localStorage.removeItem("expire");
+    const isClient = typeof window !== 'undefined';
+    if(isClient){
+        localStorage.removeItem("Authorization");
+        localStorage.removeItem("expire");
+    }
 }

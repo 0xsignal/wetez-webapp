@@ -4,11 +4,12 @@ import { Meta } from '../components/Meta';
 import Link from 'next/link';
 import { SlideHero } from '../components/Hero/SlideHero';
 import { GoogleReCaptcha } from "react-google-recaptcha-v3";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import Captcha from '../components/Captcha/Captcha';
 import { useRouter } from 'next/router';
 import ButtonLoading from '../components/ButtonLoading';
 import { SignIn } from '../api/auth';
+import { getUserSession } from 'src/lib/storage';
 
 
 export default function Login(){
@@ -23,12 +24,19 @@ export default function Login(){
   const [emailError, setEmailError] = useState<string>('');
 
   const router = useRouter()
+  const userSesstion = getUserSession()
 
   const onVerify = useCallback((token:string) => {
     setToken(token);
   },[]);
 
   const valid:boolean = (email != '') && (password != '')
+
+  useEffect(()=>{
+    if(userSesstion){
+      router.replace('/dashboard')
+    }
+  },[userSesstion])
 
   function checkEmail(input: string){
     const regEmail = /^[\w-.]+@([\w-]+\.)+[\w-]{2,}$/i

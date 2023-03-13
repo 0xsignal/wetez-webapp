@@ -33,7 +33,7 @@ export function GatewayList({
   useEffect(()=>{
     listId = gatewayItemList.findIndex(x=>x.active === true)
     setSelected(gatewayItemList[listId])
-  },[gatewayItemList])
+  },)
 
   useEffect(() => {
     if(selected != null){
