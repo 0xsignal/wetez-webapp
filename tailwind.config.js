@@ -18,7 +18,9 @@ module.exports = {
       },
     },
     extend: {
-
+      zIndex: {
+        'toast': 9999,
+      },
     },
   },
   plugins: [

@@ -1,5 +1,6 @@
 import { post } from '../lib/fetcher';
 import useSWR from 'swr'
+import useSWRMutation from 'swr/mutation'
 
 export type IPFSPlan = {
   subscribedPlan:{
@@ -64,18 +65,53 @@ export const addGateway = async(data:{
   return res
 }
 
-export const removeGateway = async(data:{
-  gatewayID: number
-}) => {
-  const res = await post('/v1/ipfs/gateway/remove',data)
+export type GatewayRes  = {
+  data:boolean
+}
+
+export const AddGatewayFunc:(url:string,{arg}:{arg:{gateway:string}}) => Promise<GatewayRes> = async(url,{arg})=>{
+  const res = await post(url,arg)
   return res
 }
 
-export const activeGateway = async(data:{
-  gatewayID: number
-}) => {
-  const res = await post('/v1/ipfs/gateway/active',data)
+export const useAddGateway = () => {
+  const{ data, trigger,error } = useSWRMutation('/v1/ipfs/gateway/add',AddGatewayFunc)
+  return {
+    trigger,
+    loading: !error && !data,
+    data,
+    error,
+  }
+}
+
+export const removeGatewayFunc:(url:string,{arg}:{arg:{gatewayID:number}}) => Promise<GatewayRes> = async(url,{arg})=>{
+  const res = await post(url,arg)
   return res
+}
+
+export const useRemoveGateway = () => {
+  const{ data, trigger,error } = useSWRMutation('/v1/ipfs/gateway/remove',removeGatewayFunc)
+  return {
+    trigger,
+    loading: !error && !data,
+    data,
+    error,
+  }
+}
+
+export const activeGatewayFunc:(url:string,{arg}:{arg:{gatewayID:number}}) => Promise<GatewayRes> = async(url,{arg})=>{
+  const res = await post(url,arg)
+  return res
+}
+
+export const useActiveGateway = () => {
+  const{ data, trigger,error } = useSWRMutation('/v1/ipfs/gateway/active',removeGatewayFunc)
+  return {
+    trigger,
+    loading: !error && !data,
+    data,
+    error,
+  }
 }
 
 export type IPFSStats24h = {

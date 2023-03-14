@@ -8,7 +8,6 @@ import { Header } from '../components/Header'
 import { GatewaySelect } from '../components/Ipfs/GatewaySelect';
 import dynamic from 'next/dynamic'
 import { useIPFSGatewayList,useIPFSPlan } from 'src/api/ipfs';
-import { addGateway,removeGateway,activeGateway } from 'src/api/ipfs';
 import { useIPFSStats1m,useIPFSStats24h,useIPFSStats7d } from 'src/api/ipfs';
 import IpfsSkethon from 'src/components/Skethon/IpfsSkethon';
 import { CaptchaFooter } from 'src/components/Captcha/CaptchaFooter';
@@ -26,6 +25,7 @@ export default function Ipfs() {
     loading: userInfoLoading,
     error: userInfoError,
   } = useAccountInfo()
+
 
   const {
     data: ipfsPlanData ,
@@ -66,14 +66,14 @@ export default function Ipfs() {
   return(
     <>
       <Meta
-        title='IPFS Management'
+        title='Wetez IPFS'
         description=''
         image=''
       />
       <div className='flex'>
         <div className=''></div>
         <Menu/>
-        <div className='grow bg-[#182036] pl-10 pr-16 pb-20 overflow-y-auto h-screen'>
+        <div className='grow bg-[#182036] pl-10 pr-16 pb-10 overflow-y-auto h-screen'>
           <div className='max-w-6xl mx-auto'>
           <Header
             title="IPFS"
@@ -103,9 +103,6 @@ export default function Ipfs() {
           </div>
           <div className='mt-6'>
             <GatewaySelect
-              addGateway={addGateway}
-              delateGateway={removeGateway}
-              activeGateway={activeGateway}
               gatewayItemList={gatewayListData}
             />
           </div>

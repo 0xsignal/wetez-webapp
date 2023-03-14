@@ -1,7 +1,7 @@
-import React from 'react'
 import Router from 'next/router'
 import { getUserSession,removeUserSession } from './storage'
 import { toast } from 'react-toastify';
+import { SERVER_ENTRY } from './constants';
 
 type Stringifiable =
   | string
@@ -11,7 +11,7 @@ type Stringifiable =
   | null
   | Stringifiable[]
 
-const SERVER_ENTRY = 'https://test-portal-api.wetez.io/api'
+//const SERVER_ENTRY = 'https://test-portal-api.wetez.io/api'
 
 export type FetcherHeaders = { 'Authorization'?: string; 'Content-Type'?: string }
 
@@ -36,6 +36,7 @@ export const fetcher: <T>(url: string, config: FetcherConfig) => Promise<T> = (
 ) => {
 
   url = `${SERVER_ENTRY}${url}`
+  console.log(url)
   const urlObject = new URL(url)
   
   return fetch(urlObject, config)
@@ -50,6 +51,42 @@ export const fetcher: <T>(url: string, config: FetcherConfig) => Promise<T> = (
           pathname: '/login',
           query: { redirect: Router.query.redirect ?? Router.asPath },
         })
+      case json.status === 81002:
+        throw new Error('Login email or password is incorrect, please try again.')
+      case json.status === 81003:
+        throw new Error('Verify link is correct, please try again.')
+      case json.status === 81005:
+        throw new Error('This email has been used, please try another one.')
+      case json.status === 81006:
+        throw new Error('This email address is not registered, please try another one.')
+      case json.status === 81007:
+        throw new Error('This email address is not registered, please try another one.')
+      case json.status === 81008:
+        throw new Error('Please refresh your page.')
+      case json.status === 81010:
+        throw new Error('The plan need to contact us to subscribe.')
+      case json.status === 81012:
+        throw new Error('Illegal characters detected, please try another.')
+      case json.status === 81014:
+        throw new Error('There are unpaid and unexpired orders, new orders cannot be created.')
+      case json.status === 80401:
+        removeUserSession()
+        Router.replace({
+          pathname: '/login',
+          query: { redirect: Router.query.redirect ?? Router.asPath },
+        })
+      case json.status === 80403:
+        removeUserSession()
+        Router.replace({
+          pathname: '/login',
+          query: { redirect: Router.query.redirect ?? Router.asPath },
+        })
+      case json.status === 80502:
+        throw new Error('Network error, please tye again later')
+      case json.status === 80503:
+        throw new Error('Service error, please tye again later')
+      case json.status === 80504:
+        throw new Error('Network error, please tye again later')
       default:
         throw new Error(json.message || '未知错误')
     }
