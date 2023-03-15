@@ -42,11 +42,14 @@ export type OrderDetail = {
   shippingStatus: number,
   description: string,
   unitPrice: string,
+  usageLimit: number,
   summary: {
     date: string,
     from: string,
     to: string,
     paymentMethod: string,
+    binancePayPrepayID: string,
+    binancePayUID: string,
   }
 }
 

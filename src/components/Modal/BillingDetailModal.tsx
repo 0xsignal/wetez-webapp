@@ -4,6 +4,7 @@ import { Fragment, useEffect, useState } from 'react'
 import { pass } from '../../lib/fp';
 import Link from 'next/link';
 import CopyButton from '../Button/CopyButton';
+import { gbConvert } from 'src/lib/format';
 
 type BillingDetailModalProps = {
   isOpen?: boolean;
@@ -19,6 +20,9 @@ type BillingDetailModalProps = {
   company?: string;
   paymentMethod?: string;
   currency?: string;
+  orderId?: string;
+  orderUserAccount?: string;
+  usageLimit?: number;
   closeModal?: () => void;
 };
 
@@ -36,6 +40,9 @@ export function BillingDetailModal({
   company = '',
   paymentMethod = '',
   currency = '',
+  orderId = '',
+  orderUserAccount = '',
+  usageLimit = 0,
   closeModal = pass,
  }:BillingDetailModalProps){
 
@@ -43,9 +50,22 @@ export function BillingDetailModal({
 
   const [orderPdfDownlink,setOrderPdfDownlink] = useState(`${SERVER_ENTRY}` + '/v1/payment/export_order_pdf?order_id=' + `${id}`)
 
+  const [usage,setUsage] = useState<String>('')
+
+  useEffect(()=>{
+    if(planNetwork == 'IPFS'){
+      setUsage(`${(gbConvert(usageLimit))} GB`)
+    }
+    else{
+      setUsage(`${usageLimit} Requests/day`)
+    }
+  },[usageLimit])
+
   useEffect(() => {
     setOrderPdfDownlink(`${SERVER_ENTRY}` + '/v1/payment/export_order_pdf?order_id=' + `${id}`)
   },[id])
+
+
 
   return(
     <div className=''>
@@ -121,7 +141,7 @@ export function BillingDetailModal({
                           Requests/Storage
                         </h3>
                         <div className='border-[1px] border-white/10'></div>
-                        <p className='text-lg text-white/50 py-1'>{planMeta}</p>
+                        <p className='text-lg text-white/50 py-1'>{usage}</p>
                       </div>
                       <div className='space-y-4'>
                         <h3 className='text-base text-white/30'>
@@ -151,19 +171,19 @@ export function BillingDetailModal({
                       </div>
                     </div>
                     <div className='text-base text-white mt-2 flex items-center gap-x-3'>
-                      Email:
+                      Order ID:
                       <div className='text-base text-white/50'>
-                        {fromEmail}
+                        {orderId}
                       </div>
                     </div>
                     <div className='text-base text-white mt-2 flex items-center gap-x-3'>
-                      To:
+                      Order User Account:
                       <div className='text-base text-white/50'>
-                        {toEmail}
+                        {orderUserAccount}
                       </div>
                     </div>
                     <div className='text-base text-white mt-2 flex items-center gap-x-3'>
-                      From:
+                      Invoice From:
                       <div className='text-base text-white/50'>
                         {company}
                       </div>
