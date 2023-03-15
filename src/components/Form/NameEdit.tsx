@@ -64,7 +64,7 @@ export default function NameEdit({
           <div className="">
             Change Name
           </div>
-          <img src='/image/change_password_active.png' className="w-4"/>
+          <img src='/image/change_password_active.png' className="w-4 h-2"/>
         </div>
         <div className="mt-6 rounded-[24px] bg-[#182036] border-[1px] border-[#9FADC7]/20 px-6 py-6">
           <form onSubmit={()=>{
@@ -120,7 +120,7 @@ export default function NameEdit({
         <div className="">
           Change Name
         </div>
-        <img src='/image/change_password_inactive.png' className="h-4"/>
+        <img src='/image/change_password_inactive.png' className="h-4 w-2"/>
       </div>
     </>
   )

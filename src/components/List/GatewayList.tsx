@@ -3,47 +3,65 @@ import { useState } from 'react'
 import { RadioGroup} from '@headlessui/react'
 import { pass } from '../../lib/fp';
 import { useEffect } from 'react';
+import ConfirmModal from '../Modal/ConfirmModal';
+import { useActiveGateway } from 'src/api/ipfs';
 
 type GatewayListProps = {
   gatewayItemList?:{
-    userID: number
     id: number
     dedicatedGateway: string
     active: boolean
   }[],
   deleteGateway?:(gatewayID:number) => void,
-  activeGateway?:(data:{gatewayID:number}) => void,
 }
 
 export function GatewayList({
   gatewayItemList = [{
-    userID : 0,
     id : 0,
-    dedicatedGateway: '',
+    dedicatedGateway: 'test',
     active : false,
   }],
   deleteGateway = pass,
-  activeGateway = pass,
 }:GatewayListProps){
 
-  let listId:number = gatewayItemList.findIndex(x=>x.active === true)
+  let listId:number = 0
 
   const [selected, setSelected] = useState(gatewayItemList[listId])
+  const [isConfirmOpen,setIsConfirmOpen] = useState(false)
+  const [isActiveOpen,setIsActiveOpen] = useState(false)
+  const [gatewayId,setGatewayId] = useState<number>(0)
+
+  const {
+    trigger: activeGatewayTrigger,
+    loading: activeGatewayLoading,
+    error: activeGatewayError,
+  } = useActiveGateway()
 
   useEffect(()=>{
-    listId = gatewayItemList.findIndex(x=>x.active === true)
+    listId = gatewayItemList.findIndex(x=>x.active === true) ===- 1 ? 0 : gatewayItemList.findIndex(x=>x.active === true)
     setSelected(gatewayItemList[listId])
-  },)
+  },[gatewayItemList[listId]])
 
-  useEffect(() => {
-    if(selected != null){
-      const gatewayID = selected.id
-      activeGateway({gatewayID:gatewayID})
+  useEffect(()=>{
+    if(selected != undefined){
+      activeGatewayTrigger({gatewayID:selected.id})
     }
-  }, [selected]);
+  },[selected])
   
   return (
     <div className='mt-10'>
+      <ConfirmModal
+        isOpen = {isConfirmOpen}
+        title = {'Sure to delete gateway?'}
+        description = {'Deleting the dedicated gateway means that all the traffic will be blocked and you will lose all saved settings.'}
+        closeFunc = {()=>{
+          setIsConfirmOpen(false)
+        }}
+        confirmFunc = {async ()=>{
+          await deleteGateway(gatewayId)
+          setIsConfirmOpen(false)
+        }}
+      />
       <RadioGroup 
         value={selected || ''} 
         onChange={setSelected || ''}>
@@ -93,7 +111,8 @@ export function GatewayList({
                   </div>
                   <div className='px-6 py-7'>
                     <button onClick={() => {
-                      deleteGateway(gatewayItemList.id)
+                      setIsConfirmOpen(true)
+                      setGatewayId(gatewayItemList.id)
                     }}>
                       <img src='/image/delete_item_icon.png' className='w-5'/>
                     </button>

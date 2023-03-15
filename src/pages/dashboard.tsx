@@ -80,7 +80,7 @@ export default function Dashboard() {
       
       <div className='flex'>
         <Menu/>
-        <div className='grow bg-[#182036] pl-10 pr-16'>
+        <div className='grow bg-[#182036] pl-10 pr-16 overflow-y-auto h-screen'>
           <div className='max-w-6xl mx-auto'>
             <Header
               title="Dashboard"

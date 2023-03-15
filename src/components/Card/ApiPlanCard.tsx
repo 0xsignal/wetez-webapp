@@ -3,6 +3,7 @@ import { Popover, Transition } from '@headlessui/react'
 import clsx from 'clsx';
 import Link from 'next/link';
 import PercentChart from '../Chart/PercentChart';
+import { useRouter } from 'next/router';
 
 
 type ApiPlanCardProps = {
@@ -61,6 +62,8 @@ export default function ApiPlanCard({
 
   const usagePercent = Number((usage/dayLimit).toFixed(2))*100
   const usageCicle = Number((usage/dayLimit).toFixed(2))*535
+
+  const router = useRouter()
 
   switch(name){
     case 'Ethereum':
@@ -128,7 +131,12 @@ export default function ApiPlanCard({
   }
 
   return (
-    <div className='bg-white/5 rounded-[24px] px-6 pt-5 pb-4 hover:border-[1px] hover:border-white/20'>
+    <div 
+      className='bg-white/5 rounded-[24px] px-6 pt-5 pb-4 cursor-pointer hover:border-[1px] hover:border-white/20'
+      onClick = {()=>{
+        router.push(`/chain/${chainId}`)
+      }}
+      >
       <div className='flex items-center space-x-4'>
         <div className='rounded-[16px] bg-[#182036] p-1.5 w-12'>
           <img src={logoImage} className='w-8 h-8 mx-auto'/>

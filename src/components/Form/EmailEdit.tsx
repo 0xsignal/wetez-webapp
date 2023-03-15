@@ -76,7 +76,7 @@ export default function EmailEdit({
   const SendEmailCodeAction = async() => {
     const data ={
       reCaptchaToken:token,
-      email:email,
+      email:newEmail,
     }
     const SendEmailCodeResult = await SendEmailCode(data);
     setRefreshReCaptcha(r => !r);
@@ -129,39 +129,6 @@ export default function EmailEdit({
         <div className="mt-6 rounded-[24px] bg-[#182036] border-[1px] border-[#9FADC7]/20 px-6 py-6">
           <form>
           <div className="text-white text-lg font-bold">
-            Email Verify Code
-          </div>
-          <div className="flex items-center space-x-4 mt-4">
-            <input
-              type='text' 
-              value={oldEmailCode}
-              onChange={((e) => {
-                setOldEmailCode(e.target.value);
-              })}
-              placeholder = 'Enter Email Verify Code'
-              className='rounded-[16px] border-[1px] border-white/20 text-lg text-white w-[400px] px-6 py-2 bg-white/0 placeholder:text-lg placeholder:text-white/30 caret-[#00F4FF] focus:border-[0px]'>
-            </input>
-            <GoogleReCaptcha
-              onVerify={onVerify}
-              refreshReCaptcha={refreshReCaptcha}
-              action='sendUpdateUserEmail'
-            />
-            <button 
-              className = "text-base text-[#00F4FF] font-medium"
-              disabled = {isOldEmailCodeSent}
-              type = "button"
-              onClick = {async () => {
-                const res = await SendEmailCodeAction()
-                setRefreshReCaptcha(r => !r)
-                setIsOldEmailCodeSent(true)
-                setOldEmailCodeTimer(60)
-              }}
-              >
-              {isOldEmailCodeSent?`${oldEmailCodeTimer}s`:'Send Code'}
-            </button>
-          </div>
-
-          <div className="text-white text-lg font-bold mt-6">
             New Email Address
           </div>
           <input
@@ -175,6 +142,20 @@ export default function EmailEdit({
               className='mt-4 rounded-[16px] border-[1px] border-white/20 text-lg text-white w-[400px] px-6 py-2 bg-white/0 placeholder:text-lg placeholder:text-white/30 caret-[#00F4FF] focus:border-[0px]'>
             </input>
             <p className="mt-1 text-[#FF4DB8] text-sm">{emailError || ''}</p>
+            <div className="text-white text-lg font-bold mt-6">
+              Current Email Verify Code
+            </div>
+            <div className="flex items-center space-x-4 mt-4">
+              <input
+                type='text' 
+                value={oldEmailCode}
+                onChange={((e) => {
+                  setOldEmailCode(e.target.value);
+                })}
+                placeholder = 'Enter Email Verify Code'
+                className='rounded-[16px] border-[1px] border-white/20 text-lg text-white w-[400px] px-6 py-2 bg-white/0 placeholder:text-lg placeholder:text-white/30 caret-[#00F4FF] focus:border-[0px]'>
+              </input>  
+              </div>
             <div className="text-white text-lg font-bold mt-6">
               New Email Verify Code
             </div>
@@ -198,10 +179,14 @@ export default function EmailEdit({
                 disabled = {isNewEmailCodeSent}
                 type = "button"
                 onClick = {async () => {
-                  const res = await SendEmailCodeAction()
-                  setRefreshReCaptcha(r => !r)
-                  setIsNewEmailCodeSent(true)
-                  setNewEmailCodeTimer(60)
+                  if(newEmail == ''){
+                    setEmailError("Enter your email")
+                  } else {
+                    const res = await SendEmailCodeAction()
+                    setRefreshReCaptcha(r => !r)
+                    setIsNewEmailCodeSent(true)
+                    setNewEmailCodeTimer(60)
+                  }
                 }}
                 >
                 {isNewEmailCodeSent?`${newEmailCodeTimer}s`:'Send Code'}
@@ -212,10 +197,10 @@ export default function EmailEdit({
               disabled = {!valid}
               type = "button"
               onClick={async () => {
-                const res = await SendEmailCodeAction()
+                const res = await Submit()
                 setRefreshReCaptcha(r => !r)
-                setIsOldEmailCodeSent(true)
-                setOldEmailCodeTimer(60)
+                setIsEdit(false)
+                InitData()
               }}
             >
               Save

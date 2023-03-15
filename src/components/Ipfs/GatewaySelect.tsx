@@ -2,16 +2,11 @@ import React, { useEffect } from 'react';
 import { useState } from 'react'
 import { GatewayInput } from './GatewayInput';
 import { GatewayList } from '../List/GatewayList';
-import { pass } from 'src/lib/fp';
+import { useAddGateway,useRemoveGateway } from 'src/api/ipfs';
+import { toast } from 'react-toastify';
 
 type GatewaySelectProps = {
-  addGateway:(data:{
-    gateway: string
-  }) => void,
-  delateGateway:(data:{gatewayID:number}) => void,
-  activeGateway:(data:{gatewayID:number}) => void,
   gatewayItemList:{
-    userID: number
     id: number
     dedicatedGateway: string
     active: boolean
@@ -19,9 +14,6 @@ type GatewaySelectProps = {
 }
 
 export function GatewaySelect({
-  addGateway = pass,
-  delateGateway = pass,
-  activeGateway = pass,
   gatewayItemList = []
 
 }:GatewaySelectProps) {
@@ -29,32 +21,50 @@ export function GatewaySelect({
   let nextId = gatewayItemList.length - 1;
   const [gatewayList,setGatewayList] = useState(gatewayItemList);
 
+  const {
+    trigger: addGatewayTrigger,
+    loading: addGatewayLoading,
+    error: addGatewayError,
+  } = useAddGateway()
+
+  const {
+    trigger: removeGatewayTrigger,
+    loading: removeGatewayLoading,
+    error: removeGatewayError,
+  } = useRemoveGateway()
+
+  
+
   useEffect(()=>{
     setGatewayList(gatewayItemList)
   },[gatewayItemList])
 
-  function addGatewayList(gatewayName:string){
-    const res =  addGateway({gateway:gatewayName})
-    if(res != null){
+  async function addGatewayList(gatewayName:string){
+    const res =  await addGatewayTrigger({gateway:gatewayName})
+    if(res?.data == true){
       setGatewayList(
         [...gatewayList,{
           id: nextId++,
-          userID: 19,
           dedicatedGateway:gatewayName,
           active: false,
         }]
       )
+      toast.success('Add Succeed')
     }
   }
 
-  function delateGatewayLsit(gatewayID:number){
-    const res =  delateGateway({gatewayID:gatewayID})
-    if(res != null){
+  async function delateGatewayLsit(gatewayID:number){
+    const res =  await removeGatewayTrigger({gatewayID:gatewayID})
+    if(res?.data == true){
       setGatewayList(
         gatewayList.filter(t => t.id !== gatewayID)
       );
+      nextId = nextId - 1
+      toast.success('Remove Succeed')
     }
   }
+
+  
 
 
   return(
@@ -76,7 +86,6 @@ export function GatewaySelect({
       <GatewayList
         gatewayItemList={gatewayList}
         deleteGateway={delateGatewayLsit}
-        activeGateway={activeGateway}
       />
     </div>
   )

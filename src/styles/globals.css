@@ -3,6 +3,7 @@
 @tailwind utilities;
 @import '~react-toastify/dist/ReactToastify.css';
 
+
 /* hidden captcha global*/
 .grecaptcha-badge { 
   display: none; 
@@ -71,31 +72,73 @@
   100% { transform: rotate(360deg); }
 }
 
-.toast-container {
+.Toastify__toast-container{
   z-index: 9999;
 }
 
-.toast {
-  background-color: #1f2937;
-  color: #fff;
-  font-size: 0.875rem;
-  font-weight: 500;
-  border-radius: 0.25rem;
-  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
+.Toastify__toast {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.875 rem;
+  font-weight: 400;
+  border-radius: 1 rem;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
 }
 
-.toast-success {
-  background-color: #10b981;
+.Toastify__toast-theme--light {
+  background: rgba(255, 255, 255, 0.03);
+  color: rgba(255, 255, 255, 0.5);
 }
 
-.toast-error {
-  background-color: #ef4444;
+.Toastify__close-button--light{
+  color: rgb(255,255,255);
+  opacity: 0.3;
 }
 
-.toast-warning {
-  background-color: #f59e0b;
-}
 
-.toast-info {
-  background-color: #3b82f6;
+:root {
+  --toastify-color-light: rgba(255, 255, 255, 0.5);
+  --toastify-color-dark: rgba(255, 255, 255, 0.5);
+  --toastify-color-info: #3498db;
+  --toastify-color-success: #FFE200;
+  --toastify-color-warning: #f1c40f;
+  --toastify-color-error: #FF4DB8;
+  --toastify-color-transparent: rgba(255, 255, 255, 0.7);
+
+  --toastify-icon-color-info: var(--toastify-color-info);
+  --toastify-icon-color-success: var(--toastify-color-success);
+  --toastify-icon-color-warning: var(--toastify-color-warning);
+  --toastify-icon-color-error: var(--toastify-color-error);
+
+  --toastify-toast-width: 320px;
+  --toastify-toast-background: #fff;
+  --toastify-toast-min-height: 64px;
+  --toastify-toast-max-height: 800px;
+  --toastify-font-family: sans-serif;
+  --toastify-z-index: 9999;
+
+  --toastify-text-color-light: #757575;
+  --toastify-text-color-dark: #fff;
+
+  --toastify-text-color-info: rgba(255, 255, 255, 0.5);
+  --toastify-text-color-success: rgba(255, 255, 255, 0.5);
+  --toastify-text-color-warning: rgba(255, 255, 255, 0.5);
+  --toastify-text-color-error: rgba(255, 255, 255, 0.5);
+
+  --toastify-spinner-color: #616161;
+  --toastify-spinner-color-empty-area: #e0e0e0;
+
+  --toastify-color-progress-light: linear-gradient(
+    to right,
+    #4cd964,
+    #5ac8fa,
+    #007aff,
+    #34aadc,
+    #5856d6,
+    #ff2d55
+  );
+  --toastify-color-progress-dark: #bb86fc;
+  --toastify-color-progress-info: var(--toastify-color-info);
+  --toastify-color-progress-success: var(--toastify-color-success);
+  --toastify-color-progress-warning: var(--toastify-color-warning);
+  --toastify-color-progress-error: var(--toastify-color-error);
 }

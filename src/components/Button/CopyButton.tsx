@@ -1,6 +1,5 @@
 import React from "react";
-import Notification from "../Notification/Notification";
-import { useState } from "react";
+import { toast } from 'react-toastify';
 
 type CopyButtonProps = {
   text:string
@@ -10,14 +9,11 @@ export default function CopyButton({
   text = ''
 }:CopyButtonProps){
 
-  const [isOpen,setIsOpen] = useState<boolean>(false)
-  const [message,setMessage] = useState<string>('')
 
   const copyText = async(text:string) => {
     try {
       await navigator.clipboard.writeText(text);
-      setIsOpen(true)
-      setMessage('Copy Succeed!')
+      toast.success('Copy Succeed !')
     } catch (err) {
     }
   }
@@ -33,14 +29,6 @@ export default function CopyButton({
         <img src="/image/copy_icon.png" className='h-4'/>
         
       </button>
-      <Notification
-        isOpen = {isOpen}
-        type = 'Success'
-        message = {message}
-        onClose = {()=>{
-          setIsOpen(false)}
-        }
-      />
     </>
   )
 }

@@ -3,9 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
+    "dev": "cross-env NODE_ENV=development next dev",
+    "build": "cross-env NODE_ENV=production next build",
+    "build:test": "cross-env NODE_ENV=test next build",
+    "start": "cross-env NODE_ENV=production next start",
+    "start:test": "cross-env NODE_ENV=test next start",
     "lint": "next lint"
   },
   "dependencies": {
@@ -32,6 +34,7 @@
   "devDependencies": {
     "@tailwindcss/forms": "^0.5.3",
     "@types/nprogress": "^0.2.0",
+    "cross-env": "^7.0.3",
     "tailwindcss": "^3.2.4"
   }
 }

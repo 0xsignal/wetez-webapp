@@ -44,6 +44,9 @@ export default function BillingListItem({
         company = {orderDtailData?.summary.from}
         paymentMethod = {orderDtailData?.summary.paymentMethod}
         currency = {orderDtailData?.currency}
+        orderId = {orderDtailData?.summary.binancePayPrepayID}
+        orderUserAccount = {orderDtailData?.summary.binancePayUID}
+        usageLimit = {orderDtailData?.usageLimit}
         isOpen = {isOpen}
         closeModal = {() => {
           setIsOpen(false)
