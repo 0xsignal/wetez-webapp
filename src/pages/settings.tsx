@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Meta } from '../components/Meta'
 import { Menu } from '../components/Menu'
 import { Header } from '../components/Header'
@@ -9,15 +9,30 @@ import NameEdit from 'src/components/Form/NameEdit';
 import PasswordEdit from 'src/components/Form/PasswordEdit';
 import { CaptchaFooter } from 'src/components/Captcha/CaptchaFooter';
 import SettingsSkethon from 'src/components/Skethon/SettingsSkethon';
+import { getUserSession } from 'src/lib/storage';
+import { useRouter } from 'next/router';
 
 
 export default function Settings() {
+
+  const [isReady,setIsReady] = useState(false)
 
   const {
     data: userInfoData,
     loading: userInfoLoading,
     error: userInfoError,
-  } = useAccountInfo()
+  } = useAccountInfo(isReady)
+
+  const router = useRouter()
+  const authorization = getUserSession()
+  useEffect(()=>{
+    if(authorization){
+      setIsReady(true)
+    }
+    else{
+      router.replace('/login')
+    }
+  },[authorization])
 
   if(userInfoLoading){
     return <SettingsSkethon/>
@@ -46,7 +61,7 @@ export default function Settings() {
             <div className='mt-10'>
               <div className='bg-white/5 rounded-[24px] px-6 py-6'>
                 <NameEdit
-                  name = {userInfoData?.email}
+                  name = {userInfoData?.name}
                 />
               <div className='mt-10 border-[0.5px] border-white/10'></div>
               <div className='mt-10'>

@@ -31,7 +31,27 @@ export const VerifyEmail = async (data:{
   
   localStorage.setItem("Authorization", sessionId);
   localStorage.setItem("expire", expire);
+}
 
+export type verifyEmail = {
+  sessionId: string,
+  expire: number,
+}
+
+export const verifyEmailFunc:(url:string,{arg}:{arg:{token:string}}) => Promise<verifyEmail> = async(url,{arg}) => {
+  const res = await post(url,arg)
+  return res
+}
+
+export const useVerifyEmail = () => {
+  
+  const{ data, trigger, isMutating ,error } = useSWRMutation('/v1/verify_email',verifyEmailFunc)
+  return {
+    trigger,
+    isMutating,
+    data,
+    error,
+  }
 }
 
 export const SignIn = async(data:{

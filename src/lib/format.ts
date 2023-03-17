@@ -1,3 +1,4 @@
+import { toast } from "react-toastify"
 
 export const gbConvert = (byteNumber = 0) => {
   const gbNumber:number = Number(Number(byteNumber/1024/1024/1024).toFixed(2))
@@ -7,6 +8,7 @@ export const gbConvert = (byteNumber = 0) => {
 export const copyText = async(text:string) => {
   try {
     await navigator.clipboard.writeText(text);
+    toast.success("Copy Succeed!")
   } catch (err) {
   }
 }

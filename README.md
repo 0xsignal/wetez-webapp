@@ -22,7 +22,7 @@
 - Login: `/login/`
 - Sign Up: `/signup/`
 - Onboard: `/onboard/`
-- Verify: `/verify?token={token}`
+- Verify: `/verify_email?token={token}`
 - Forget Password: `/forgetpassword`
 - Rest Password: `/resetpassword?token={token}`
 

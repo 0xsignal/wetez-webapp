@@ -51,15 +51,14 @@ export const fetcher: <T>(url: string, config: FetcherConfig) => Promise<T> = (
           pathname: '/login',
           query: { redirect: Router.query.redirect ?? Router.asPath },
         })
+        throw new Error('This email verify address is not valid, please try another.')
       case json.status === 81002:
         throw new Error('Login email or password is incorrect, please try again.')
       case json.status === 81003:
-        throw new Error('Verify link is correct, please try again.')
+        throw new Error('Verify link is not correct, please try again.')
       case json.status === 81005:
         throw new Error('This email has been used, please try another one.')
       case json.status === 81006:
-        throw new Error('This email address is not registered, please try another one.')
-      case json.status === 81007:
         throw new Error('This email address is not registered, please try another one.')
       case json.status === 81008:
         throw new Error('Please refresh your page.')
@@ -74,13 +73,15 @@ export const fetcher: <T>(url: string, config: FetcherConfig) => Promise<T> = (
         Router.replace({
           pathname: '/login',
           query: { redirect: Router.query.redirect ?? Router.asPath },
-        })
+      })
+      throw new Error('Please Login First')
       case json.status === 80403:
         removeUserSession()
         Router.replace({
           pathname: '/login',
           query: { redirect: Router.query.redirect ?? Router.asPath },
-        })
+      })
+      throw new Error('Please Login First')
       case json.status === 80502:
         throw new Error('Network error, please tye again later')
       case json.status === 80503:

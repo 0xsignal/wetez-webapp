@@ -69,7 +69,7 @@ export default function Login(){
   return(
     <>
       <Meta
-          title=''
+          title='Login'
           description=''
           image=''
         />
@@ -84,8 +84,8 @@ export default function Login(){
             <div className='text-white/50 text-lg mt-4 absolute right-20'>
               Need Help?
             </div>
+            <Captcha>
             <div className='grow flex flex-col justify-center mx-auto w-[400px] mt-16'>
-              <Captcha>
                 <h1 className='text-3xl text-white font-brand'> Login </h1>
                 <div className='text-lg text-white font-bold mt-8'>
                   Email
@@ -139,7 +139,6 @@ export default function Login(){
                     Sign In
                   </button>
                 </div>
-              </Captcha>
             </div>
             <div className='grow'>
             
@@ -151,6 +150,7 @@ export default function Login(){
                 </div>
               </Link>
             </div>
+            </Captcha>
           </div>
         </div>
     </>

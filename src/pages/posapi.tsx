@@ -8,7 +8,6 @@ import ApiPlanCard from 'src/components/Card/ApiPlanCard';
 import { Meta } from 'src/components/Meta';
 import PosapiSkethon from 'src/components/Skethon/PosapiSkethon';
 
-
 export default function Posapi() {
 
   const { 

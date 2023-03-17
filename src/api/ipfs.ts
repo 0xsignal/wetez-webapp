@@ -28,8 +28,8 @@ export type IPFSPlan = {
   }
 }
 
-export const useIPFSPlan = () => {
-  const{ data, error } = useSWR<IPFSPlan>('/v1/get_premium_plans',url => 
+export const useIPFSPlan = (isReady:boolean) => {
+  const{ data, error } = useSWR<IPFSPlan>(isReady?'/v1/get_premium_plans':null,url => 
     post(url,{chainId: 14}),
   )
   return {
@@ -46,8 +46,8 @@ export type IPFSGatewayList = {
   active: boolean
 }[]
 
-export const useIPFSGatewayList = () => {
-  const{ data, error } = useSWR<IPFSGatewayList>('/v1/ipfs/gateway/list',url => 
+export const useIPFSGatewayList = (isReady:boolean) => {
+  const{ data, error } = useSWR<IPFSGatewayList>(isReady?'/v1/ipfs/gateway/list':false,url => 
     post(url,{}),
   )
   return {
@@ -124,9 +124,9 @@ export type IPFSStats24h = {
   }[]
 }
 
-export const useIPFSStats24h = () => {
+export const useIPFSStats24h = (isReady:boolean) => {
   
-  const{ data, error } = useSWR<IPFSStats24h>('/v2/stats/last24h',url => 
+  const{ data, error } = useSWR<IPFSStats24h>(isReady ? '/v2/stats/last24h':null,url => 
     post(url,{chainId:14}),
   )
   return {
@@ -146,9 +146,9 @@ export type IPFSStats7d = {
   }[]
 }
 
-export const useIPFSStats7d = () => {
+export const useIPFSStats7d = (isReady:boolean) => {
   
-  const{ data, error } = useSWR<IPFSStats7d>('/v2/stats/last7d',url => 
+  const{ data, error } = useSWR<IPFSStats7d>(isReady?'/v2/stats/last7d':null,url => 
     post(url,{chainId:14}),
   )
   return {
@@ -168,9 +168,9 @@ export type IPFSStats1m = {
   }[]
 }
 
-export const useIPFSStats1m = () => {
+export const useIPFSStats1m = (isReady:boolean) => {
   
-  const{ data, error } = useSWR<IPFSStats1m>('/v2/stats/last1m',url => 
+  const{ data, error } = useSWR<IPFSStats1m>(isReady ? '/v2/stats/last1m':null,url => 
     post(url,{chainId:14}),
   )
   return {

@@ -8,9 +8,9 @@ export type accountInfo ={
   name: string,
 }
 
-export const useAccountInfo = () => {
+export const useAccountInfo = (isReady:boolean) => {
   
-  const{ data, error } = useSWR<accountInfo>('/v1/get_user',url => 
+  const{ data, error } = useSWR<accountInfo>(isReady ? '/v1/get_user' : null ,url => 
     post(url,{}),
   )
   return {

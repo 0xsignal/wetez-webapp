@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Meta } from '../components/Meta';
 import { Menu } from '../components/Menu';
 import { Header } from '../components/Header';
@@ -10,10 +10,12 @@ import InfiniteList from 'src/components/List/InfiniteList';
 import BillingListItem from 'src/components/Premium/BillingListItem';
 import { useRouter } from 'next/router';
 import PremiumSkethon from 'src/components/Skethon/PremiumSkethon';
+import { getUserSession } from 'src/lib/storage';
 
 export default function Premium() {
 
   const {query,isReady} = useRouter()
+  const [isReq,setIsReq] = useState(false)
   const id = query.chainid
   let isRequest = false
 
@@ -31,6 +33,17 @@ export default function Premium() {
     loading: orderListLoading, 
     size: orderListSize, 
     setSize: setOrderListSize } = useOrderList()
+
+  const router = useRouter()
+  const authorization = getUserSession()
+  useEffect(()=>{
+    if(authorization){
+      setIsReq(true)
+    }
+    else{
+      router.replace('/login')
+    }
+  },[authorization])
   
   const getOrderList =  (orderListData: OrderList[] | undefined) =>
     orderListData?.map(page => page?.list).filter(Boolean)
@@ -45,7 +58,7 @@ export default function Premium() {
     data: userInfoData,
     loading: userInfoLoading,
     error: userInfoError, 
-  } = useUserrInfo()
+  } = useUserrInfo(isReq)
 
   const{
     data: planDetailData,
