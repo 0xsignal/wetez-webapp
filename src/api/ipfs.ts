@@ -1,6 +1,7 @@
 import { post } from '../lib/fetcher';
 import useSWR from 'swr'
 import useSWRMutation from 'swr/mutation'
+import useSWRImmutable from 'swr'
 
 export type IPFSPlan = {
   subscribedPlan:{
@@ -47,12 +48,27 @@ export type IPFSGatewayList = {
 }[]
 
 export const useIPFSGatewayList = (isReady:boolean) => {
-  const{ data, error } = useSWR<IPFSGatewayList>(isReady?'/v1/ipfs/gateway/list':false,url => 
+  const{ data, error } = useSWRImmutable<IPFSGatewayList>(isReady?'/v1/ipfs/gateway/list':false,url => 
     post(url,{}),
   )
   return {
     data,
     loading: !error && !data,
+    error,
+  }
+}
+
+export const IPFSGatewayListFunc:(url:string,{arg}:{arg:{}}) => Promise<IPFSGatewayList> = async(url,{arg})=>{
+  const res = await post(url,arg)
+  return res
+}
+
+export const useIPFSGatewayListFunc = () => {
+  const{ data, trigger,isMutating,error } = useSWRMutation('/v1/ipfs/gateway/list',IPFSGatewayListFunc)
+  return {
+    trigger,
+    isMutating,
+    data,
     error,
   }
 }
@@ -65,9 +81,7 @@ export const addGateway = async(data:{
   return res
 }
 
-export type GatewayRes  = {
-  data:boolean
-}
+export type GatewayRes = boolean 
 
 export const AddGatewayFunc:(url:string,{arg}:{arg:{gateway:string}}) => Promise<GatewayRes> = async(url,{arg})=>{
   const res = await post(url,arg)
@@ -75,10 +89,10 @@ export const AddGatewayFunc:(url:string,{arg}:{arg:{gateway:string}}) => Promise
 }
 
 export const useAddGateway = () => {
-  const{ data, trigger,error } = useSWRMutation('/v1/ipfs/gateway/add',AddGatewayFunc)
+  const{ data, trigger,isMutating,error } = useSWRMutation('/v1/ipfs/gateway/add',AddGatewayFunc)
   return {
     trigger,
-    loading: !error && !data,
+    isMutating,
     data,
     error,
   }
@@ -90,11 +104,10 @@ export const removeGatewayFunc:(url:string,{arg}:{arg:{gatewayID:number}}) => Pr
 }
 
 export const useRemoveGateway = () => {
-  const{ data, trigger,error } = useSWRMutation('/v1/ipfs/gateway/remove',removeGatewayFunc)
+  const{ isMutating, trigger,error } = useSWRMutation('/v1/ipfs/gateway/remove',removeGatewayFunc)
   return {
     trigger,
-    loading: !error && !data,
-    data,
+    isMutating,
     error,
   }
 }

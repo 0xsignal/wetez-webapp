@@ -18,17 +18,17 @@ type GatewayListProps = {
 export function GatewayList({
   gatewayItemList = [{
     id : 0,
-    dedicatedGateway: 'test',
+    dedicatedGateway: '',
     active : false,
   }],
   deleteGateway = pass,
 }:GatewayListProps){
 
-  let listId:number = 0
+  let listId = gatewayItemList.findIndex(x=>x.active === true) == - 1 ? 0 : gatewayItemList.findIndex(x=>x.active === true)
+
 
   const [selected, setSelected] = useState(gatewayItemList[listId])
   const [isConfirmOpen,setIsConfirmOpen] = useState(false)
-  const [isActiveOpen,setIsActiveOpen] = useState(false)
   const [gatewayId,setGatewayId] = useState<number>(0)
 
   const {
@@ -37,16 +37,13 @@ export function GatewayList({
     error: activeGatewayError,
   } = useActiveGateway()
 
-  useEffect(()=>{
-    listId = gatewayItemList.findIndex(x=>x.active === true) ===- 1 ? 0 : gatewayItemList.findIndex(x=>x.active === true)
-    setSelected(gatewayItemList[listId])
-  },[gatewayItemList[listId]])
+  console.log(selected)
 
-  useEffect(()=>{
+  /*useEffect(()=>{
     if(selected != undefined){
       activeGatewayTrigger({gatewayID:selected.id})
     }
-  },[selected])
+  },[selected])*/
   
   return (
     <div className='mt-10'>

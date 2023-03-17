@@ -101,15 +101,14 @@ export default function Dashboard() {
               backUrl=""
             />
             <div className='px-0 py-10'>
+            <Captcha>
               <div className='grid grid-cols-5 gap-4'>
-                <Captcha>
                   <div className='col-span-3'>
                     <ApiUsageCard
                       apikey={accountInfoData?.apiKey}
                       subscribePlanList={subscribedList?.list}
                     />
                   </div>
-                </Captcha>
                 <div className='col-span-2'>
                   <CurrentPlanCard
                     paid = {paid}
@@ -124,6 +123,7 @@ export default function Dashboard() {
                   </div>
                 </div>
               </div>
+              </Captcha>
             </div>
           </div>
         </div>
