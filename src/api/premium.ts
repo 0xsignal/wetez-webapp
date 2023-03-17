@@ -152,9 +152,9 @@ export type userInfo ={
   }[]
 }
 
-export const useUserrInfo = () => {
+export const useUserrInfo = (isReady:boolean) => {
   
-  const{ data, error } = useSWR<userInfo>('/v1/get_user',url => 
+  const{ data, error } = useSWR<userInfo>(isReady?'/v1/get_user':null,url => 
     post(url,{}),
   )
   return {

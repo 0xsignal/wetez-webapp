@@ -45,7 +45,7 @@ export default function Signup() {
 
 
   function checkEmail(input: string){
-    const regEmail = /^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/
+    const regEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
     if(input){
       if(regEmail.test(input)){
         setEmailError("")
@@ -106,7 +106,7 @@ export default function Signup() {
   return(
     <>
       <Meta
-          title=''
+          title='Sign Up'
           description=''
           image=''
         />
@@ -184,9 +184,7 @@ export default function Signup() {
                     </button>
                   </div>
               </div>
-            </Captcha>
-            <div className='grow'>
-            
+            <div className='grow'>       
             </div>
             <div className=''>
               <Link href='/login'>
@@ -195,6 +193,7 @@ export default function Signup() {
                 </div>
               </Link>
             </div>
+            </Captcha>
           </div>
         </div>
     </>

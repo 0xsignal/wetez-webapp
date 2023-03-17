@@ -7,9 +7,11 @@ import { useCurrentPlans,useSubscribedList } from 'src/api/dashboard'
 import { useIPFSPlan } from 'src/api/ipfs'
 import dynamic from 'next/dynamic'
 import DashboardSkethon from 'src/components/Skethon/DashboardSkethon'
-import React,{ useState } from 'react'
+import React, { useEffect,useState } from 'react'
 import Captcha from 'src/components/Captcha/Captcha'
 import { useAccountInfo } from 'src/api/setting'
+import { getUserSession } from 'src/lib/storage'
+import { useRouter } from 'next/router'
 
 const CircleChart = dynamic(
   () => import('../components/Chart/CircleChart'),
@@ -30,31 +32,42 @@ const TagList = [
 
 export default function Dashboard() {
 
+  const [isReady,setIsReady] = useState(false)
+
   const{
     data: currentPlan,
     error: planError,
     loading: planLoading,
-  } = useCurrentPlans()
+  } = useCurrentPlans(isReady)
 
   const{
     data: subscribedList,
     error: listError,
     loading: listLoading,
-  } = useSubscribedList()
+  } = useSubscribedList(isReady)
 
   const {
     data: ipfsPlanData ,
     loading:ipfsPlanLoading,
     error:ipfsPlanError,
-  } = useIPFSPlan()
+  } = useIPFSPlan(isReady)
 
   const {
     data: accountInfoData,
     loading: accountInfoLoading,
     error: accountInfoError,
-  } = useAccountInfo()
+  } = useAccountInfo(isReady)
 
-  const [isNotificationOpen,setIsNotificationOpen] = useState<boolean>( true )
+  const router = useRouter()
+  const authorization = getUserSession()
+  useEffect(()=>{
+    if(authorization){
+      setIsReady(true)
+    }
+    else{
+      router.replace('/login')
+    }
+  },[authorization])
 
   let paid:boolean = false
   if(!currentPlan && !planLoading && !ipfsPlanLoading){
@@ -65,10 +78,7 @@ export default function Dashboard() {
     return <DashboardSkethon/>
   }
 
-
-  function Close(){
-    setIsNotificationOpen(false)
-  }
+  
 
   return(
     <>

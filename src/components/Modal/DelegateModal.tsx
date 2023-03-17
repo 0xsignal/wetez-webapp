@@ -3,6 +3,7 @@ import { Dialog, Transition } from '@headlessui/react'
 import { Fragment } from 'react'
 import { pass } from '../../lib/fp';
 import Link from 'next/link';
+import CopyButton from '../Button/CopyButton';
 
 type DelegateModalProps = {
   isOpen?: boolean,
@@ -147,7 +148,7 @@ export function DelegateModal({
       link = 'https://docs.wetez.io/wetez/user/staking/debio-network'
      break
      case 'NYM':
-      description = '1. Install and login to the Nym Desktop Wallet 2. Copy the delegate address above and enter the [Delegation] section on the wallet 3. Paste Wetez’s delegate address, enter the amount of NYM to delegate to Wetez and wait for the staking reward',
+      description = '1. Install and login to the Nym Desktop Wallet \n 2. Copy the delegate address above and enter the [Delegation] section on the wallet \n 3. Paste Wetez’s delegate address, enter the amount of NYM to delegate to Wetez and wait for the staking reward',
       link = 'https://docs.wetez.io/wetez/user/staking/projects-inactive/nym-mixnode'
      break
      default:
@@ -200,7 +201,9 @@ export function DelegateModal({
                     </div>
                     <div className='text-base text-white/50 mt-4 flex items-center gap-x-3'>
                       {address}
-                      <img src="/image/copy_bg_icon.png" className='h-6'/>
+                      <CopyButton
+                        text = {address}
+                      />
                     </div>
                   </div>
 

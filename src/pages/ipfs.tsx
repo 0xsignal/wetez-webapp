@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Meta } from '../components/Meta'
 import { Menu } from '../components/Menu'
 import { ApiKeyCard } from '../components/Card/ApiKeyCard'
@@ -12,6 +12,8 @@ import { useIPFSStats1m,useIPFSStats24h,useIPFSStats7d } from 'src/api/ipfs';
 import IpfsSkethon from 'src/components/Skethon/IpfsSkethon';
 import { CaptchaFooter } from 'src/components/Captcha/CaptchaFooter';
 import { useAccountInfo } from 'src/api/setting';
+import { useRouter } from 'next/router';
+import { getUserSession } from 'src/lib/storage';
 
 const CircleChart = dynamic(
   () => import('../components/Chart/CircleChart'),
@@ -20,43 +22,56 @@ const CircleChart = dynamic(
 
 export default function Ipfs() {
 
+  const [isReady,setIsReady] = useState(false)
+
   const {
     data: userInfoData,
     loading: userInfoLoading,
     error: userInfoError,
-  } = useAccountInfo()
+  } = useAccountInfo(isReady)
 
 
   const {
     data: ipfsPlanData ,
     loading:ipfsPlanLoading,
     error:ipfsPlanError,
-  } = useIPFSPlan()
+  } = useIPFSPlan(isReady)
 
   const {
     data: gatewayListData ,
     loading:gatewayListLoading,
     error:gatewayListError,
-  } = useIPFSGatewayList()
+  } = useIPFSGatewayList(isReady)
 
 
   const {
     data: ipfsStats24hData ,
     loading: ipfsStats24hLoading,
     error: ipfsStats24hError,
-  } = useIPFSStats24h()
+  } = useIPFSStats24h(isReady)
 
   const {
     data: ipfsStats7dData ,
     loading: ipfsStats7dLoading,
     error: ipfsStats7dError,
-  } = useIPFSStats7d()
+  } = useIPFSStats7d(isReady)
 
   const {
     data: ipfsStats1mData ,
     loading: ipfsStats1mLoading,
     error: ipfsStats1mError,
-  } = useIPFSStats1m()
+  } = useIPFSStats1m(isReady)
+
+  const router = useRouter()
+  const authorization = getUserSession()
+  useEffect(()=>{
+    if(authorization){
+      setIsReady(true)
+    }
+    else{
+      router.replace('/login')
+    }
+  },[authorization])
 
   if(ipfsPlanLoading && gatewayListLoading && ipfsStats24hLoading && ipfsStats7dLoading && ipfsStats1mLoading && userInfoLoading){
     <IpfsSkethon/>
