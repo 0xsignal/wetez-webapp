@@ -11,11 +11,11 @@ export default function Contact() {
       <p className='text-lg text-white/50 mt-4 tracking-wide'>
         For serious projects, brands, and organizations that require enterprise-grade features, custom packaging, and 1:1 support.
       </p>
-      <div className='w-1/2 rounded-[26px] text-center text-white/50 mx-auto px-16 py-3 border-[1px] border-white/20 mt-6'>
-        <Link href="">
-          Contact Us
-        </Link>
-      </div>
+      <Link href="mailto:contact@wetez.io">
+        <div className='w-1/2 rounded-[26px] text-center text-white/50 mx-auto px-16 py-3 border-[1px] border-white/20 mt-6 cursor-pointer'>
+            Contact Us
+        </div>
+      </Link>
       
     </div>
   )

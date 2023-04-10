@@ -160,7 +160,7 @@ export function ApiUsageCard({
         {(subscribePlanList.map((item) => (
           <PlanListItem
             key={item.id}
-            usage={item.todayUsage}
+            usage={4}
             status={item.status}
             dayLimit={item.plan.dayLimit}
             network={item.chain.name}

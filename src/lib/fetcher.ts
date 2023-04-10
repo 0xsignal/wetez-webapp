@@ -36,7 +36,6 @@ export const fetcher: <T>(url: string, config: FetcherConfig) => Promise<T> = (
 ) => {
 
   url = `${SERVER_ENTRY}${url}`
-  console.log(url)
   const urlObject = new URL(url)
   
   return fetch(urlObject, config)

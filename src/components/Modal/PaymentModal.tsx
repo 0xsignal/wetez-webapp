@@ -145,7 +145,7 @@ export function ModalStatus({
         <p>Notice:</p>
         <p>1. This QR code will be expired in 15 minnuts.</p>
         <p>2. The QR code is generated uniquely, check your staute of payment on the premium tabs.</p>
-        <p>3. If you encounter anyissue on the payment ,please send the issues to team@wetez.io.</p>
+        <p>3. If you encounter anyissue on the payment, please send the issues to contact@wetez.io.</p>
       </div>
     </>
   )

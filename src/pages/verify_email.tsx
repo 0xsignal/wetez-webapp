@@ -27,7 +27,6 @@ export default function Verify_email() {
   const verifyEmail = async(token:string) =>{
     const res = await verifyEmailTrigger({token:token})
       if(!verifyEmailIsMutating){
-        console.log(res?.sessionId)
         if(res?.sessionId != undefined){
           localStorage.setItem("Authorization", res.sessionId);
           localStorage.setItem("expire", String(res.expire));

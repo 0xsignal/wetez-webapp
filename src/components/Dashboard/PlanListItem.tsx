@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState,useEffect } from 'react';
 
 type PlanListItemProps = {
   network?: string,
@@ -10,7 +10,7 @@ type PlanListItemProps = {
 export default function PlanListItem(
   {
     network = 'Ethereum',
-    usage = 0.23,
+    usage = 1,
     status = 1,
     dayLimit = 10,
   }:PlanListItemProps){
@@ -22,13 +22,22 @@ export default function PlanListItem(
     let usageNumber: number = 0
     let apiStatus: string = ''
 
+    const [dispalyNumber,setDisplayNumber] = useState(0)
+    const [displayUsage,setDisplayUsage] = useState('')
 
-    if(Number(usage) > 1){
-      progressBarNumber = '100%'
-    } else{
-      usageNumber = Number(usage) * 100
-      progressBarNumber = String(usageNumber) + '%'
-    }
+    const usagePercent = usage/dayLimit
+
+
+    useEffect(()=>{
+      if(Number(usagePercent) > 1){
+        progressBarNumber = '100%'
+      } else{
+        usageNumber = Number(usagePercent.toFixed(2)) * 100
+        progressBarNumber = String(usageNumber) + '%'
+        setDisplayNumber(Number(usagePercent) * 100)
+        setDisplayUsage(String(dispalyNumber) + '%')
+      }
+    },)
 
     
     switch(network){
@@ -103,7 +112,7 @@ export default function PlanListItem(
       </div>
       <div className='flex space-x-4 items-center col-span-4'>
         <div className='w-3/4 bg-[#9FADC7]/10 rounded-[6px] h-4'>
-          <div className={progressBarStyle} style={{width:(progressBarNumber)}}></div>
+          <div className={progressBarStyle} style={{width:(displayUsage)}}></div>
         </div>
         <div className='text-lg text-white/50'>
           {progressBarNumber}

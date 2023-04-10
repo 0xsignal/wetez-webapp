@@ -28,7 +28,6 @@ export function GatewaySelect({
 
   const {
     trigger: removeGatewayTrigger,
-    loading: removeGatewayLoading,
     error: removeGatewayError,
   } = useRemoveGateway()
 
@@ -80,7 +79,6 @@ export function GatewaySelect({
               <button className='outline-none' onClick={async() => {
                 const res =  await addGatewayTrigger({gateway:gatewayName})
                 if(!addGatewayIsMutating){
-                  console.log(res)
                   if(res == true){
                     setGatewayList(
                       [...gatewayList,{

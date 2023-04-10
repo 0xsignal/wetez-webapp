@@ -33,6 +33,7 @@ const TagList = [
 export default function Dashboard() {
 
   const [isReady,setIsReady] = useState(false)
+  const [paid,setPaid] = useState(false)
 
   const{
     data: currentPlan,
@@ -69,16 +70,14 @@ export default function Dashboard() {
     }
   },[authorization])
 
-  let paid:boolean = false
+
   if(!currentPlan && !planLoading && !ipfsPlanLoading){
-    paid = true
+    setPaid(true)
   }
 
   if( planLoading && listLoading && ipfsPlanLoading && accountInfoLoading){
     return <DashboardSkethon/>
   }
-
-  
 
   return(
     <>

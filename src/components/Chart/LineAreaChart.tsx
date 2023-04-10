@@ -70,7 +70,7 @@ const option: ECOption = {
 
   series: [
     {
-      name: 'Fake Data',
+      name: 'Data',
       type: 'line',
       symbol: 'none',
       sampling: 'lttb',

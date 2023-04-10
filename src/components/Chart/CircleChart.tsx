@@ -1,5 +1,5 @@
 import React from 'react';
-import { useEffect } from 'react';
+import { useEffect,useState } from 'react';
 import * as echarts from 'echarts/core';
 import { BarChart, BarSeriesOption } from 'echarts/charts';
 import { PolarComponent, PolarComponentOption } from 'echarts/components';
@@ -74,38 +74,64 @@ export default function CircleChart({
 
 }:CicleChartProps){
 
-  let totalStorageNum = 0
+  const [totalStorage,setTotalStorage] = useState(0)
+  const [transferDown,setTransferDown] = useState(0)
+  const [transferUp,setTransferUp] = useState(0)
+
+  const [totalStorageShow,setTotalStorageShow] = useState(0)
+  const [transferDownShow,setTransferDownShow] = useState(0)
+  const [transferUpShow,setTransferUpShow] = useState(0)
+
   let transferUpNum = 0
   let transferDownNum = 0
+  let totalStorageNum = 0 
 
-  let totalStorageArray = [0]
-  let transferUpArray = [0]
-  let transferDownArray = [0]
+  const [totalStorageArray,setTotalStorageArray] = useState([0])
+  const [transferUpArray,setTransferUpArray] = useState([0])
+  const [transferDownArray,setTransferDownArray] = useState([0])
+
 
   const router =useRouter() 
 
 
   useEffect(()=>{
     totalStorageNum = Math.ceil(plandata.totalStorage*100/plandata.plan.totalStorage)
+    setTotalStorageShow(totalStorageNum)
     if( totalStorageNum > 100){
-      totalStorageNum = 100
+      setTotalStorage(100)
+    } else{
+      setTotalStorage(totalStorageNum)
     }
-    totalStorageArray = [totalStorageNum]
     
     transferUpNum = Math.ceil(plandata.transferUp*100/plandata.plan.transferUp)
+    setTransferUpShow(transferUpNum)
     if( transferUpNum > 100){
-      transferUpNum = 100
+      setTransferUp(100)
+    } else {
+      setTransferUp(transferUpNum)
     }
-    transferUpArray=[transferUpNum]
+    setTransferUpArray([transferUp])
     
     transferDownNum = Math.ceil(plandata.transferDown*100/plandata.plan.transferDown)
+    setTransferDownShow(transferDownNum)
     if( transferDownNum > 100){
-      transferDownNum = 100
+      setTransferDown(100)
+    } else {
+      setTransferDown(transferDownNum)
     }
-    transferDownArray=[transferDownNum]
-
-
+    setTransferDownArray([transferDown])
   },[plandata])
+
+  // 更新绘图数据
+  useEffect(()=>{
+    setTotalStorageArray([totalStorage])
+  },[totalStorage])
+  useEffect(()=>{
+    setTransferDownArray([transferDown])
+  },[transferDown])
+  useEffect(()=>{
+    setTransferUpArray([transferUp])
+  },[transferUp])
 
   let option: ECOption ={}
 
@@ -239,7 +265,7 @@ export default function CircleChart({
                   Total Storage:
                 </div>
                 <div className='text-white/50 text-base'>
-                  {totalStorageNum}%
+                  {totalStorageShow}%
                 </div>
               </div>
               <div className='flex items-center gap-x-2 mt-4'>
@@ -249,7 +275,7 @@ export default function CircleChart({
                   Up Data:
                 </div>
                 <div className='text-white/50 text-base'>
-                {transferDownNum}%
+                {transferUpShow}%
                 </div>
               </div>
               <div className='flex items-center gap-x-2 mt-4'>
@@ -259,7 +285,7 @@ export default function CircleChart({
                   Down Data:
                 </div>
                 <div className='text-white/50 text-base'>
-                  {transferDownNum}%
+                  {transferDownShow}%
                 </div>
               </div>
             </div>
@@ -300,7 +326,7 @@ export default function CircleChart({
                 Total Storage:
               </div>
               <div className='text-white/50 text-base'>
-                50%
+              {totalStorageShow}%
               </div>
             </div>
             <div className='flex items-center gap-x-2 mt-4'>
@@ -310,7 +336,7 @@ export default function CircleChart({
                 Up Data:
               </div>
               <div className='text-white/50 text-base'>
-                50%
+              {transferUpShow}%
               </div>
             </div>
             <div className='flex items-center gap-x-2 mt-4'>
@@ -320,7 +346,7 @@ export default function CircleChart({
                 Down Data:
               </div>
               <div className='text-white/50 text-base'>
-                50%
+                {transferDownShow}%
               </div>
             </div>
           </div>

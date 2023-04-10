@@ -108,9 +108,6 @@ export default function Premium() {
               <div className='flex items-center'>
                 <h2 className='text-white text-2xl font-bold'> Billing </h2>
                 <div className='grow'></div>
-                <div className='rounded-[26px] border-[1px] border-white/20 text-base text-white/50 px-6 py-2'>
-                  Export PDF
-                </div>
               </div>
               <div className='mt-12'>
                   <div className='text-white/30 text-base mb-2 grid grid-cols-8 gap-1'>

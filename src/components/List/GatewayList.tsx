@@ -37,8 +37,6 @@ export function GatewayList({
     error: activeGatewayError,
   } = useActiveGateway()
 
-  console.log(selected)
-
   /*useEffect(()=>{
     if(selected != undefined){
       activeGatewayTrigger({gatewayID:selected.id})
