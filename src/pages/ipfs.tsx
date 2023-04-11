@@ -159,7 +159,7 @@ export default function Ipfs() {
   return(
     <>
       <Meta
-        title='Wetez IPFS'
+        title='IPFS'
         description=''
         image=''
       />

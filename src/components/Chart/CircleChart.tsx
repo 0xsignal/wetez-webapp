@@ -1,5 +1,5 @@
 import React from 'react';
-import { useEffect,useState } from 'react';
+import { useEffect,useState,useRef } from 'react';
 import * as echarts from 'echarts/core';
 import { BarChart, BarSeriesOption } from 'echarts/charts';
 import { PolarComponent, PolarComponentOption } from 'echarts/components';
@@ -7,6 +7,7 @@ import { SVGRenderer } from 'echarts/renderers';
 import { LabelLayout, UniversalTransition } from 'echarts/features';
 import PlanTag from '../Tag/PlanTag';
 import { useRouter } from 'next/router';
+import ReactEcharts from 'echarts-for-react';
 
 
 type CicleChartProps = {
@@ -82,10 +83,6 @@ export default function CircleChart({
   const [transferDownShow,setTransferDownShow] = useState(0)
   const [transferUpShow,setTransferUpShow] = useState(0)
 
-  let transferUpNum = 0
-  let transferDownNum = 0
-  let totalStorageNum = 0 
-
   const [totalStorageArray,setTotalStorageArray] = useState([0])
   const [transferUpArray,setTransferUpArray] = useState([0])
   const [transferDownArray,setTransferDownArray] = useState([0])
@@ -93,9 +90,19 @@ export default function CircleChart({
 
   const router =useRouter() 
 
+  const chartRef = useRef<ReactEcharts>(null);
+
+  useEffect(() => {
+    if (chartRef.current) {
+      const chartInstance = chartRef.current.getEchartsInstance();
+      if (chartInstance) {
+        chartInstance.dispose();
+      }
+    }
+  }, []);
 
   useEffect(()=>{
-    totalStorageNum = Math.ceil(plandata.totalStorage*100/plandata.plan.totalStorage)
+    let totalStorageNum = Math.ceil(plandata.totalStorage*100/plandata.plan.totalStorage)
     setTotalStorageShow(totalStorageNum)
     if( totalStorageNum > 100){
       setTotalStorage(100)
@@ -103,7 +110,7 @@ export default function CircleChart({
       setTotalStorage(totalStorageNum)
     }
     
-    transferUpNum = Math.ceil(plandata.transferUp*100/plandata.plan.transferUp)
+    let transferUpNum = Math.ceil(plandata.transferUp*100/plandata.plan.transferUp)
     setTransferUpShow(transferUpNum)
     if( transferUpNum > 100){
       setTransferUp(100)
@@ -112,7 +119,7 @@ export default function CircleChart({
     }
     setTransferUpArray([transferUp])
     
-    transferDownNum = Math.ceil(plandata.transferDown*100/plandata.plan.transferDown)
+    let transferDownNum = Math.ceil(plandata.transferDown*100/plandata.plan.transferDown)
     setTransferDownShow(transferDownNum)
     if( transferDownNum > 100){
       setTransferDown(100)
@@ -133,11 +140,8 @@ export default function CircleChart({
     setTransferUpArray([transferUp])
   },[transferUp])
 
-  let option: ECOption ={}
 
-  useEffect(() => {
-
-  option= {
+  let option:ECOption = {
     // ...
     angleAxis: {
       max: 100,
@@ -230,14 +234,7 @@ export default function CircleChart({
         silent: true,
       }
     ]
-  };},[plandata])
-
-
-  useEffect(()=>{
-    const CicleChart = echarts.init(document.getElementById('echartsContent') as HTMLElement);
-    const ChartOption:ECOption = option;
-    CicleChart.setOption(ChartOption);
-  },[plandata])
+  };
 
   if(planShow){
     return (
@@ -255,8 +252,13 @@ export default function CircleChart({
          
           <div className='grid grid-cols-2 gap-2'>
           {/* 这里样式必须设置高度 */}
-            <div style={{ width: '100%', height: '200px' }} id='echartsContent'>
-            </div>
+            <ReactEcharts 
+              ref={chartRef}
+              option={option} 
+              style={{ width: '100%', height: '200px' }}
+              lazyUpdate={true}
+              echarts={echarts}
+            />
             <div className='my-auto'>
               <div className='flex items-center gap-x-2'>
                 <div className='w-3 h-3 rounded-full bg-[#00F4FF]'>
@@ -316,8 +318,13 @@ export default function CircleChart({
         </div>
         <div className='grid grid-cols-2 gap-2'>
         {/* 这里样式必须设置高度 */}
-          <div style={{ width: '100%', height: '200px' }} id='echartsContent'>
-          </div>
+          <ReactEcharts 
+            ref={chartRef}
+            option={option} 
+            style={{ width: '100%', height: '200px' }}
+            lazyUpdate={true}
+            echarts={echarts}
+          />
           <div className='my-auto'>
             <div className='flex items-center gap-x-2'>
               <div className='w-3 h-3 rounded-full bg-[#00F4FF]'>

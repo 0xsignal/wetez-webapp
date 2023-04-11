@@ -79,13 +79,9 @@ export function DataSelect({
     transferDown: 1,
 }],}:DataSelectProp){
 
-  let item24hStorageData = [0]
-  let item24hUpData = [0]
-  let item24hDownData = [0]
   let item24hDate = 
   ['00:00','01:00','02:00','03:00','04:00','05:00','06:00','07:00','08:00','09:00','10:00','11:00','12:00',
   '13:00','14:00','15:00','16:00','17:00','18:00','19:00','20:00','21:00','22:00','23:00']
-  let item24hLength = items24h.length
 
   let item1wStorageData = [0]
   let item1wUpData = [0]
@@ -99,12 +95,37 @@ export function DataSelect({
   let item1mDate = ['']
   let item1mLength = items1m.length
 
+  const [item24hStorageDataStatus,setItem24hStorageDataStatus] = useState([0])
+  const [item24hUpDataStatus,setItem24hUpDataStatus] = useState([0])
+  const [item24hDownDataStatus,setItem24hDownDataStatus] = useState([0])
 
-  for (let i = 0; i < item24hLength; i++) {
-    item24hStorageData[i] = gbConvert(items24h[i].totalStorage)
-    item24hUpData[i] = gbConvert(items24h[i].transferUp)
-    item24hDownData[i] = gbConvert(items24h[i].transferDown)
-  }
+  useEffect(()=>{
+    let item24hUpData = [0]
+    let item24hLength = items24h.length
+    for (let i = 0; i < item24hLength; i++) {
+      item24hUpData[i] = gbConvert(items24h[i].transferUp)
+    }
+    setItem24hUpDataStatus(item24hUpData)
+  },[items24h])
+
+  useEffect(()=>{
+    let item24hDownData = [0]
+    let item24hLength = items24h.length
+    for (let i = 0; i < item24hLength; i++) {
+      item24hDownData[i] = gbConvert(items24h[i].transferDown)
+    }
+    setItem24hDownDataStatus(item24hDownData)
+  },[items24h])
+
+  useEffect(()=>{
+    let item24hStorageData = [0]
+    let item24hLength = items24h.length
+    for (let i = 0; i < item24hLength; i++) {
+      item24hStorageData[i] = gbConvert(items24h[i].totalStorage)
+    }
+    setItem24hStorageDataStatus(item24hStorageData)
+  },[items24h])
+  
 
   for (let i = 0; i < item1wLength; i++) {
     item1wStorageData[i] = gbConvert(items7d[i].totalStorage)
@@ -121,7 +142,7 @@ export function DataSelect({
   }
 
   const [selected, setSelected] = useState(dataType[0])
-  const [item1DData,setItem1DData] = useState(item24hStorageData)
+  const [item1DData,setItem1DData] = useState(item24hStorageDataStatus)
   const [item1wData,setItem1wData] = useState(item1wStorageData)
   const [item1mData,setItem1mData] = useState(item1mStorageData)
 
@@ -129,16 +150,16 @@ export function DataSelect({
   useEffect(()=>{
     switch(selected){
       case dataType[0]:
-        setItem1DData(item24hStorageData)
+        setItem1DData(item24hStorageDataStatus)
         break
       case dataType[1]:
-        setItem1DData(item24hUpData)
+        setItem1DData(item24hUpDataStatus)
         break
       case dataType[2]:
-        setItem1DData(item24hDownData)
+        setItem1DData(item24hDownDataStatus)
         break
     }
-  },[selected,items24h])
+  },[selected,item24hStorageDataStatus,item24hUpDataStatus,item24hDownDataStatus])
 
   useEffect(()=>{
     switch(selected){

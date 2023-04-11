@@ -10,7 +10,7 @@ type PlanListItemProps = {
 export default function PlanListItem(
   {
     network = 'Ethereum',
-    usage = 1,
+    usage = 0,
     status = 1,
     dayLimit = 10,
   }:PlanListItemProps){
@@ -18,26 +18,30 @@ export default function PlanListItem(
     let logoImage: string = ''
     let statusStyle: string = ''
     let progressBarStyle: string = ''
-    let progressBarNumber: string = ''
     let usageNumber: number = 0
     let apiStatus: string = ''
 
-    const [dispalyNumber,setDisplayNumber] = useState(0)
+    const [dispalyNumber,setDisplayNumber] = useState('')
     const [displayUsage,setDisplayUsage] = useState('')
+    const [usagePercent, setUsagePercent] = useState(0)
 
-    const usagePercent = usage/dayLimit
-
+    useEffect(()=>{
+      setUsagePercent(usage/dayLimit)
+      console.log(usage)
+      console.log(dayLimit)
+    },[usage,dayLimit])
 
     useEffect(()=>{
       if(Number(usagePercent) > 1){
-        progressBarNumber = '100%'
+        usageNumber = Number(usagePercent.toFixed(4)) * 100
+        setDisplayUsage(String(usageNumber) + '%')
+        setDisplayNumber('100%')
       } else{
-        usageNumber = Number(usagePercent.toFixed(2)) * 100
-        progressBarNumber = String(usageNumber) + '%'
-        setDisplayNumber(Number(usagePercent) * 100)
-        setDisplayUsage(String(dispalyNumber) + '%')
+        usageNumber = Number(usagePercent.toFixed(4)) * 100
+        setDisplayNumber(String(Number(usagePercent) * 100)+'%')
+        setDisplayUsage(String(usageNumber) + '%')
       }
-    },)
+    },[usagePercent])
 
     
     switch(network){
@@ -112,10 +116,10 @@ export default function PlanListItem(
       </div>
       <div className='flex space-x-4 items-center col-span-4'>
         <div className='w-3/4 bg-[#9FADC7]/10 rounded-[6px] h-4'>
-          <div className={progressBarStyle} style={{width:(displayUsage)}}></div>
+          <div className={progressBarStyle} style={{width:(dispalyNumber)}}></div>
         </div>
         <div className='text-lg text-white/50'>
-          {progressBarNumber}
+          {displayUsage}
         </div>
       </div>
       <div className={statusStyle}>

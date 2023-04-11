@@ -77,47 +77,60 @@ export function DataSelectWithinListbox({
     transferDown: 1,
 }],}:DataSelectProp){
 
-  let item24hUsage = [0]
   let item24hDate = 
   ['00:00','01:00','02:00','03:00','04:00','05:00','06:00','07:00','08:00','09:00','10:00','11:00','12:00',
   '13:00','14:00','15:00','16:00','17:00','18:00','19:00','20:00','21:00','22:00','23:00']
-  let item24hLength = items24h.length
 
-  let item1wUsage = [0]
-  let item1wDate = ['']
-  let item1wLength = items7d.length
 
   let item1mUsage = [0]
   let item1mDate = ['']
   let item1mLength = items1m.length
 
+  const [item24hData,setItem24hData] = useState([0])
+  const [item7dData,setItem7dData] = useState([0])
+  const [item7dDate,setItem7dDate] = useState([''])
 
-  for (let i = 0; i < item24hLength; i++) {
-    item24hUsage[i] = items24h[i].count
-  }
+  useEffect(()=>{
+    let item24hUsage = [0]
+    let item24hLength = items24h.length
+    for (let i = 0; i < item24hLength; i++) {
+      item24hUsage[i] = items24h[i].count
+    }
+    setItem24hData(item24hUsage)
 
-  for (let i = 0; i < item1wLength; i++) {
-    item1wUsage[i] = items7d[i].totalStorage
-    item1wDate[i] = moment(items7d[i].time*1000).format('l')
-  }
+  },[items24h])
+
+  useEffect(()=>{
+    let item1wUsage = [0]
+    let item1wDate = ['']
+    let item1wLength = items7d.length
+    for (let i = 0; i < item1wLength; i++) {
+      item1wUsage[i] = items7d[i].count
+      item1wDate[i] = moment(items7d[i].time*1000).format('l')
+    }
+    setItem7dData(item1wUsage)
+    setItem7dDate(item1wDate)
+  },[items7d])
+  
 
   for (let i = 0; i < item1mLength; i++) {
-    item1mUsage[i] = items1m[i].totalStorage
+    item1mUsage[i] = items1m[i].count
     item1mDate[i] = moment(items1m[i].time*1000).format('l')
   }
 
-  const [item1DData,setItem1DData] = useState(item24hUsage)
-  const [item1wData,setItem1wData] = useState(item1wUsage)
+  const [item1DData,setItem1DData] = useState(item24hData)
+  const [item1wData,setItem1wData] = useState(item7dData)
   const [item1mData,setItem1mData] = useState(item1mUsage)
 
 
   useEffect(()=>{
-    setItem1DData(item24hUsage)
-  },[items24h])
+    setItem1DData(item24hData)
+  },[item24hData])
 
   useEffect(()=>{
-   setItem1wData(item1wUsage)
-  },[items7d])
+   setItem1wData(item7dData)
+  },[item7dData])
+
 
   useEffect(()=>{
     setItem1mData(item1mUsage)
@@ -174,7 +187,7 @@ export function DataSelectWithinListbox({
         <Tab.Panel className="pt-2">
           <LineAreaChart
             data = {item1wData}
-            date = {item1wDate}
+            date = {item7dDate}
           />
         </Tab.Panel>
         <Tab.Panel className="pt-2">

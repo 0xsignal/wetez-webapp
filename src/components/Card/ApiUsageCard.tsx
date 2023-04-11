@@ -31,9 +31,9 @@ export function ApiUsageCard({
   apikey = '',
   subscribePlanList = [{
     id : 1, 
-    todayUsage: 1000,
+    todayUsage: 0,
     status: 1,
-    expireAt: 1000,
+    expireAt: 1,
     chain:{
       chainId: 1,
       name: ''
@@ -42,7 +42,7 @@ export function ApiUsageCard({
       id: 1,
       name: '',
       chainId: 1,
-      dayLimit: 1000,
+      dayLimit: 1,
     },
   }]}:ApiUsageCardProp){
 
@@ -160,7 +160,7 @@ export function ApiUsageCard({
         {(subscribePlanList.map((item) => (
           <PlanListItem
             key={item.id}
-            usage={4}
+            usage={item.todayUsage}
             status={item.status}
             dayLimit={item.plan.dayLimit}
             network={item.chain.name}
