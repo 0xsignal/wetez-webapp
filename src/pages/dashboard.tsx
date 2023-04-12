@@ -18,18 +18,6 @@ const CircleChart = dynamic(
   { ssr: false }
 )
 
-const TagList = [
-  {
-    planName:'Team'
-  },
-  {
-    planName:'Growth'
-  },
-  {
-    planName:'Developer'
-  },
-]
-
 export default function Dashboard() {
 
   const [isReady,setIsReady] = useState(false)
@@ -70,10 +58,13 @@ export default function Dashboard() {
     }
   },[authorization])
 
-
-  if(!currentPlan && !planLoading && !ipfsPlanLoading){
-    setPaid(true)
-  }
+  useEffect(()=>{
+    if(!planLoading){
+      if(currentPlan?.tags){
+        setPaid(true)
+      }
+    }
+  },[planLoading])
 
   if( planLoading && listLoading && ipfsPlanLoading && accountInfoLoading){
     return <DashboardSkethon/>
@@ -111,8 +102,8 @@ export default function Dashboard() {
                 <div className='col-span-2'>
                   <CurrentPlanCard
                     paid = {paid}
-                    tagList = {TagList}
-                    planList = {currentPlan?.subscribedPlan}
+                    tagList = {currentPlan?.tags}
+                    planList = {currentPlan?.subscribedPlans}
                   />
                   <div className='mt-6'>
                     <CircleChart

@@ -31,7 +31,7 @@ export type IPFSPlan = {
 
 export const useIPFSPlan = (isReady:boolean) => {
   const{ data, error } = useSWR<IPFSPlan>(isReady?'/v1/get_premium_plans':null,url => 
-    post(url,{chainId: 14}),
+    post(url,{chainId: 14}),{revalidateOnFocus : false}
   )
   return {
     data,
@@ -140,7 +140,9 @@ export type IPFSStats24h = {
 export const useIPFSStats24h = (isReady:boolean) => {
   
   const{ data, error } = useSWR<IPFSStats24h>(isReady ? '/v2/stats/last24h':null,url => 
-    post(url,{chainId:14}),
+    post(url,{chainId:14}),{revalidateIfStale: false,
+      revalidateOnFocus: false,
+      revalidateOnReconnect: false}
   )
   return {
     data,
@@ -162,7 +164,9 @@ export type IPFSStats7d = {
 export const useIPFSStats7d = (isReady:boolean) => {
   
   const{ data, error } = useSWR<IPFSStats7d>(isReady?'/v2/stats/last7d':null,url => 
-    post(url,{chainId:14}),
+    post(url,{chainId:14}),{revalidateIfStale: false,
+      revalidateOnFocus: false,
+      revalidateOnReconnect: false}
   )
   return {
     data,
@@ -184,7 +188,9 @@ export type IPFSStats1m = {
 export const useIPFSStats1m = (isReady:boolean) => {
   
   const{ data, error } = useSWR<IPFSStats1m>(isReady ? '/v2/stats/last1m':null,url => 
-    post(url,{chainId:14}),
+    post(url,{chainId:14}),{revalidateIfStale: false,
+      revalidateOnFocus: false,
+      revalidateOnReconnect: false}
   )
   return {
     data,

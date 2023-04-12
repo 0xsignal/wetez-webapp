@@ -37,13 +37,13 @@ type ECOption = echarts.ComposeOption<
 
 type LineAreaChartPrpos = {
   data:{}[],
-  date:{}[]
+  date:string[]
 }
 
-export default function LineAreaChart({
+const LineAreaChart = React.memo(({
   data = [0],
   date = [''],
-}) {
+}:LineAreaChartPrpos) => {
 
   const chartRef = useRef<ReactEcharts>(null);
   const [option, setOption] = useState<ECOption>({
@@ -107,11 +107,13 @@ export default function LineAreaChart({
       xAxis: {
         type: 'category',
         boundaryGap: false,
+        silent: true,
         data: date
       },
       yAxis: {
         type: 'value',
         boundaryGap: false,
+        silent: true,
         splitLine:{
           show:false
         }
@@ -126,6 +128,7 @@ export default function LineAreaChart({
           name: 'Data',
           type: 'line',
           symbol: 'none',
+          silent: true,
           sampling: 'lttb',
           itemStyle: {
             color: '#2A23FF'
@@ -177,4 +180,6 @@ export default function LineAreaChart({
       />
     </div>
   )
-}
+})
+
+export default LineAreaChart

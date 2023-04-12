@@ -155,7 +155,9 @@ export type userInfo ={
 export const useUserrInfo = (isReady:boolean) => {
   
   const{ data, error } = useSWR<userInfo>(isReady?'/v1/get_user':null,url => 
-    post(url,{}),
+    post(url,{}),{revalidateIfStale: false,
+      revalidateOnFocus: false,
+      revalidateOnReconnect: false}
   )
   return {
     data,
@@ -182,7 +184,7 @@ export type PlanDetail = {
 
 export const usePlanDetail = (chainId:number,isReady:boolean,isRequest:boolean) => {
   const{ data, error } = useSWR<PlanDetail>((isReady && isRequest) ? '/v1/get_chain_plans': null,url => 
-    post(url,{chainId: chainId}),
+    post(url,{chainId: chainId},),{revalidateIfStale: false, revalidateOnFocus: false, revalidateOnReconnect: false}
   )
   return {
     data,

@@ -27,8 +27,6 @@ export default function PlanListItem(
 
     useEffect(()=>{
       setUsagePercent(usage/dayLimit)
-      console.log(usage)
-      console.log(dayLimit)
     },[usage,dayLimit])
 
     useEffect(()=>{

@@ -2,7 +2,7 @@ import { post } from '../lib/fetcher';
 import useSWR from 'swr'
 
 export type CurrenPlans = {
-  subscribedPlan:{
+  subscribedPlans:{
     id: number
     todayUsage: number
     status: 1 | 2 | 3
@@ -16,13 +16,14 @@ export type CurrenPlans = {
       name: string
       chainId: number
     }
-  }[]
+  }[],
+  tags:[string],
 }
 
 export const useCurrentPlans = (isReady:boolean) => {
   
   const{ data, error } = useSWR<CurrenPlans>(isReady ? '/v1/get_paid_plans': null,url => 
-    post(url,{}),
+    post(url,{}),{revalidateOnFocus : false}
   )
   return {
     data,

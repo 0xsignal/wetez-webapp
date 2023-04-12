@@ -2,13 +2,13 @@ import React from "react";
 
 type MetricChartProps = {
   status: string,
-  usage: number,
+  usage: string,
   usageCircle : number,
 }
 
 export default function MetricChart({
   status = '',
-  usage = 0,
+  usage = '',
   usageCircle = 0,
 }:MetricChartProps){
   switch(status){
@@ -20,7 +20,7 @@ export default function MetricChart({
             <circle cx="260" cy="135" r="100" strokeWidth="40" stroke="rgba(0,244,255,.6)" fill="none" strokeDashoffset="-315" strokeDasharray={`${usageCircle} 315`}></circle>
           </svg>
           <div className='text-center font-brand text-3xl text-[#00F4FF]/60 font-bold absolute left-1/2 top-2/3 -translate-x-1/4 -translate-y-1/4'>
-            {usage}% 
+            {usage}
             <div className='text-center text-sm text-[#00F4FF]/60 font-normal font-sans'>Used</div>
           </div>
         </div>
@@ -33,7 +33,7 @@ export default function MetricChart({
             <circle cx="260" cy="135" r="100" strokeWidth="40" stroke="rgba(0,244,255,.6)" fill="none" strokeDashoffset="-315" strokeDasharray="315 315"></circle>
           </svg>
           <div className='text-center font-brand text-3xl text-[#EC57A4] font-bold absolute left-1/2 top-2/3 -translate-x-1/4 -translate-y-1/4'>
-            100% 
+            100%
             <div className='text-center text-sm text-[#EC57A4] font-normal font-sans'>Used</div>
           </div>
         </div>

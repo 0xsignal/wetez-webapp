@@ -43,8 +43,9 @@ export default function ApiMetricCard({
 }}:ApiMetricCardProps){
 
   let apiStatus = ''
-  const usagePercent = Number((plandata.todayUsage/plandata.plan.dayLimit).toFixed(2))*100
-  const usageCicle = Number((plandata.todayUsage/plandata.plan.dayLimit).toFixed(2))*315
+  const usagePercent = 
+    Number((plandata.todayUsage/plandata.plan.dayLimit))*100 > 0 && Number((plandata.todayUsage/plandata.plan.dayLimit))*100 < 0.1 ? '< 0.1%' : String(Number((plandata.todayUsage/plandata.plan.dayLimit).toFixed(3))*100)+'%'
+  const usageCicle = Number((plandata.todayUsage/plandata.plan.dayLimit))*315
 
   switch(plandata.status){
     case 1:

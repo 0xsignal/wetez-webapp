@@ -201,13 +201,10 @@ export function ListItem({
           <img src='/image/arrow_more_icon.png' className="h-4"/>
         </div>
         </div>
-        <div className="mt-6 border-[1px] border-white/10"></div>
-        <div className="mt-6 grid grid-cols-8 gap-2 items-center">
+        <div className="mt-4 grid grid-cols-8 gap-2 items-center">
         <div className="text-lg text-white/50">
-          {network}
         </div>
         <div className="text-lg text-white/50">
-          {type}
         </div>
         <div className="col-span-2 flex items-center space-x-3">
           <UsagePercentChart
@@ -224,25 +221,11 @@ export function ListItem({
         <div className="text-base text-white/30">
           ${price} / Mo
         </div>
-        <div 
-          className="bg-[#2A23FF] rounded-[24px] px-5 py-2 flex items-center justify-center cursor-pointer space-x-3"
-          onClick={()=>{
-            router.push(`/ipfs/`)
-          }}
-          >
-          <div className="text-base text-white">
-            More
-          </div>
-          <img src='/image/arrow_more_icon.png' className="h-4"/>
         </div>
-        </div>
-        <div className="mt-6 border-[1px] border-white/10"></div>
         <div className="mt-6 grid grid-cols-8 gap-2 items-center">
         <div className="text-lg text-white/50">
-          {network}
         </div>
         <div className="text-lg text-white/50">
-          {type}
         </div>
         <div className="col-span-2 flex items-center space-x-3">
           <UsagePercentChart
@@ -258,17 +241,6 @@ export function ListItem({
         </div>
         <div className="text-base text-white/30">
           ${price} / Mo
-        </div>
-        <div 
-          className="bg-[#2A23FF] rounded-[24px] px-5 py-2 flex items-center justify-center cursor-pointer space-x-3"
-          onClick={()=>{
-            router.push(`/ipfs/`)
-          }}
-          >
-          <div className="text-base text-white">
-            More
-          </div>
-          <img src='/image/arrow_more_icon.png' className="h-4"/>
         </div>
         </div>
         <div className="mt-6 border-[1px] border-white/10"></div>

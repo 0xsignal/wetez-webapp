@@ -1,6 +1,8 @@
 import React from 'react';
 import Link from 'next/link';
 import PlanTag from '../Tag/PlanTag';
+import { Time } from '../Time';
+
 
 type CurrentPlanCardProps = {
   paid: boolean,
@@ -19,11 +21,8 @@ type CurrentPlanCardProps = {
       chainId: number
     }
   }[] | undefined,
-  tagList: {
-    planName:string,
-  }[],
+  tagList: [string] | undefined,
 }
-
 
 export function CurrentPlanCard({
   paid = false,
@@ -31,7 +30,7 @@ export function CurrentPlanCard({
     id : 1, 
     todayUsage: 1000,
     status: 1,
-    expireAt: 1000,
+    expireAt: 1,
     chain:{
       chainId: 1,
       name: 'Ethereum'
@@ -42,9 +41,8 @@ export function CurrentPlanCard({
       chainId: 1,
     }
   }],
-  tagList = [{
-    planName : 'Team'
-  }]}:CurrentPlanCardProps) {
+  tagList = ['']
+}:CurrentPlanCardProps) {
   
   if(paid){
     return(
@@ -54,10 +52,10 @@ export function CurrentPlanCard({
             <h2 className='font-bold text-xl text-white'>My Current Plan</h2>
             <div className='grow'></div>
             <div className='flex space-x-1 items-center'>
-              {(tagList.map((item) => (
+              {(tagList.map((item,index) => (
                 <PlanTag
-                  name = {item.planName}
-                  key = {item.planName}
+                  name = {item}
+                  key = {index}
                 />
               )))}
             </div>
@@ -65,21 +63,23 @@ export function CurrentPlanCard({
           <div className='mt-6 space-y-3'>
             {(planList.map((item) => (
               <div className='' key={item.id}>
-                <div className='grid grid-cols-4 text-base text-white/50' >
+                <div className='border-[0.5px] border-white/5 mt-3'></div>
+                <div className='grid grid-cols-4 text-base text-white/50 mt-4' >
                   <div className=''>{item.chain.name}</div>
                   <div className=''>{item.plan.name}</div>
                   <div className='col-span-2 text-right'>
-                    {item.expireAt}
+                    <Time
+                      timestramp={item.expireAt}
+                    />
                   </div>
                 </div>
-                <div className='border-[0.5px] border-white/10 mt-3'></div>
               </div>
             )))}
 
           </div>
           <Link href="/dashboard">
-            <div className='bg-[#2A23FF] rounded-[23px] mt-6 w-1/3'>
-              <div className='px-4 py-3 flex items-center'>
+            <div className='bg-[#2A23FF] rounded-[23px] mt-8 w-2/5'>
+              <div className='px-6 py-3 flex items-center'>
                 <div className='text-base text-white'>
                   View All
                 </div>

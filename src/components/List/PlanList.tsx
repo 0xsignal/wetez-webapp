@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { OrderDetailFunc, PlanDetail, useCreateOrder, usePlanDetailFunc } from 'src/api/premium';
+import { usePlanDetailFunc } from 'src/api/premium';
 import { Listbox,Transition } from '@headlessui/react';
 import { Fragment } from 'react';
-import clsx from 'clsx';
 import PlanDetailCard from '../Card/PlanDetailCard';
+import { useRouter } from 'next/router';
 
 
 type PlanListProps = {
@@ -95,6 +95,7 @@ export default function PlanList({
     isMutating: planDetailIsMutating,
    } = usePlanDetailFunc()
   
+   const router = useRouter()
 
   // 根据后端接口的返回，初始化下拉列表的选项
   const listLength = subscribedPlans.length
@@ -128,7 +129,13 @@ export default function PlanList({
     if(selected.name == 'All Subscriptions'){
     } else {
       upgradeListData()
-  }
+    }
+    if(selected.id == 0){
+      router.push({ pathname: router.pathname}, undefined, { shallow: true });
+
+    } else {
+      router.push({ pathname: router.pathname, query: { chainid: selected.id } }, undefined, { shallow: true });
+    }
   },[selected])
 
   return(
