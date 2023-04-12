@@ -6,6 +6,7 @@ import { copyText } from 'src/lib/format';
 import { GoogleReCaptcha } from 'react-google-recaptcha-v3';
 import ConfirmModal from '../Modal/ConfirmModal';
 import { useResetKey } from 'src/api/auth';
+import * as Tooltip from '@radix-ui/react-tooltip';
 
 type ApiUsageCardProp = {
   apikey?: string,
@@ -73,7 +74,24 @@ export function ApiUsageCard({
         <div className=''>
           <div className='text-2xl font-bold text-white flex items-center gap-x-3'>
               Admin Key
-            <img src="/image/help_tips_icon.png" className='h-6'/>
+              <Tooltip.Provider>
+              <Tooltip.Root>
+                <Tooltip.Trigger asChild>
+                  <img src="/image/help_tips_icon.png" className='h-6'/>
+                </Tooltip.Trigger>
+                <Tooltip.Portal>
+                  <Tooltip.Content
+                    className="w-96
+                      data-[state=delayed-open]:data-[side=top]:animate-slideDownAndFade data-[state=delayed-open]:data-[side=right]:animate-slideLeftAndFade data-[state=delayed-open]:data-[side=left]:animate-slideRightAndFade data-[state=delayed-open]:data-[side=bottom]:animate-slideUpAndFade 
+                      text-white/50 rounded-[12px] bg-black/70 px-5 py-3 text-sm leading-normal shadow-[0_0px_3px_6px_rgba(0,0,0,0.05)]"
+                    sideOffset={5}
+                  >
+                      After the user registers, each account will be allocated a unique API key that corresponds one-to-one with the user for API requests. Every project will share the same API key.
+                    <Tooltip.Arrow className="fill-white/5" />
+                  </Tooltip.Content>
+                </Tooltip.Portal>
+              </Tooltip.Root>
+            </Tooltip.Provider>
           </div>
           <div className='text-base text-white/50 mt-3 flex items-center gap-x-3'>
             {isApikey}
@@ -146,7 +164,6 @@ export function ApiUsageCard({
       <div className='mt-6'>
         <div className='text-2xl font-bold text-white flex items-center gap-x-3'>
           My Plans
-          <img src="/image/help_tips_icon.png" className='h-6'/>
         </div>
         <div className='mt-6'>
           <div className='grid grid-cols-7 gap-1 text-base text-white/30'>

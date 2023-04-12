@@ -4,6 +4,8 @@ import { toast } from 'react-toastify';
 import ConfirmModal from '../Modal/ConfirmModal';
 import { RadioGroup } from '@headlessui/react';
 import { useAddGateway,useRemoveGateway,useIPFSGatewayListFunc, useActiveGateway, useIPFSGatewayList } from 'src/api/ipfs';
+import * as Tooltip from '@radix-ui/react-tooltip';
+
 
 type GatewaySelectProps = {
   isReady : boolean
@@ -61,17 +63,6 @@ export function GatewaySelect({
   // 控制 active 请求
   const [count,setCount] = useState(0)
 
-  // 从 list 中 remove gateway，同时更新 list
-  async function delateGatewayLsit(gatewayID:number){
-    const res =  await removeGatewayTrigger({gatewayID:gatewayID})
-    if(res == true){
-      const resList = await gatewayListTrigger({})
-      if(!gatewayListIsMutating){
-        setGatewayList(resList)
-        toast.success('Remove Succeed')
-      }
-    }
-  }
 
   useEffect(()=>{
     setGatewayList(gatewayListData)
@@ -103,7 +94,24 @@ export function GatewaySelect({
         <h3 className='font-bold text-2xl text-white'>
           Dedicated Gateway
         </h3>
-        <img src="/image/help_tips_icon.png" className='w-5' />
+        <Tooltip.Provider>
+              <Tooltip.Root>
+                <Tooltip.Trigger asChild>
+                  <img src="/image/help_tips_icon.png" className='h-6'/>
+                </Tooltip.Trigger>
+                <Tooltip.Portal>
+                  <Tooltip.Content
+                    className="w-96
+                      data-[state=delayed-open]:data-[side=top]:animate-slideDownAndFade data-[state=delayed-open]:data-[side=right]:animate-slideLeftAndFade data-[state=delayed-open]:data-[side=left]:animate-slideRightAndFade data-[state=delayed-open]:data-[side=bottom]:animate-slideUpAndFade 
+                      text-white/50 rounded-[12px] bg-black/70 px-5 py-3 text-sm leading-normal shadow-[0_0px_3px_6px_rgba(0,0,0,0.05)]"
+                    sideOffset={5}
+                  >
+                      IPFS Dedicated Gateway is a gateway server that is specifically designed to serve content from the InterPlanetary File System (IPFS). It is different from a regular IPFS gateway in that it is dedicated to serving a single IPFS node, rather than serving content from the IPFS network as a whole. This means that the gateway can be optimized for specific use cases, such as serving large files or handling high traffic volumes. Using a dedicated gateway can also provide increased security, as it allows for greater control over access to the IPFS node and the content it serves.
+                    <Tooltip.Arrow className="fill-white/5" />
+                  </Tooltip.Content>
+                </Tooltip.Portal>
+              </Tooltip.Root>
+            </Tooltip.Provider>
       </div>
       <div className='mt-4 text-white/30 text-lg'>
         Name your custom sub-domain here
@@ -160,6 +168,7 @@ export function GatewaySelect({
             setIsConfirmOpen(false)
           }}
           confirmFunc={async () => {
+            setIsConfirmOpen(false)
             const res = await removeGatewayTrigger({ gatewayID: gatewayId })
             if (!removeGatewayIsMutating) {
               if (res == true) {
@@ -167,10 +176,9 @@ export function GatewaySelect({
                 if (!gatewayListIsMutating) {
                   setGatewayList(resList)
                 }
-                toast.success('Add Succeed')
+                toast.success('Remove Succeed')
               }
             }
-            setIsConfirmOpen(false)
           }}
         />
         <RadioGroup

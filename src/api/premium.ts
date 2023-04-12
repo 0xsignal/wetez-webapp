@@ -44,7 +44,7 @@ export type OrderDetail = {
   unitPrice: string,
   usageLimit: number,
   summary: {
-    date: string,
+    date: number,
     from: string,
     to: string,
     paymentMethod: string,

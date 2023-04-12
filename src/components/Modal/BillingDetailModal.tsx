@@ -5,6 +5,7 @@ import { pass } from '../../lib/fp';
 import Link from 'next/link';
 import CopyButton from '../Button/CopyButton';
 import { gbConvert } from 'src/lib/format';
+import moment from 'moment';
 
 type BillingDetailModalProps = {
   isOpen?: boolean;
@@ -14,7 +15,7 @@ type BillingDetailModalProps = {
   planMeta?: string;
   planPrice?: string;
   planStatus?: number;
-  orderTime?: string;
+  orderTime?: number;
   fromEmail?: string;
   toEmail?: string;
   company?: string;
@@ -34,7 +35,7 @@ export function BillingDetailModal({
   planMeta = '',
   planPrice = '',
   planStatus = 1,
-  orderTime = '',
+  orderTime = 0,
   fromEmail = '',
   toEmail = '',
   company = '',
@@ -51,6 +52,11 @@ export function BillingDetailModal({
   const [orderPdfDownlink,setOrderPdfDownlink] = useState(`${SERVER_ENTRY}` + '/v1/payment/export_order_pdf?order_id=' + `${id}`)
 
   const [usage,setUsage] = useState<String>('')
+  const [orderTimeShow,setOrderTimeShow] = useState('')
+
+  useEffect(()=>{
+    setOrderTimeShow(moment(orderTime*1000).format('lll'))
+  },[orderTime])
 
   useEffect(()=>{
     if(planNetwork == 'IPFS'){
@@ -64,8 +70,6 @@ export function BillingDetailModal({
   useEffect(() => {
     setOrderPdfDownlink(`${SERVER_ENTRY}` + '/v1/payment/export_order_pdf?order_id=' + `${id}`)
   },[id])
-
-
 
   return(
     <div className=''>
@@ -167,7 +171,7 @@ export function BillingDetailModal({
                     <div className='text-base text-white mt-6 flex items-center gap-x-3'>
                       Order Time:
                       <div className='text-base text-white/50'>
-                        {orderTime}
+                        {orderTimeShow}
                       </div>
                     </div>
                     <div className='text-base text-white mt-2 flex items-center gap-x-3'>

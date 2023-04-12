@@ -1,6 +1,6 @@
 import React from 'react';
 import { gbConvert } from 'src/lib/format';
-import moment from 'moment';
+import moment from 'moment-timezone';
 import { DataSelectWithinListbox } from '../PosApi/DataSelectWithinListbox';
 import { DataSelect } from './DataSelect';
 
@@ -102,6 +102,7 @@ export default function UsageBoard({
 }],
 }:UsageBoardProps){
 
+  moment.tz.setDefault('UTC')
   const timeNow = moment().format('LL')
 
   if(type == 'IPFS'){
