@@ -47,17 +47,17 @@ export default function ChainItem(){
   return(
     <>
       <Meta
-        title=''
+        title={chainPlanData?.subscribedPlan.chain.name}
         description=''
         image=''
       />
        <div className='flex'>
         <Menu/>
         <div className='grow bg-[#182036] pl-10 pr-10 overflow-y-auto h-screen pb-6'>
-          <div className="max-w-6xl">
+          <div className="max-w-6xl mx-auto">
           <Header
             title = {`${chainPlanData?.subscribedPlan.chain.name} Mainnet`} 
-            description= {`${chainPlanData?.subscribedPlan.chain.name} Mainnet API Endpoint, learn more about API settings`}
+            description= {`${chainPlanData?.subscribedPlan.chain.name} Mainnet API Endpoint Status`}
             url = ''
             back = {true}
             backTitle = "POS APIs"

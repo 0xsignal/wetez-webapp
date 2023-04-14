@@ -200,7 +200,7 @@ export function DelegateModal({
                       Delegate Address
                     </div>
                     <div className='text-base text-white/50 mt-4 flex items-center gap-x-3'>
-                      {address}
+                      {address == '' ? '-': address}
                       <CopyButton
                         text = {address}
                       />
@@ -233,8 +233,8 @@ export function DelegateModal({
                     </div>
                     <div className='border-[0.5px] border-white/10 mt-3'/>
                     <div className='mt-6 grid grid-cols-3 gap-4'>
-                      <div className='text-white/30 text-sm'>{delegateAmout}{symbol}</div>
-                      <div className='text-white/30 text-sm'>{stakerDelegate}</div>
+                      <div className='text-white/30 text-sm'>{delegateAmout == '0' ? '-' : delegateAmout}{' '}{symbol}</div>
+                      <div className='text-white/30 text-sm'>{stakerDelegate == '0' ? '-' : stakerDelegate}</div>
                       <div className='text-white/30 text-sm'>{slash}</div>
                     </div>
                   </div>

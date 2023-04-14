@@ -77,12 +77,12 @@ export function CurrentPlanCard({
             )))}
 
           </div>
-          <Link href="/dashboard">
+          <Link href="/premium">
             <div className='bg-[#2A23FF] rounded-[23px] mt-8 w-2/5'>
               <div className='px-6 py-3 flex items-center'>
-                <div className='text-base text-white'>
-                  View All
-                </div>
+                  <div className='text-base text-white'>
+                    View All
+                  </div>
                 <img src="/image/arrow_more_icon.png" className='h-4 ml-3'/>
               </div>
             </div>
