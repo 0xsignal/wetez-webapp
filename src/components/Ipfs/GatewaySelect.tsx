@@ -167,7 +167,6 @@ export function GatewaySelect({
             setIsConfirmOpen(false)
           }}
           confirmFunc={async () => {
-            setIsConfirmOpen(false)
             const res = await removeGatewayTrigger({ gatewayID: gatewayId })
             if (!removeGatewayIsMutating) {
               if (res == true) {
@@ -178,6 +177,7 @@ export function GatewaySelect({
                 toast.success('Remove Succeed')
               }
             }
+            setIsConfirmOpen(false)
           }}
         />
         <RadioGroup
