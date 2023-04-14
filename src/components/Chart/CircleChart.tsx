@@ -53,8 +53,8 @@ export default function CircleChart({
   planShow = false,
   plandata = {
     id: 1,
-    totalStorage: 1,
-    transferUp : 1,
+    totalStorage: 0,
+    transferUp : 0,
     transferDown : 1,
     status: 1,
     expireAt: 1,
@@ -256,7 +256,6 @@ export default function CircleChart({
               ref={chartRef}
               option={option} 
               style={{ width: '100%', height: '200px' }}
-              lazyUpdate={true}
               echarts={echarts}
             />
             <div className='my-auto'>
@@ -319,7 +318,6 @@ export default function CircleChart({
         <div className='grid grid-cols-2 gap-2'>
         {/* 这里样式必须设置高度 */}
           <ReactEcharts 
-            ref={chartRef}
             option={option} 
             style={{ width: '100%', height: '200px' }}
             lazyUpdate={true}

@@ -78,7 +78,6 @@ export function GatewaySelect({
 
   useEffect(()=>{
     setCount(count+1)
-    console.log(count)
     if(count > 1){
       if(selected != undefined){
         activeGatewayTrigger({gatewayID:selected.id})

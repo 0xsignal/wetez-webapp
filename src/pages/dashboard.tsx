@@ -60,7 +60,7 @@ export default function Dashboard() {
 
   useEffect(()=>{
     if(!planLoading){
-      if(currentPlan?.tags){
+      if(currentPlan?.tags.some((item) => true)){
         setPaid(true)
       }
     }
