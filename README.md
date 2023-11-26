@@ -1,13 +1,11 @@
 ## Dependency
 
-整体并没有使用开箱即用的组件（比如 AntDesign、Element 等），使用以下基础依赖封装的业务组件
-
 - React Framework: [Next.js](https://nextjs.org/)
 - Data Fetching: [SWR](https://swr.vercel.app/)
 - CSS Framework: [TailwindCSS](https://tailwindcss.com/docs/installation)
 - Component: [HeadlessUI](https://headlessui.com/)
 - Chart Component: [Echats](https://echarts.apache.org/handbook/zh/get-started/)
-- Svg: [Svg Circle 画图](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Element/circle)
+- Svg: [Svg Circle Chart](https://developer.mozilla.org/zh-CN/docs/Web/SVG/Element/circle)
 
 ## Router
 
@@ -27,8 +25,6 @@
 - Rest Password: `/resetpassword?token={token}`
 
 ## Deploy
-
-采用客户端渲染方式，并未有 SEO 需求，因此并未采用 SSR 等方式
 
 - npm install
 - npm run build
