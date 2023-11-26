@@ -15,7 +15,7 @@
 - IPFS: `/ipfs/`
 - Node: `/node/`
 - Premium: `/premium/`
-- Premium 定位 Plan: `/premium?chainid={chainid}`
+- Premium Plan: `/premium?chainid={chainid}`
 - Settings: `/setting/`
 - Login: `/login/`
 - Sign Up: `/signup/`
